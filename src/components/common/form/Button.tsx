@@ -1,12 +1,11 @@
-import { CSSProperties, ReactNode } from "react";
+import { CSSProperties, ReactNode, ButtonHTMLAttributes } from "react";
 
-interface Button {
+interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
   title?: string;
   className?: string;
-  type: "submit" | "reset" | "button" | undefined;
   loading?: boolean;
   disabled?: boolean;
-  style?: CSSProperties | undefined;
+  style?: CSSProperties;
   onClick?: () => void;
   children?: ReactNode;
 }
@@ -18,21 +17,25 @@ const CustomButton = ({
   children,
   loading = false,
   disabled = false,
-  onClick = () => {},
+  onClick,
   style,
-}: // ...props
-Button) => {
+  ...props
+}: ButtonProps) => {
   return (
     <button
-      title={title ? title : ""}
-      className={className}
-      onClick={onClick}
+      title={title}
+      className={`${className} ${loading ? "opacity-50 cursor-not-allowed" : ""}`}
+      onClick={loading ? undefined : onClick}
       type={type}
       style={style}
       disabled={disabled || loading}
-      // {...props}
+      {...props}
     >
-      {children}
+      {loading ? (
+        <span className="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
+      ) : (
+        children
+      )}
     </button>
   );
 };
