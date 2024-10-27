@@ -1,3 +1,5 @@
+import Header from "../components/header/Header";
+
 const PublicHeader = () => {
 
   // const logoutFunction = async () => {
@@ -14,9 +16,7 @@ const PublicHeader = () => {
 
   return (
     <>
-      <header>
-        header
-      </header>
+     <Header/>
     </>
   );
 };

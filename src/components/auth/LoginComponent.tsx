@@ -24,6 +24,7 @@ const loginValidationSchema = yup
 
 export default function LoginComponent() {
   const dispatch = useDispatch();
+  const navigate = useNavigate()
 
   type FormData = yup.InferType<typeof loginValidationSchema>;
   const {
@@ -131,7 +132,7 @@ export default function LoginComponent() {
           <div className="flex flex-row items-center w-full justify-between ">
             <CustomButton
               type="button"
-              onClick={() => {}}
+              onClick={() => navigate("/sign-up")}
               className="button__contained w-[235px]"
             >
               Sign Up

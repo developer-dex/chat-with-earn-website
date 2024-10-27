@@ -11,14 +11,14 @@ const PublicLayout = (props: PublicLayoutProps) => {
   const { children } = props;
 
   return (
-    <div>
+    <div className="bg-light-gray-200">
       <PublicHeader />
       <div>
         <Suspense>
-          <div>{children}</div>
+          <div className=" min-h-screen chatwithmeet__container">{children}</div>
         </Suspense>
       </div>
-      <PublicFooter />
+      {/* <PublicFooter /> */}
     </div>
   );
 };

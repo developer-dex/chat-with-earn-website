@@ -7,6 +7,8 @@ import ForgotPassword from "../pages/auth/ForgotPassword";
 import Login from "../pages/auth/Login";
 import SignUp from "../pages/auth/Signup";
 import { AuthenticatedRoute } from "./Authenticated";
+import ContactUsPage from "../pages/contactUs/ContactUsPage";
+import ProfilePage from "../pages/profile/ProfilePage";
 
 const AppRoutes: React.FC = () => (
   <Routes>
@@ -15,6 +17,8 @@ const AppRoutes: React.FC = () => (
       <Route path="sign-up" element={<SignUp />} />
       <Route path="forgot-password" element={<ForgotPassword />} />
       <Route path="reset-password/:token" element={<ResetPassword />} />
+      <Route path="contact-us" element={<ContactUsPage />} />
+      <Route path="profile" element={<ProfilePage />} />
     </Route>
 
     <Route element={<AuthenticatedRoute />}>
