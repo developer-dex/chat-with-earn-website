@@ -5,7 +5,7 @@ import ContactUs from "../../components/contactUs/ContactUs";
 const ContactUsPage = () => {
   return (
     <PublicLayout>
-      <div className="py-[130px]">
+      <div className="pt-6 h-auto">
         <ContactUs />
       </div>
     </PublicLayout>

@@ -115,7 +115,7 @@ const ReactTable = (props: Props) => {
                     value={perPage}
                     onChange={(e) => changePerPageRecords(Number(e.target.value))}
                   >
-                    {perPageRecord().map((pageSize) => (
+                    {perPageRecord().map((pageSize:any) => (
                       <option key={pageSize} value={pageSize}>
                         {pageSize}
                       </option>

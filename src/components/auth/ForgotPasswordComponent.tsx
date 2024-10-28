@@ -54,12 +54,12 @@ export default function ForgotPasswordComponent() {
   };
 
   return (
-    <div className="flex flex-row min-h-screen relative bg-light-gray-200  pt-4 pb-[22px] px-6 w-full">
-      <form className="w-[55%] pl-24 py-14  " onSubmit={handleSubmit(doSubmit)}>
+    <div className="flex flex-row min-h-screen relative bg-light-gray-200  py-4 px-6 w-full">
+      <form className="w-[55%] pl-16  h-auto" onSubmit={handleSubmit(doSubmit)}>
         <div className="flex flex-col justify-between  max-w-[500px] w-full h-full">
           <div className="flex flex-col w-full">
-            <Logo />
-            <div className="w-full flex flex-col gap-[30px] mt-[72px] items-start h-full justify-center">
+            <Logo width={110} height={110} />
+            <div className="w-full flex flex-col gap-[30px] mt-[100px] items-start h-full justify-center">
               <div className="w-full flex flex-col">
                 <Label htmlFor="email" text="Email" />
                 <Input
@@ -90,7 +90,8 @@ export default function ForgotPasswordComponent() {
                   </span>
                 )}
               </div>
-              <div className="flex flex-row items-center w-full justify-between pt-14">
+            </div>
+              <div className="flex flex-row items-center w-full justify-between mt-20">
                 <CustomButton
                   type="submit"
                   className="button__contained w-full"
@@ -98,11 +99,10 @@ export default function ForgotPasswordComponent() {
                   Submit
                 </CustomButton>
               </div>
-            </div>
           </div>
         </div>
       </form>
-      <div className="relative w-[45%] h-full bg-black rounded-t-[20px] rounded-br-[20px] rounded-bl-[96px] py-24">
+      <div className="relative w-[45%] h-auto bg-black rounded-t-[20px] rounded-br-[20px] rounded-bl-[96px] py-16">
         <Slider>
           <SliderContentCard
             title="Earn Money"

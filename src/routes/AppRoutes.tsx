@@ -9,6 +9,7 @@ import SignUp from "../pages/auth/Signup";
 import { AuthenticatedRoute } from "./Authenticated";
 import ContactUsPage from "../pages/contactUs/ContactUsPage";
 import ProfilePage from "../pages/profile/ProfilePage";
+import PeoplePage from "../pages/people/PeoplePage";
 
 const AppRoutes: React.FC = () => (
   <Routes>
@@ -19,6 +20,9 @@ const AppRoutes: React.FC = () => (
       <Route path="reset-password/:token" element={<ResetPassword />} />
       <Route path="contact-us" element={<ContactUsPage />} />
       <Route path="profile" element={<ProfilePage />} />
+      <Route path="people" element={<PeoplePage />} />
+
+      People
     </Route>
 
     <Route element={<AuthenticatedRoute />}>

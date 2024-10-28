@@ -60,12 +60,12 @@ export default function LoginComponent() {
   };
 
   return (
-    <div className="flex flex-row min-h-screen relative bg-light-gray-200  pt-4 pb-[22px] px-6 w-full">
-      <form className="w-[55%] pl-24 py-14  " onSubmit={handleSubmit(doSubmit)}>
+    <div className="flex flex-row min-h-screen relative bg-light-gray-200  gap-10 py-4 px-6 w-full h-full">
+      <form className="w-[55%] pl-16 h-auto" onSubmit={handleSubmit(doSubmit)}>
         <div className="flex flex-col justify-between  max-w-[592px] w-full h-full">
           <div className="flex flex-col w-full">
-            <Logo />
-            <div className="w-full flex flex-col gap-[30px] mt-[72px] items-start">
+            <Logo width={110} height={110} />
+            <div className="w-full flex flex-col gap-[30px] mt-[50px] items-start">
               <div className="w-full flex flex-col">
                 <Label htmlFor="username" text="User Name" />
                 <Input
@@ -129,7 +129,7 @@ export default function LoginComponent() {
               </div>
             </div>
           </div>
-          <div className="flex flex-row items-center w-full justify-between ">
+          <div className="flex flex-row items-center w-full justify-between mb-10">
             <CustomButton
               type="button"
               onClick={() => navigate("/sign-up")}
@@ -143,7 +143,7 @@ export default function LoginComponent() {
           </div>
         </div>
       </form>
-      <div className="relative w-[45%] h-full bg-black rounded-t-[20px] rounded-br-[20px] rounded-bl-[96px] py-24">
+      <div className="relative w-[45%] h-auto bg-black rounded-t-[20px] rounded-br-[20px] rounded-bl-[96px] py-16">
         <Slider>
           <SliderContentCard
             title="Earn Money"

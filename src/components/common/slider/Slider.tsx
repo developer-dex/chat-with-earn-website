@@ -14,9 +14,6 @@ const Slider: React.FC<SliderProps> = ({ children }) => {
     <Swiper
       spaceBetween={0}
       effect={"fade"}
-    //   pagination={{
-    //     clickable: true,
-    //   }}
       autoplay={{
         delay: 2500,
         disableOnInteraction: false,

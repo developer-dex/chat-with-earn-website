@@ -68,8 +68,8 @@ const ContactUs = () => {
 
   const doSubmit = async (requestData: ContactUsFormData) => {};
   return (
-    <div className="flex flx-row gap-24 w-full font-poppins">
-      <div className="bg-white border-[0.5px] border-light-gray-300 w-1/2 h-full pt-12 pb-[165px] px-24 rounded-[10px] flex flex-col gap-9">
+    <div className="flex flx-row gap-24 w-full font-poppins pb-10">
+      <div className="bg-white border-[0.5px] border-light-gray-300 w-1/2 h-full pt-12 pb-[50px] px-24 rounded-[10px] flex flex-col gap-9">
         <h1 className="text-2xl leading-9 font-semibold text-black-100 ">
           Get In Touch{" "}
         </h1>
