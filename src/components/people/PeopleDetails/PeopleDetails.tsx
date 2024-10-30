@@ -46,7 +46,7 @@ const PeopleDetails = () => {
         }
       };
   return (
-    <div className="border-[0.5px] border-light-gray-400 rounded-[10px] px-[30px] py-8 shadow-profileFormShadow">
+    <div className="border-[0.5px] border-light-gray-400 rounded-[10px] px-[30px] py-8 shadow-profileFormShadow h-full">
       <div>
         <div className="flex flex-row items-center gap-6">
           <img src={ProfileImage} alt="profile" width={60} height={60} />

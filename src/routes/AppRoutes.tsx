@@ -10,6 +10,8 @@ import { AuthenticatedRoute } from "./Authenticated";
 import ContactUsPage from "../pages/contactUs/ContactUsPage";
 import ProfilePage from "../pages/profile/ProfilePage";
 import PeoplePage from "../pages/people/PeoplePage";
+import CareerPage from "../pages/career/CareerPage";
+import HomePage from "../pages/home/HomePage";
 
 const AppRoutes: React.FC = () => (
   <Routes>
@@ -21,8 +23,8 @@ const AppRoutes: React.FC = () => (
       <Route path="contact-us" element={<ContactUsPage />} />
       <Route path="profile" element={<ProfilePage />} />
       <Route path="people" element={<PeoplePage />} />
-
-      People
+      <Route path="career" element={<CareerPage />} />
+      <Route path="dashboard" element={<HomePage />} />
     </Route>
 
     <Route element={<AuthenticatedRoute />}>

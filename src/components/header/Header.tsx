@@ -13,7 +13,7 @@ const Header = () => {
           <ul className="flex flex-row  gap-[30px] items-center no-underline ">
             <li>
               <NavLink
-                to={"/"}
+                to={"/dashboard"}
                 className={({ isActive }) =>
                   isActive
                     ? "text-black border-b-[3px]  border-black pb-0.5 font-semibold"

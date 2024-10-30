@@ -8,16 +8,21 @@ export default {
     extend: {
       colors: {
         "white": "#FFFFFF",
+        "green": "#3DBF69",
+        "red":"#F54B3C",
         "black": "#000000",
+        "blue":"#007AFF",
         "black-100": "#151313",
         "light-gray-100": "#FAF5F5",
         "light-gray-200": "#F6F9FF",
         "light-gray-300": "#E9E9F2",
-        "light-gray-400":"#C2C9CB",
+        "light-gray-400": "#C2C9CB",
+        "light-gray-500":"#949494",
         "gray-200": "#7F7F89",
         "gray-300": "#5B5D5D",
         "gray-400": "#D9D9D9",
-        "gray-500":"#969696",
+        "gray-500": "#969696",
+        "gray-600":"#434343",
         "primary": "#007AFF",
       },
       backgroundImage: {
