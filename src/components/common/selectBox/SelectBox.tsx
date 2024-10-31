@@ -44,7 +44,7 @@ const SelectBox: React.FC<SelectBoxProps> = ({
           </option>
         )}
         {options.map((option) => (
-          <option key={option.value} value={option.value}>
+          <option key={option.value} value={option.value} className="!max-h-[350px] text-gray-700 hover:bg-gray-100">
             {option.label}
           </option>
         ))}

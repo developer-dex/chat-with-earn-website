@@ -16,8 +16,8 @@ const Header = () => {
                 to={"/dashboard"}
                 className={({ isActive }) =>
                   isActive
-                    ? "text-black border-b-[3px]  border-black pb-0.5 font-semibold"
-                    : "text-gray-200 text-base font-medium leading-6 pb-0.5"
+                    ? "text-black border-b-[3px]  border-black pb-0.5 font-semibold "
+                    : "text-gray-200 text-base font-medium leading-6 pb-0.5 transition-all delay-200 duration-200"
                 }
               >
                 Home
