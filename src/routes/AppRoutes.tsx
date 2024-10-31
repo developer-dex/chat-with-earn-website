@@ -12,6 +12,7 @@ import ProfilePage from "../pages/profile/ProfilePage";
 import PeoplePage from "../pages/people/PeoplePage";
 import CareerPage from "../pages/career/CareerPage";
 import HomePage from "../pages/home/HomePage";
+import AboutUsPage from "../pages/aboutUs/AboutUsPage";
 
 const AppRoutes: React.FC = () => (
   <Routes>
@@ -25,6 +26,8 @@ const AppRoutes: React.FC = () => (
       <Route path="people" element={<PeoplePage />} />
       <Route path="career" element={<CareerPage />} />
       <Route path="dashboard" element={<HomePage />} />
+      <Route path="about-us" element={<AboutUsPage />} />
+
     </Route>
 
     <Route element={<AuthenticatedRoute />}>

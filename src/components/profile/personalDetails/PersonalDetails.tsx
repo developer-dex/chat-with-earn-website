@@ -88,15 +88,15 @@ const PersonalDetails = () => {
     <form className="w-full" onSubmit={handleSubmit(doSubmit)}>
       <div className="flex flex-col w-full h-full">
         <div className="flex flex-col w-full justify-start items-start">
-          <div className="w-full flex flex-col gap-[30px]  items-start">
-            <div className="w-full grid grid-cols-2 gap-6">
+          <div className="w-full flex flex-col gap-4  items-start">
+            <div className="w-full grid grid-cols-2 gap-4">
               <div className="flex flex-col">
                 <Label htmlFor="firstname" text="First name" />
                 <Input
                   type="text"
                   placeholder="Enter Your First Name"
                   id="firstname"
-                  className="mt-3"
+                  className="mt-2.5"
                   {...register("firstname")}
                   onChange={(e) => {
                     setValue("firstname", e.target.value);
@@ -126,7 +126,7 @@ const PersonalDetails = () => {
                   type="text"
                   placeholder="Enter Your Last name"
                   id="lastname"
-                  className="mt-3"
+                  className="mt-2.5"
                   {...register("lastname")}
                   onChange={(e) => {
                     setValue("lastname", e.target.value);
@@ -156,7 +156,7 @@ const PersonalDetails = () => {
                   type="number"
                   placeholder="Enter Your Number"
                   id="phoneNumber"
-                  className="mt-3"
+                  className="mt-2.5"
                   {...register("phoneNumber")}
                   onChange={(e) => {
                     setValue("phoneNumber", e.target.value);
@@ -186,7 +186,7 @@ const PersonalDetails = () => {
                   type="email"
                   placeholder="Enter Your Email Address"
                   id="email"
-                  className="mt-3"
+                  className="mt-2.5"
                   {...register("email")}
                   onChange={(e) => {
                     setValue("email", e.target.value);
@@ -225,7 +225,7 @@ const PersonalDetails = () => {
                     }
                   }}
                   placeholder="Male"
-                  className="mt-3"
+                  className="mt-2.5"
                 />
                 {errors.gender && (
                   <span className="text-red-500 text-sm leading-5 font-normal mt-2">
@@ -239,7 +239,7 @@ const PersonalDetails = () => {
                   options={options}
                   onChange={(value) => handleSelectChange("age", value)}
                   placeholder="age"
-                  className="mt-3"
+                  className="mt-2.5"
                   onBlur={() => {
                     const value = watch("age");
                     if (!value) {
@@ -272,7 +272,7 @@ const PersonalDetails = () => {
                     }
                   }}
                   placeholder="collage"
-                  className="mt-3"
+                  className="mt-2.5"
                   defaultValue="22-8-2000"
                 />
                 {errors.collage && (
@@ -287,7 +287,7 @@ const PersonalDetails = () => {
                   options={options}
                   onChange={(value) => handleSelectChange("area", value)}
                   placeholder="area"
-                  className="mt-3"
+                  className="mt-2.5"
                   onBlur={() => {
                     const value = watch("area");
                     if (!value) {
@@ -312,7 +312,7 @@ const PersonalDetails = () => {
                 type="text"
                 placeholder="Enter Referral a Code"
                 id="referralCode"
-                className="mt-3"
+                className="mt-2.5"
                 {...register("referralCode")}
                 onChange={(e) => {
                   setValue("referralCode", e.target.value);

@@ -24,7 +24,7 @@ const StatusButton: React.FC<StatusButtonProps> = ({ status, onClick }) => {
 
   return (
     <div
-      className={`${statusStyles[status]} text-base font-normal py-3 px-8 text-center text-white rounded-full cursor-pointer`}
+      className={`${statusStyles[status]} text-base font-normal py-2.5 px-6 text-center text-white rounded-full cursor-pointer`}
       onClick={onClick}
     >
       {statusText[status]}

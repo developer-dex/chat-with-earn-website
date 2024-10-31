@@ -22,9 +22,9 @@ const People = () => {
       header: "Persons",
       accessorKey: "id",
       cell: () => (
-        <div className="flex flex-row items-center gap-6">
-          <img src={personImage} alt="person" height={60} width={60} />
-          <h4 className="text-black text-opacity-50 font-medium text-lg leading-6 group-hover:text-opacity-100">
+        <div className="flex flex-row items-center gap-3">
+          <img src={personImage} alt="person" height={45} width={45} />
+          <h4 className="text-black text-opacity-50 font-medium text-base leading-5 group-hover:text-opacity-100">
             Sahil Nariya
           </h4>
         </div>
@@ -34,7 +34,7 @@ const People = () => {
       header: "Date",
       accessorKey: "name",
       cell: () => (
-        <p className="text-base leading-6 font-medium text-black text-opacity-50 group-hover:text-opacity-60">
+        <p className="text-base leading-5 font-medium text-black text-opacity-50 group-hover:text-opacity-60">
           Mar 12,2024
         </p>
       ),
@@ -53,7 +53,7 @@ const People = () => {
       header: "Amout",
       accessorKey: "occupation",
       cell: () => (
-        <p className="text-base leading-6 font-medium text-black text-opacity-50 group-hover:text-opacity-60">
+        <p className="text-base leading-5 font-medium text-black text-opacity-50 group-hover:text-opacity-60">
           + $150.29
         </p>
       ),

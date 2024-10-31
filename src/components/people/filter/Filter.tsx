@@ -37,7 +37,7 @@ const Filter = ({ setIsFilterOpen }:any) => {
   };
 
   return (
-    <div className="border border-gray-400 bg-white bg-opacity-100 py-10 px-4 h-max max-w-[450px] w-full rounded-[10px]">
+    <div className="border border-gray-400 bg-white bg-opacity-100 py-5 px-4 h-max max-w-[450px] w-full rounded-[10px]">
       <form className="w-full" onSubmit={handleSubmit}>
         <div className="flex flex-col justify-between w-full h-full">
           <div className="flex flex-col w-full">

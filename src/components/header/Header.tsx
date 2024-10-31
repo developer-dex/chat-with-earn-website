@@ -1,6 +1,6 @@
 import Logo from "../common/logo/Logo";
 import { NavLink } from "react-router-dom";
-import profileImage from "../../assets/images/Ellipse 17.png";
+import profileImage from "../../assets/images/profile.png";
 
 const Header = () => {
   return (
@@ -79,12 +79,12 @@ const Header = () => {
         </div>
         <div className=" flex  flex-row items-center gap-6">
           <ul className="flex flex-row  gap-[30px] items-center no-underline ">
-            <li>
+            <li className="cursor-pointer">
               <i className="fa-solid fa-bell text-gray-200 w-5 h-4"></i>
             </li>
-            <li className="flex  flex-row items-center">
+            <li className="flex  flex-row items-center cursor-pointer">
               <NavLink to={"/profile"}>
-                <img src={profileImage} alt="profile" width={50} height={50} />
+                <img src={profileImage} alt="profile" width={45} height={45} />
               </NavLink>
             </li>
             <li className="flex  flex-row items-center">

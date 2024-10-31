@@ -6,10 +6,10 @@ const CareerPage = () => {
 
   return (
     <PublicLayout>
-    <h1 className="bg-gradient-text text-transparent bg-clip-text text-4xl mt-5 font-semibold leading-[48px]">
+    <h1 className="bg-gradient-text text-transparent bg-clip-text text-3xl mt-2.5 font-semibold leading-[48px]">
     Member
     </h1>
-    <div className="py-10 h-auto">
+    <div className="py-5 h-auto">
       <Career/>
     </div>
   </PublicLayout>

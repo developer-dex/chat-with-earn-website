@@ -69,7 +69,7 @@ const ContactUs = () => {
   const doSubmit = async (requestData: ContactUsFormData) => {};
   return (
     <div className="flex flx-row gap-24 w-full font-poppins pb-10">
-      <div className="bg-white border-[0.5px] border-light-gray-300 w-1/2 h-full pt-12 pb-[50px] px-24 rounded-[10px] flex flex-col gap-9">
+      <div className="bg-white border-[0.5px] border-light-gray-300 w-1/2 h-full pt-9 pb-10 px-24 rounded-[10px] flex flex-col gap-9">
         <h1 className="text-2xl leading-9 font-semibold text-black-100 ">
           Get In Touch{" "}
         </h1>
@@ -126,14 +126,14 @@ const ContactUs = () => {
         <form onSubmit={handleSubmit(doSubmit)} className="h-full">
           <div className="w-full flex flex-col gap-[30px]  items-start">
             <div className="w-full gap-6">
-              <div className="flex flex-row gap-6 justify-between w-full">
+              <div className="flex flex-row gap-4 justify-between w-full">
                 <div className="w-full">
                   <Label htmlFor="firstname" text="First name" />
                   <Input
                     type="text"
                     placeholder="Enter Your First Name"
                     id="firstname"
-                    className="mt-3"
+                    className="mt-2.5"
                     {...register("firstname")}
                     onChange={(e) => {
                       setValue("firstname", e.target.value);
@@ -163,7 +163,7 @@ const ContactUs = () => {
                     type="text"
                     placeholder="Enter Your Last name"
                     id="lastname"
-                    className="mt-3"
+                    className="mt-2.5"
                     {...register("lastname")}
                     onChange={(e) => {
                       setValue("lastname", e.target.value);
@@ -188,13 +188,13 @@ const ContactUs = () => {
                   )}
                 </div>
               </div>
-              <div className="mt-6 w-full">
+              <div className="mt-5 w-full">
                 <Label htmlFor="phoneNumber" text="Phone Number" />
                 <Input
                   type="number"
                   placeholder="Enter Your Number"
                   id="phoneNumber"
-                  className="mt-3"
+                  className="mt-2.5"
                   {...register("phoneNumber")}
                   onChange={(e) => {
                     setValue("phoneNumber", e.target.value);
@@ -218,13 +218,13 @@ const ContactUs = () => {
                   </span>
                 )}
               </div>
-              <div className="mt-6 w-full">
+              <div className="mt-5 w-full">
                 <Label htmlFor="email" text="Email Address" />
                 <Input
                   type="text"
                   placeholder="Enter Your Email Address"
                   id="email"
-                  className="mt-3"
+                  className="mt-2.5"
                   {...register("email")}
                   onChange={(e) => {
                     setValue("email", e.target.value);
@@ -248,14 +248,14 @@ const ContactUs = () => {
                   </span>
                 )}
               </div>
-              <div className="mt-6 w-full flex flex-col">
+              <div className="mt-5 w-full flex flex-col">
                 <Label htmlFor="message" text="Message" />
                 <textarea
                   placeholder="Enter Your Message"
                   id="message"
                   rows={6}
                   cols={5}
-                  className="mt-3 border border-light-gray-300 rounded-md py-2.5 px-4"
+                  className="mt-2.5 border border-light-gray-300 rounded-md py-2.5 px-4"
                   {...register("message")}
                   onChange={(e) => {
                     setValue("message", e.target.value);
