@@ -1,6 +1,14 @@
 import React from "react";
 import ProfileImage from "../../../assets/images/profile.png";
 const CareerDetails = () => {
+  const peopleCount = "120+ People";
+  const profiles = [
+    "https://randomuser.me/api/portraits/women/44.jpg",
+    "https://randomuser.me/api/portraits/men/45.jpg",
+    "https://randomuser.me/api/portraits/women/46.jpg",
+    "https://randomuser.me/api/portraits/men/47.jpg",
+    "https://randomuser.me/api/portraits/women/48.jpg",
+  ];
   return (
     <div className="h-full border border-light-gray-400 rounded-[10px] px-[30px] py-6 flex flex-col gap-5">
       <div className="flex flex-row gap-5 items-center">
@@ -17,10 +25,23 @@ const CareerDetails = () => {
       <h1 className="text-gray-200 text-[33px] leading-[50px] font-semibold">
         $150.29
       </h1>
-      <div>
+      <div className="flex flex-col gap-1.5">
         <p className="text-black text-opacity-50 text-lg font-medium">
           @Sahil123
         </p>
+      <div className="flex items-center space-x-2">
+      <div className="flex -space-x-3">
+        {profiles.map((src, index) => (
+          <img
+            key={index}
+            src={src}
+            alt={`Profile ${index + 1}`}
+            className="w-10 h-10 rounded-full "
+          />
+        ))}
+      </div>
+      <p className="text-black font-medium leading-7 text-lg">{peopleCount}</p>
+    </div>
       </div>
       <div className="mt-6">
         <div className="w-full h-[28px] bg-red rounded-full overflow-hidden">
