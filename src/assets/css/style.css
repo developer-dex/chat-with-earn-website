@@ -41,12 +41,12 @@ h1 {
  
 /* Handle */
 ::-webkit-scrollbar-thumb {
-  @apply bg-gray-300; 
-  border-radius: 6px;
+  @apply bg-black cursor-pointer; 
+  border-radius: 10px;
 }
 
 /* Handle on hover */
 ::-webkit-scrollbar-thumb:hover {
-  @apply bg-gray-300;
+  @apply bg-black bg-opacity-80 cursor-pointer;
 }
 

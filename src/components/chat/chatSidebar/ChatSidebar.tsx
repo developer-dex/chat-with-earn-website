@@ -3,7 +3,7 @@ import personImage from "../../../assets/images/profile.png";
 
 const ChatSidebar = () => {
   // Sample data array for chat items
-  const chatData = Array.from({ length: 12 }, (_, index) => ({
+  const chatData = Array.from({ length: 50 }, (_, index) => ({
     id: index,
     name: "Jane Cooper",
     message: "Haha that's terrifying 😂",
@@ -12,7 +12,7 @@ const ChatSidebar = () => {
   }));
 
   return (
-    <div className="flex flex-col border-[0.5px] border-light-gray-400 shadow-profileFormShadow  overflow-hidden rounded-3xl bg-white bg-opacity-5">
+    <div className="flex flex-col border-[0.5px] border-light-gray-400 shadow-profileFormShadow overflow-hidden max-h-full h-full rounded-3xl bg-white bg-opacity-5">
       <div className="w-full p-5">
         <div className="flex flex-row gap-3 py-2 px-4 items-center bg-white border border-gray-400 rounded-3xl ">
           <Input
@@ -21,7 +21,7 @@ const ChatSidebar = () => {
           />
         </div>
       </div>
-      <div className="flex flex-col max-h-[465px] overflow-y-auto">
+      <div className="flex flex-col flex-grow overflow-y-auto h-full">
         {chatData.map((chat) => (
           <div key={chat.id} className="flex flex-row justify-between cursor-pointer hover:bg-light-gray-300 px-5 py-2.5">
             <div className="flex flex-row gap-3 items-center">
