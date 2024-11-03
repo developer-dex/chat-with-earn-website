@@ -5,7 +5,7 @@ import {
   useReactTable,
 } from "@tanstack/react-table";
 import { usePagination } from "./UsePagination";
-import { perPageRecord } from "../../../helpers/utils";
+// import { perPageRecord } from "../../../helpers/utils";
 
 interface Props {
   data: Array<object>;
@@ -54,12 +54,12 @@ const ReactTable = (props: Props) => {
   return (
     <>
       <div className="table-responsive">
-        <table className="table common-table">
+        <table className="table common-table w-full">
           <thead>
             {table.getHeaderGroups().map((headerGroup) => (
-              <tr key={headerGroup.id}>
+              <tr key={headerGroup.id} className="w-full text-left ">
                 {headerGroup.headers.map((header) => (
-                  <th key={header.id}>
+                  <th key={header.id} className="font-medium text-lg leading-8 text-black text-opacity-50 px-5 py-4">
                     {header.isPlaceholder ? null : (
                       <div>
                         {flexRender(header.column.columnDef.header, header.getContext())}
@@ -73,9 +73,9 @@ const ReactTable = (props: Props) => {
           <tbody>
             {table.getRowModel().rows.length > 0 ? (
               table.getRowModel().rows.map((row) => (
-                <tr key={row.id}>
+                <tr key={row.id} className="border-t-[0.5px] border-light-gray-400  hover:bg-[#E9E9F2] group">
                   {row.getVisibleCells().map((cell) => (
-                    <td key={cell.id}>
+                    <td key={cell.id} className="px-5 py-4">
                       {flexRender(cell.column.columnDef.cell, cell.getContext())}
                     </td>
                   ))}
@@ -115,11 +115,11 @@ const ReactTable = (props: Props) => {
                     value={perPage}
                     onChange={(e) => changePerPageRecords(Number(e.target.value))}
                   >
-                    {perPageRecord().map((pageSize) => (
+                    {/* {perPageRecord().map((pageSize:any) => (
                       <option key={pageSize} value={pageSize}>
                         {pageSize}
                       </option>
-                    ))}
+                    ))} */}
                   </select>
                 </div>
               </div>

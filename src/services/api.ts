@@ -34,8 +34,8 @@ export const authPostApi = async (url: string, apiData: any) => {
   try {
     const data: any = await ApiInstance.post(`${url}`, apiData, headers);
     return data;
-  } catch (error) {
-    throw error;
+  } catch (error: any) {
+    return error.response;
   }
   // return ApiInstance.post(`${config.apiBaseUrl}${url}`, apiData,headers)
 };

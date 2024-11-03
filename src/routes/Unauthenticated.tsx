@@ -5,7 +5,7 @@ export const UnauthenticatedRoute = () => {
 
   return (
     <>
-      {isLogin() ? <Navigate to="/home" /> : <Outlet />}
+      {isLogin() ? <Navigate to="/chat" /> : <Outlet />}
     </>
   );
 };

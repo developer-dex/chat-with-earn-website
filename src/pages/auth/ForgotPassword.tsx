@@ -4,8 +4,8 @@ import PublicLayout from "../../layouts/PublicLayout";
 export default function ForgotPassword() {
 
   return (
-    <PublicLayout>
+    // <PublicLayout>
       <ForgotPasswordComponent />
-    </PublicLayout>
+    // </PublicLayout>
   )
 }

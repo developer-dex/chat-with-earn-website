@@ -7,6 +7,12 @@ import ForgotPassword from "../pages/auth/ForgotPassword";
 import Login from "../pages/auth/Login";
 import SignUp from "../pages/auth/Signup";
 import { AuthenticatedRoute } from "./Authenticated";
+import ContactUsPage from "../pages/contactUs/ContactUsPage";
+import ProfilePage from "../pages/profile/ProfilePage";
+import PeoplePage from "../pages/people/PeoplePage";
+import CareerPage from "../pages/career/CareerPage";
+import HomePage from "../pages/home/HomePage";
+import AboutUsPage from "../pages/aboutUs/AboutUsPage";
 
 const AppRoutes: React.FC = () => (
   <Routes>
@@ -18,7 +24,13 @@ const AppRoutes: React.FC = () => (
     </Route>
 
     <Route element={<AuthenticatedRoute />}>
-      <Route path="chat" element={<SignUp />} />
+      <Route path="chat" element={<HomePage />} />
+      <Route path="contact-us" element={<ContactUsPage />} />
+      <Route path="profile" element={<ProfilePage />} />
+      <Route path="people" element={<PeoplePage />} />
+      <Route path="career" element={<CareerPage />} />
+      <Route path="dashboard" element={<HomePage />} />
+      <Route path="about-us" element={<AboutUsPage />} />
     </Route>
 
     <Route path="*" element={<PageNotFound />} />

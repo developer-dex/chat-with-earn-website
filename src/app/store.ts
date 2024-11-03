@@ -4,6 +4,7 @@ import { signUpDataReducer } from "../features/auth/signUpSlice";
 import { forgotPasswordReducer } from "../features/auth/forgotPasswordSlice";
 import { resetPasswordReducer } from "../features/auth/resetPasswordSlice";
 import { verifyResetPasswordTokenReducer } from "../features/auth/verifyResetPasswordToken";
+import { contactUsDataReducer } from "../features/contactUs/contactUsSlice";
 
 const store = configureStore({
   reducer: combineReducers({
@@ -13,6 +14,8 @@ const store = configureStore({
     forgotPasswordReducer: forgotPasswordReducer,
     resetPasswordReducer: resetPasswordReducer,
     verifyResetPasswordTokenReducer: verifyResetPasswordTokenReducer,
+
+    contactUsDataReducer: contactUsDataReducer,
   }),
   middleware: getDefaultMiddleware =>
     getDefaultMiddleware({
