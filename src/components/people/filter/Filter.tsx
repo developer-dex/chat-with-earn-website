@@ -1,7 +1,7 @@
 import { useState } from "react";
 import CustomButton from "../../common/form/Button";
-import Label from "../../common/label/Label";
-import SelectBox from "../../common/selectBox/SelectBox";
+import Label from "../../common/form/Label";
+import SelectBox from "../../common/form/SelectBox";
 
 const Filter = ({ setIsFilterOpen }:any) => {
   const [formValues, setFormValues] = useState({

@@ -1,14 +1,14 @@
 import { useState } from "react";
 import profile from "../../assets/images/profile.png";
 import PersonalDetails from "./personalDetails/PersonalDetails";
-import CustomButton from "../common/form/Button";
 
 interface ProfileRoute {
   id: number;
   title: string;
   component: JSX.Element | string;
 }
-const Profile = () => {
+
+const ProfileComponent = () => {
   const [activeTab, setActiveTab] = useState(1);
 
   const profileRoutes: ProfileRoute[] = [
@@ -88,4 +88,4 @@ const Profile = () => {
   );
 };
 
-export default Profile;
+export default ProfileComponent;

@@ -11,8 +11,8 @@ import { NavLink } from "react-router-dom";
 import Slider from "../common/slider/Slider";
 import SliderContentCard from "../common/sliderContentCard/SliderContentCard";
 import slideImage from "./../../assets/images/photorealistic-money-concept 1.png";
-import Label from "../common/label/Label";
-import Input from "../common/input/Input";
+import Label from "../common/form/Label";
+import Input from "../common/form/Input";
 import Logo from "../common/logo/Logo";
 const forgotPasswordValidationSchema = yup
   .object({

@@ -1,12 +1,11 @@
-import React from "react";
 import PublicLayout from "../../layouts/PublicLayout";
-import ContactUs from "../../components/contactUs/ContactUs";
+import ContactUsComponent from "../../components/contactUs/ContactUsComponent";
 
 const ContactUsPage = () => {
   return (
     <PublicLayout>
       <div className="pt-6 h-auto">
-        <ContactUs />
+        <ContactUsComponent />
       </div>
     </PublicLayout>
   );

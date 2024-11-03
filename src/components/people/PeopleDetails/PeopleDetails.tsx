@@ -1,11 +1,11 @@
 import React, { useState } from "react";
 import ProfileImage from "../../../assets/images/profile.png";
-import Label from "../../common/label/Label";
-import Input from "../../common/input/Input";
+import Label from "../../common/form/Label";
+import Input from "../../common/form/Input";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
-import SelectBox from "../../common/selectBox/SelectBox";
+import SelectBox from "../../common/form/SelectBox";
 
 const forgotPasswordValidationSchema = yup
   .object({

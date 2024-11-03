@@ -1,6 +1,6 @@
 import React from "react";
 import PublicLayout from "../../layouts/PublicLayout";
-import People from "../../components/people/People";
+import PeopleComponent from "../../components/people/PeopleComponent";
 
 const PeoplePage = () => {
   return (
@@ -9,7 +9,7 @@ const PeoplePage = () => {
         People
       </h1>
       <div className="py-5 h-auto">
-        <People/>
+        <PeopleComponent/>
       </div>
     </PublicLayout>
   );

@@ -1,4 +1,4 @@
-import Input from "../../common/input/Input";
+import Input from "../../common/form/Input";
 import personImage from "../../../assets/images/profile.png";
 
 const ChatSidebar = () => {

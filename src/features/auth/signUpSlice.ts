@@ -42,8 +42,14 @@ const initialState: SignUpDataState = {
 };
 
 type SignUpDataValues = {
+  first_name: string;
+  last_name: string;
+  phone: string;
+  dob: string;
+  gender: string;
+  area: string;
+  collage: string;
   email: string;
-  password: string;
 };
 
 export const signUpData = createAsyncThunk(

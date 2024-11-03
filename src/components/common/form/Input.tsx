@@ -26,6 +26,7 @@ const Input: React.FC<InputProps> = ({
   const handleTogglePasswordVisibility = () => {
     setShowPassword(!showPassword);
   };
+
   return (
     <div className="relative w-full">
       <input

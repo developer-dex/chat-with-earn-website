@@ -21,7 +21,6 @@ export function getSession() {
  */
 export function clearSession() {
   localStorage.removeItem(config.localStorageAuthTokenKey);
-  localStorage.removeItem(config.localStorageRefreshTokenKey);
   localStorage.removeItem("user");
 }
 

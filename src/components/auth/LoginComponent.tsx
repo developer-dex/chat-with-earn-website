@@ -5,28 +5,34 @@ import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
 import { OK } from "../../config/httpStatusCodes";
-import { AppDispatch } from "../../app/store";
 import { loginData } from "../../features/auth/loginSlice";
 import Slider from "../common/slider/Slider";
 import SliderContentCard from "../common/sliderContentCard/SliderContentCard";
 import slideImage from "./../../assets/images/photorealistic-money-concept 1.png";
-import Input from "../common/input/Input";
-import Label from "../common/label/Label";
+import Input from "../common/form/Input";
+import Label from "../common/form/Label";
 import CustomButton from "../common/form/Button";
 import Logo from "../common/logo/Logo";
+import { useAppDispatch } from "../../app/hooks";
+import { setSession } from "../../config/localStorage";
+import { showError, showSuccess } from "../../helpers/messageHelper";
 
 const loginValidationSchema = yup
   .object({
-    username: yup.string().required("Username is required!"),
+    email: yup.string()
+      .matches(/^[A-Za-z0-9._+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,3}$/, "Please enter a valid email address.")
+      .email("Please enter a valid email address")
+      .required("Email cannot be blank!"),
     password: yup.string().required("Password is required!"),
   })
   .required();
 
+type FormData = yup.InferType<typeof loginValidationSchema>;
+
 export default function LoginComponent() {
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
   const navigate = useNavigate()
 
-  type FormData = yup.InferType<typeof loginValidationSchema>;
   const {
     register,
     handleSubmit,
@@ -40,23 +46,16 @@ export default function LoginComponent() {
   });
 
   const doSubmit = async (requestData: FormData) => {
-    // const { payload } = await (dispatch as AppDispatch)(loginData(requestData));
-    // if (payload.status === OK) {
-    //   // const { data, message } = payload.data;
-    //   // Mixpanel.identify(data.user.uuid);
-    //   // Mixpanel.track("Login button clicked", { Page: "Login page" });
-    //   // setSession(data.access_token);
-    //   // setLocalStorageItem(config.localStorageRefreshTokenKey, data.refresh_token);
-    //   // remember ? setUserCredentials(JSON.stringify(requestData)) : localStorage.removeItem("rememberMe");
-    //   // encryptUserData(JSON.stringify(data.user));
-    //   // if (!data.user.mobile_verified_at || !JSON.parse(decryptUserData()).mobile_verified_at) {
-    //   //   setCurrentModal("verifyOtpModal");
-    //   // } else {
-    //   //   reset();
-    //   //   showSuccess(message);
-    //   //   navigateToDestination(data.user.current_type, data.user.is_profile_completed);
-    //   // }
-    // }
+    const { payload } = await dispatch(loginData(requestData));
+    const { responseData, responseMessage } = payload.data;
+    if (payload.data.responseCode === OK) {
+      setSession(responseData.authorization_token);
+      reset();
+      showSuccess(responseMessage);
+      navigate('/chat');
+    } else {
+      showError(responseMessage);
+    }
   };
 
   return (
@@ -67,32 +66,32 @@ export default function LoginComponent() {
             <Logo width={110} height={110} />
             <div className="w-full flex flex-col gap-[30px] mt-[50px] items-start">
               <div className="w-full flex flex-col">
-                <Label htmlFor="username" text="User Name" />
+                <Label htmlFor="email" text="User Name" />
                 <Input
                   type="text"
-                  placeholder="Enter Your UserName"
-                  id="username"
+                  placeholder="Enter Your Email"
+                  id="email"
                   className="mt-3"
-                  {...register("username")}
-                  onChange={(e) => {
-                    setValue("username", e.target.value);
-                    clearErrors("username");
-                  }}
-                  onBlur={(e) => {
+                  {...register("email")}
+                  onBlur={(e: React.ChangeEvent<HTMLInputElement>) => {
                     const value = e.target.value;
                     if (!value) {
-                      setError("username", {
+                      setError("email", {
                         type: "manual",
-                        message: "Username is required",
+                        message: "Email is required",
                       });
                     } else {
-                      clearErrors("username");
+                      clearErrors("email");
                     }
                   }}
+                  onChange={(e) => {
+                    setValue("email", e.target.value);
+                    clearErrors("email");
+                  }}
                 />
-                {errors.username && (
+                {errors.email && (
                   <span className="text-red-500 text-sm leading-5 font-normal mt-2">
-                    {errors.username.message}
+                    {errors.email.message}
                   </span>
                 )}
               </div>
@@ -108,7 +107,7 @@ export default function LoginComponent() {
                     setValue("password", e.target.value);
                     clearErrors("password");
                   }}
-                  onBlur={(e) => {
+                  onBlur={(e: React.ChangeEvent<HTMLInputElement>) => {
                     const value = e.target.value;
                     if (!value) {
                       setError("password", {

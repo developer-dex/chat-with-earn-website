@@ -3,9 +3,9 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import { useState } from "react";
 import * as yup from "yup";
 import { useForm } from "react-hook-form";
-import Label from "../../common/label/Label";
-import Input from "../../common/input/Input";
-import SelectBox from "../../common/selectBox/SelectBox";
+import Label from "../../common/form/Label";
+import Input from "../../common/form/Input";
+import SelectBox from "../../common/form/SelectBox";
 import CustomButton from "../../common/form/Button";
 const signUpValidationSchema = yup
   .object({

@@ -1,6 +1,5 @@
-import React from 'react'
 import PublicLayout from '../../layouts/PublicLayout'
-import Career from '../../components/career/Career'
+import CareerComponent from '../../components/career/CareerComponent'
 
 const CareerPage = () => {
 
@@ -10,7 +9,7 @@ const CareerPage = () => {
     Member
     </h1>
     <div className="py-5 h-auto">
-      <Career/>
+      <CareerComponent/>
     </div>
   </PublicLayout>
   )

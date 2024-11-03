@@ -1,10 +1,15 @@
-import React from "react";
-import Input from "../common/input/Input";
+import React, { useState } from "react";
+import PeopleDetails from "./PeopleDetails/PeopleDetails";
+import Input from "../common/form/Input";
 import ReactTable from "../common/table/ReactTable";
 import personImage from "../../assets/images/profile.png";
 import StatusButton from "../common/statusButton/StatusButton";
-import CareerDetails from "./careerDetails/CareerDetails";
-const Career = () => {
+import filter from "../../assets/images/Vector.png";
+import search from "../../assets/images/Combined Shape.png";
+import Filter from "./filter/Filter";
+
+const PeopleComponent = () => {
+  const [isFilterOpen, setIsFilterOpen] = useState<boolean>(false);
   const data = [
     { id: 1, name: "Alice", status: "Online", occupation: "Engineer" },
     { id: 2, name: "Bob", status: "Offline", occupation: "Designer" },
@@ -54,12 +59,20 @@ const Career = () => {
       ),
     },
   ];
+
   return (
     <div className="w-full h-full flex flex-row gap-7">
       <div className="w-1/2 h-auto">
-        <div className="border-[0.5px] border-light-gray-400 rounded-[10px]  shadow-profileFormShadow">
-          <div className="w-full px-4 pt-5">
-            <div className="flex flex-row gap-3 py-2 px-4 items-center bg-white border border-gray-400 rounded-3xl ">
+        <div className="border-[0.5px] border-light-gray-400 rounded-[10px]  shadow-profileFormShadow relative">
+          <div className="w-full px-[26px] pt-5 flex flex-row items-center gap-11">
+            <div
+              onClick={() => setIsFilterOpen(!isFilterOpen)}
+              className="cursor-pointer"
+            >
+              <img src={filter} alt="filter" width={20} height={18} />
+            </div>
+            <div className="flex flex-row gap-3 py-2 px-5 items-center bg-white border border-gray-400 rounded-3xl w-full">
+              <img src={search} alt="filter" width={20} height={20} />
               <Input
                 className="bg-transparent border-none !p-0 text-gray-500 text-base leading-7 font-normal"
                 placeholder="Search or start a new chat"
@@ -68,13 +81,22 @@ const Career = () => {
           </div>
 
           <ReactTable data={data} columns={columns} />
+          {isFilterOpen && (
+            <div className="absolute inset-0 bg-white bg-opacity-70 mt-[75px] pt-2.5 pl-5 rounded-[10px] ">
+              <div
+                className=" inset-0 left-0 "
+                onClick={() => setIsFilterOpen(false)}
+              ></div>
+              <Filter setIsFilterOpen={setIsFilterOpen} />
+            </div>
+          )}
         </div>
       </div>
       <div className="w-1/2 h-auto">
-        <CareerDetails />
+        <PeopleDetails />
       </div>
     </div>
   );
 };
 
-export default Career;
+export default PeopleComponent;

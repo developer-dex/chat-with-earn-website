@@ -1,5 +1,4 @@
 import { useState } from "react";
-import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
@@ -8,10 +7,14 @@ import SliderContentCard from "../common/sliderContentCard/SliderContentCard";
 import Slider from "../common/slider/Slider";
 import slideImage from "./../../assets/images/photorealistic-money-concept 1.png";
 import Logo from "../common/logo/Logo";
-import Label from "../common/label/Label";
-import Input from "../common/input/Input";
+import Label from "../common/form/Label";
+import Input from "../common/form/Input";
 import CustomButton from "../common/form/Button";
-import SelectBox from "../common/selectBox/SelectBox";
+import SelectBox from "../common/form/SelectBox";
+import { signUpData } from "../../features/auth/signUpSlice";
+import { useAppDispatch } from "../../app/hooks";
+import { OK } from "../../config/httpStatusCodes";
+import { showSuccess } from "../../helpers/messageHelper";
 
 type InitialValues = {
   username: string;
@@ -30,14 +33,10 @@ export type PhoneObject = {
 type FormData = yup.InferType<typeof signUpValidationSchema> &
   Partial<InitialValues>;
 
-type SignUpProps = {
-  setCurrentModal: React.Dispatch<React.SetStateAction<string>>;
-  currentActiveTab: string;
-};
 
 const signUpValidationSchema = yup
   .object({
-    firstname: yup
+    first_name: yup
       .string()
       .required("Full name is required")
       .min(3, "Full name must be minimum 3 character's.")
@@ -46,7 +45,7 @@ const signUpValidationSchema = yup
         /^[aA-zZ\s]+$/,
         "Full name cannot have numbers & special characters."
       ),
-    lastname: yup
+    last_name: yup
       .string()
       .required("Last name is required")
       .min(3, "Last name must be minimum 3 character's.")
@@ -55,7 +54,7 @@ const signUpValidationSchema = yup
         /^[aA-zZ\s]+$/,
         "Full name cannot have numbers & special characters."
       ),
-    phoneNumber: yup.string().required("Phone Number is required"),
+    phone: yup.string().required("Phone Number is required"),
     age: yup.string().required("Age Number is required"),
     gender: yup.string().required("Gender is required"),
     area: yup.string().required("Area is required"),
@@ -68,23 +67,11 @@ const signUpValidationSchema = yup
         "Please enter a valid email address."
       )
       .email("Please enter a valid email address"),
-    password: yup
-      .string()
-      .required("Password is required")
-      .matches(
-        /^(?=.*\d)(?=.*[!@#$%^&*])(?=.*[a-z])(?=.*[A-Z])[^\s]{8,15}$/,
-        "Password should contains 8-15 characters. At least 1 digit, 1 special character, 1 uppercase letter & 1 lowercase letter."
-      ),
-    type: yup.string().required("Please select user type"),
   })
   .required();
 
 export default function SignUpComponent() {
-  const [togglePassword, setTogglePassword] = useState<boolean>(false);
-  const [code, setCode] = useState<string>("");
-  const [mobileError, setMobileError] = useState<string>("");
-  const [mobile, setMobile] = useState<string>("");
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
   const navigate = useNavigate();
   const [selectedOption, setSelectedOption] = useState<string>("");
 
@@ -94,19 +81,11 @@ export default function SignUpComponent() {
     { value: "option3", label: "Option 3" },
   ];
 
-  const mobileNumberHandler = (value: string, code: PhoneObject) => {
-    setCode(code?.dialCode);
-    setValue("mobile", value);
-    let number = value.substring(code?.dialCode?.length);
-    setMobile(number);
-    if (!number) {
-      setMobileError("Mobile is required");
-    } else if (number && !(number.length > 8 && number.length < 16)) {
-      setMobileError("Mobile number must be 9 to 15 digits.");
-    } else {
-      setMobileError("");
-    }
-  };
+  const genderOptions = [
+    { value: "male", label: "Male" },
+    { value: "female", label: "Female" },
+    { value: "prefer-not-to-say", label: "Prefer not to say" },
+  ];
 
   const {
     register,
@@ -119,41 +98,29 @@ export default function SignUpComponent() {
     trigger,
     formState: { errors },
   } = useForm<FormData>({
-    defaultValues: {
-      type: "customer",
-    },
     resolver: yupResolver(signUpValidationSchema),
   });
 
-  const values = watch();
-
   const doSubmit = async (requestData: FormData) => {
-    // if (!values.mobile) {
-    //   setMobileError("Mobile is required");
-    // } else {
-    //   const formData = {
-    //     full_name: requestData.username,
-    //     email: requestData.email,
-    //     password: requestData.password,
-    //     isd_code: code,
-    //     mobile,
-    //     type: requestData.type === "customer" ? 1 : 2,
-    //   };
-    //   const { payload } = await (dispatch as AppDispatch)(signUpData(formData));
-    //   if (payload.status === OK) {
-    //     const { data } = payload.data;
-    //     Mixpanel.identify(data.user.uuid);
-    //     Mixpanel.people.set({
-    //       '$name': requestData.username,
-    //       '$email': requestData.email,
-    //     });
-    //     Mixpanel.track("Sign up button clicked", { Page: "Sign up page" });
-    //     setSession(data.access_token);
-    //     setLocalStorageItem(config.localStorageRefreshTokenKey, data.refresh_token);
-    //     setCurrentModal("verifyOtpModal");
-    //     reset();
-    //   }
-    // }
+    const formData = {
+      first_name: requestData.first_name,
+      last_name: requestData.last_name,
+      phone: `+91${requestData.phone}`,
+      gender: requestData.gender,
+      email: requestData.email,
+      // dob: requestData.age,
+      dob: "2000-11-28",
+      // collage: requestData.collage,
+      // area: requestData.area,
+      collage: "collage",
+      area: "area",
+    };
+    const { payload } = await dispatch(signUpData(formData));
+    console.log(payload)
+    if (payload.data.responseCode === OK) {
+      showSuccess(payload.data.responseMessage);
+      reset();
+    }
   };
 
   const handleSelectChange = (field: any, value: string) => {
@@ -166,7 +133,7 @@ export default function SignUpComponent() {
     }
   };
 
-  
+
   return (
     <div className="flex flex-row min-h-screen relative bg-light-gray-200 gap-10  py-4 px-6 w-full">
       <form className="w-[55%] pl-16   h-auto" onSubmit={handleSubmit(doSubmit)}>
@@ -176,92 +143,92 @@ export default function SignUpComponent() {
             <div className="w-full flex flex-col gap-[30px] mt-[50px] items-start">
               <div className="w-full grid grid-cols-2 gap-6">
                 <div className="flex flex-col">
-                  <Label htmlFor="firstname" text="First name" />
+                  <Label htmlFor="first_name" text="First name" />
                   <Input
                     type="text"
                     placeholder="Enter Your First Name"
-                    id="firstname"
+                    id="first_name"
                     className="mt-3"
-                    {...register("firstname")}
+                    {...register("first_name")}
                     onChange={(e) => {
-                      setValue("firstname", e.target.value);
-                      clearErrors("firstname");
+                      setValue("first_name", e.target.value);
+                      clearErrors("first_name");
                     }}
                     onBlur={(e) => {
                       const value = e.target.value;
                       if (!value) {
-                        setError("firstname", {
+                        setError("first_name", {
                           type: "manual",
                           message: "First Name is required!",
                         });
                       } else {
-                        clearErrors("firstname");
+                        clearErrors("first_name");
                       }
                     }}
                   />
-                  {errors.firstname && (
+                  {errors.first_name && (
                     <span className="text-red-500 text-sm leading-5 font-normal mt-2">
-                      {errors.firstname.message}
+                      {errors.first_name.message}
                     </span>
                   )}
                 </div>
                 <div>
-                  <Label htmlFor="lastname" text="Last name" />
+                  <Label htmlFor="last_name" text="Last name" />
                   <Input
                     type="text"
                     placeholder="Enter Your Last name"
-                    id="lastname"
+                    id="last_name"
                     className="mt-3"
-                    {...register("lastname")}
+                    {...register("last_name")}
                     onChange={(e) => {
-                      setValue("lastname", e.target.value);
-                      clearErrors("lastname");
+                      setValue("last_name", e.target.value);
+                      clearErrors("last_name");
                     }}
                     onBlur={(e) => {
                       const value = e.target.value;
                       if (!value) {
-                        setError("lastname", {
+                        setError("last_name", {
                           type: "manual",
                           message: "Last Name is required",
                         });
                       } else {
-                        clearErrors("lastname");
+                        clearErrors("last_name");
                       }
                     }}
                   />
-                  {errors.lastname && (
+                  {errors.last_name && (
                     <span className="text-red-500 text-sm leading-5 font-normal mt-2">
-                      {errors.lastname.message}
+                      {errors.last_name.message}
                     </span>
                   )}
                 </div>
                 <div>
-                  <Label htmlFor="phoneNumber" text="Phone Number" />
+                  <Label htmlFor="phone" text="Phone Number" />
                   <Input
                     type="number"
                     placeholder="Enter Your Number"
-                    id="phoneNumber"
+                    id="phone"
                     className="mt-3"
-                    {...register("phoneNumber")}
+                    {...register("phone")}
                     onChange={(e) => {
-                      setValue("phoneNumber", e.target.value);
-                      clearErrors("phoneNumber");
+                      setValue("phone", e.target.value);
+                      clearErrors("phone");
                     }}
                     onBlur={(e) => {
                       const value = e.target.value;
                       if (!value) {
-                        setError("phoneNumber", {
+                        setError("phone", {
                           type: "manual",
                           message: "Phone Number is required!",
                         });
                       } else {
-                        clearErrors("phoneNumber");
+                        clearErrors("phone");
                       }
                     }}
                   />
-                  {errors.phoneNumber && (
+                  {errors.phone && (
                     <span className="text-red-500 text-sm leading-5 font-normal mt-2">
-                      {errors.phoneNumber.message}
+                      {errors.phone.message}
                     </span>
                   )}
                 </div>
@@ -298,7 +265,7 @@ export default function SignUpComponent() {
                 <div>
                   <Label htmlFor="gender" text="Gender" />
                   <SelectBox
-                    options={options}
+                    options={genderOptions}
                     onChange={(value) => handleSelectChange("gender", value)}
                     onBlur={() => {
                       const value = watch("gender");

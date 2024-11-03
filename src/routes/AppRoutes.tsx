@@ -21,17 +21,16 @@ const AppRoutes: React.FC = () => (
       <Route path="sign-up" element={<SignUp />} />
       <Route path="forgot-password" element={<ForgotPassword />} />
       <Route path="reset-password/:token" element={<ResetPassword />} />
+    </Route>
+
+    <Route element={<AuthenticatedRoute />}>
+      <Route path="chat" element={<HomePage />} />
       <Route path="contact-us" element={<ContactUsPage />} />
       <Route path="profile" element={<ProfilePage />} />
       <Route path="people" element={<PeoplePage />} />
       <Route path="career" element={<CareerPage />} />
       <Route path="dashboard" element={<HomePage />} />
       <Route path="about-us" element={<AboutUsPage />} />
-
-    </Route>
-
-    <Route element={<AuthenticatedRoute />}>
-      <Route path="chat" element={<SignUp />} />
     </Route>
 
     <Route path="*" element={<PageNotFound />} />

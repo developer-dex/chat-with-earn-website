@@ -4,21 +4,25 @@ import instagram from "../../assets/images/instagram.png";
 import twitter from "../../assets/images/twitter.png";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
-import Label from "../common/label/Label";
-import Input from "../common/input/Input";
+import Label from "../common/form/Label";
+import Input from "../common/form/Input";
 import CustomButton from "../common/form/Button";
 import { NavLink } from "react-router-dom";
+import { useAppDispatch } from "../../app/hooks";
+import { contactUsData } from "../../features/contactUs/contactUsSlice";
+import { OK } from "../../config/httpStatusCodes";
+import { showSuccess } from "../../helpers/messageHelper";
 
 interface ContactUsFormData {
-  firstname: string;
-  lastname: string;
-  phoneNumber: string;
-  message: string;
+  first_name: string;
+  last_name: string;
+  phone: string;
+  message?: string;
   email: string;
 }
 const contactUsValidationSchema = yup
   .object({
-    firstname: yup
+    first_name: yup
       .string()
       .required("Full name is required")
       .min(3, "Full name must be minimum 3 character's.")
@@ -27,7 +31,7 @@ const contactUsValidationSchema = yup
         /^[aA-zZ\s]+$/,
         "Full name cannot have numbers & special characters."
       ),
-    lastname: yup
+    last_name: yup
       .string()
       .required("Last name is required")
       .min(3, "Last name must be minimum 3 character's.")
@@ -36,8 +40,7 @@ const contactUsValidationSchema = yup
         /^[aA-zZ\s]+$/,
         "Full name cannot have numbers & special characters."
       ),
-    phoneNumber: yup.string().required("Phone Number is required"),
-    message: yup.string().required("Message is required"),
+    phone: yup.string().required("Phone Number is required"),
     email: yup
       .string()
       .required("Email is required")
@@ -50,23 +53,36 @@ const contactUsValidationSchema = yup
   .required();
 
 const ContactUs = () => {
+
+  const dispatch = useAppDispatch();
+
   const {
     register,
     handleSubmit,
-    reset,
     setValue,
-    watch,
     clearErrors,
     setError,
-    trigger,
     formState: { errors },
   } = useForm<ContactUsFormData>({
     resolver: yupResolver(contactUsValidationSchema),
   });
 
-  const values = watch();
+  const doSubmit = async (requestData: ContactUsFormData) => {
+    const formData = { ...requestData, phone: `+91${requestData.phone}` };
+    const { payload } = await dispatch(contactUsData(formData)) as {
+      payload: {
+        data: {
+          responseCode: number;
+          responseMessage: string;
+        }
+      }
+    };
+    if (payload.data.responseCode === OK) {
+      showSuccess(payload.data.responseMessage);
+    }
+  };
 
-  const doSubmit = async (requestData: ContactUsFormData) => {};
+
   return (
     <div className="flex flx-row gap-24 w-full font-poppins pb-10">
       <div className="bg-white border-[0.5px] border-light-gray-300 w-1/2 h-full pt-9 pb-10 px-24 rounded-[10px] flex flex-col gap-9">
@@ -128,93 +144,93 @@ const ContactUs = () => {
             <div className="w-full gap-6">
               <div className="flex flex-row gap-4 justify-between w-full">
                 <div className="w-full">
-                  <Label htmlFor="firstname" text="First name" />
+                  <Label htmlFor="first_name" text="First name" />
                   <Input
                     type="text"
                     placeholder="Enter Your First Name"
-                    id="firstname"
+                    id="first_name"
                     className="mt-2.5"
-                    {...register("firstname")}
+                    {...register("first_name")}
                     onChange={(e) => {
-                      setValue("firstname", e.target.value);
-                      clearErrors("firstname");
+                      setValue("first_name", e.target.value);
+                      clearErrors("first_name");
                     }}
                     onBlur={(e) => {
                       const value = e.target.value;
                       if (!value) {
-                        setError("firstname", {
+                        setError("first_name", {
                           type: "manual",
                           message: "First Name is required!",
                         });
                       } else {
-                        clearErrors("firstname");
+                        clearErrors("first_name");
                       }
                     }}
                   />
-                  {errors.firstname && (
+                  {errors.first_name && (
                     <span className="text-red-500 text-sm leading-5 font-normal mt-2">
-                      {errors.firstname.message}
+                      {errors.first_name.message}
                     </span>
                   )}
                 </div>
                 <div className="w-full">
-                  <Label htmlFor="lastname" text="Last name" />
+                  <Label htmlFor="last_name" text="Last name" />
                   <Input
                     type="text"
                     placeholder="Enter Your Last name"
-                    id="lastname"
+                    id="last_name"
                     className="mt-2.5"
-                    {...register("lastname")}
+                    {...register("last_name")}
                     onChange={(e) => {
-                      setValue("lastname", e.target.value);
-                      clearErrors("lastname");
+                      setValue("last_name", e.target.value);
+                      clearErrors("last_name");
                     }}
                     onBlur={(e) => {
                       const value = e.target.value;
                       if (!value) {
-                        setError("lastname", {
+                        setError("last_name", {
                           type: "manual",
                           message: "Last Name is required",
                         });
                       } else {
-                        clearErrors("lastname");
+                        clearErrors("last_name");
                       }
                     }}
                   />
-                  {errors.lastname && (
+                  {errors.last_name && (
                     <span className="text-red-500 text-sm leading-5 font-normal mt-2">
-                      {errors.lastname.message}
+                      {errors.last_name.message}
                     </span>
                   )}
                 </div>
               </div>
               <div className="mt-5 w-full">
-                <Label htmlFor="phoneNumber" text="Phone Number" />
+                <Label htmlFor="phone" text="Phone Number" />
                 <Input
                   type="number"
                   placeholder="Enter Your Number"
-                  id="phoneNumber"
+                  id="phone"
                   className="mt-2.5"
-                  {...register("phoneNumber")}
+                  {...register("phone")}
                   onChange={(e) => {
-                    setValue("phoneNumber", e.target.value);
-                    clearErrors("phoneNumber");
+                    setValue("phone", e.target.value);
+                    clearErrors("phone");
                   }}
                   onBlur={(e) => {
                     const value = e.target.value;
                     if (!value) {
-                      setError("phoneNumber", {
+                      setError("phone", {
                         type: "manual",
                         message: "Phone Number is required!",
                       });
                     } else {
-                      clearErrors("phoneNumber");
+                      clearErrors("phone");
                     }
                   }}
                 />
-                {errors.phoneNumber && (
+                {errors.phone && (
                   <span className="text-red-500 text-sm leading-5 font-normal mt-2">
-                    {errors.phoneNumber.message}
+                    {errors.phone.message}
                   </span>
                 )}
               </div>
@@ -273,11 +289,6 @@ const ContactUs = () => {
                     }
                   }}
                 />
-                {errors.message && (
-                  <span className="text-red-500 text-sm leading-5 font-normal mt-2">
-                    {errors.message.message}
-                  </span>
-                )}
               </div>
             </div>
           </div>

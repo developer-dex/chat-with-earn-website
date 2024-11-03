@@ -1,19 +1,16 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
-import { authPostApi } from "../../services/api";
+import { postApi } from "../../services/api";
 import { apiEndPoints } from "../../config/path";
 
 type ResponseData = {
-  responseStatus?: boolean,
-  responseCode?: number,
-  responseMessage?: string,
-  responseData?: {
-      authorization_token: string,
-      user_id: string,
-      redirect_url: string
+  data?: {
+    responseStatus?: boolean;
+    responseCode?: number;
+    responseMessage?: string;
   }
 };
 
-type LoginDataState = {
+type ContactUsDataState = {
   isLoading: boolean;
   isSuccess: boolean;
   isError: boolean;
@@ -22,7 +19,7 @@ type LoginDataState = {
   token: string;
 };
 
-const initialState: LoginDataState = {
+const initialState: ContactUsDataState = {
   isLoading: false,
   isSuccess: false,
   isError: false,
@@ -31,38 +28,41 @@ const initialState: LoginDataState = {
   token: "",
 };
 
-type LoginDataValues = {
+type ContactUsValues = {
+  first_name: string;
+  last_name: string;
   email: string;
-  password: string;
+  phone: string;
+  message?: string;
 };
 
-export const loginData = createAsyncThunk(
-  "/loginData",
-  async (values: LoginDataValues) => {
-    const payload = await authPostApi(apiEndPoints.LOGIN_PATH, values);
+export const contactUsData = createAsyncThunk(
+  "/contactUsData",
+  async (values: ContactUsValues) => {
+    const payload = await postApi(apiEndPoints.CONTACT_US_PATH, values);
     return payload;
   }
 );
-export const loginDataSlice = createSlice({
-  name: "loginData",
+export const ContactUsDataSlice = createSlice({
+  name: "contactUsData",
   initialState,
   reducers: {},
   extraReducers: (builder) => {
     builder
-      .addCase(loginData.pending, (state) => {
+      .addCase(contactUsData.pending, (state) => {
         state.isLoading = true;
       })
-      .addCase(loginData.fulfilled, (state, { payload }) => {
+      .addCase(contactUsData.fulfilled, (state, { payload }) => {
         state.isLoading = false;
         state.isSuccess = true;
         state.responseCode = payload?.status;
         state.responseData = payload.data.data;
       })
-      .addCase(loginData.rejected, (state) => {
+      .addCase(contactUsData.rejected, (state) => {
         state.isLoading = false;
         state.isError = true;
       })
   },
 });
 
-export const loginDataReducer = loginDataSlice.reducer;
+export const contactUsDataReducer = ContactUsDataSlice.reducer;

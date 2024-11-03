@@ -1,5 +1,5 @@
 import React from "react";
-import Input from "../../common/input/Input";
+import Input from "../../common/form/Input";
 import lock from "../../../assets/images/Lock.png"
 
 const ChatBox = () => {
