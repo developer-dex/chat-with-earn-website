@@ -4,6 +4,7 @@ import { apiEndPoints } from "../../config/path";
 
 export type UserListResponseData = {
   _id: string;
+  user_id: string;
   first_name: string;
   last_name: string;
   profile_picture: string;

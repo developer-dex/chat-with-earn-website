@@ -19,6 +19,18 @@ const ChatSidebar = ({ selectedUser, setSelectedUser, setMessageThread }: IProps
   const dispatch = useAppDispatch();
 
   useEffect(() => {
+    if (selectedUser) {
+      getMessageThreadFromPeople();
+    }
+  }, []);
+
+  const getMessageThreadFromPeople = async () => {
+    selectedUser && await dispatch(fetchUserMessagesThreadData(selectedUser.user_id)).then((res) => {
+      setMessageThread(res.payload.data.responseData);
+    });
+  }
+
+  useEffect(() => {
     getUserLIst();
   }, [searchText]);
 
@@ -55,7 +67,7 @@ const ChatSidebar = ({ selectedUser, setSelectedUser, setMessageThread }: IProps
           {userList.map((user: UserListResponseData) => (
             <div
               key={user._id}
-              className={`flex flex-row justify-between cursor-pointer hover:bg-light-gray-300 px-5 py-2.5 ${selectedUser?._id === user._id ? "bg-light-gray-300" : ""}`}
+              className={`flex flex-row justify-between cursor-pointer hover:bg-light-gray-300 px-5 py-2.5 ${(selectedUser?._id === user._id || selectedUser?.user_id === user._id) ? "bg-light-gray-300" : ""}`}
               onClick={() => onUserClick(user)}
             >
               <div className="flex flex-row gap-3 items-center">

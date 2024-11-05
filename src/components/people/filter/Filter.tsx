@@ -1,16 +1,15 @@
-import { useState } from "react";
 import CustomButton from "../../common/form/Button";
 import Label from "../../common/form/Label";
 import SelectBox from "../../common/form/SelectBox";
+import { filterValuesType } from "../PeopleComponent";
 
-const Filter = ({ setIsFilterOpen }:any) => {
-  const [formValues, setFormValues] = useState({
-    age: "",
-    gender: "",
-    area: "",
-    college: "",
-  });
+interface IProps {
+  filterValues: filterValuesType;
+  setFilterValues: React.Dispatch<React.SetStateAction<filterValuesType>>;
+  setIsFilterOpen: React.Dispatch<React.SetStateAction<boolean>>;
+}
 
+const Filter = ({ filterValues, setFilterValues, setIsFilterOpen }: IProps) => {
 
   const ageOptions = Array.from({ length: 41 }, (_, i) => ({
     value: (10 + i).toString(),
@@ -24,13 +23,13 @@ const Filter = ({ setIsFilterOpen }:any) => {
   ];
 
 
-  const handleSubmit = (e:any) => {
+  const handleSubmit = (e: any) => {
     e.preventDefault();
-    console.log(formValues);
+    console.log(filterValues);
   };
 
-  const handleSelectChange = (field:string, value:any) => {
-    setFormValues((prevValues) => ({
+  const handleSelectChange = (field: string, value: any) => {
+    setFilterValues((prevValues) => ({
       ...prevValues,
       [field]: value,
     }));
@@ -49,7 +48,7 @@ const Filter = ({ setIsFilterOpen }:any) => {
                   onChange={(value) => handleSelectChange("age", value)}
                   placeholder="Select age"
                   className="mt-1.5 !text-gray-300"
-                  defaultValue={formValues.age}
+                  defaultValue={filterValues.age}
                 />
               </div>
               <div className="w-full">
@@ -59,7 +58,7 @@ const Filter = ({ setIsFilterOpen }:any) => {
                   onChange={(value) => handleSelectChange("gender", value)}
                   placeholder="Select gender"
                   className="mt-1.5 !text-gray-300"
-                  defaultValue={formValues.gender}
+                  defaultValue={filterValues.gender}
                 />
               </div>
               <div className="w-full">
@@ -69,7 +68,7 @@ const Filter = ({ setIsFilterOpen }:any) => {
                   onChange={(value) => handleSelectChange("area", value)}
                   placeholder="Select area"
                   className="mt-1.5 !text-gray-300"
-                  defaultValue={formValues.area}
+                  defaultValue={filterValues.area}
                 />
               </div>
               <div className="w-full">
@@ -79,7 +78,7 @@ const Filter = ({ setIsFilterOpen }:any) => {
                   onChange={(value) => handleSelectChange("college", value)}
                   placeholder="Select college"
                   className="mt-1.5 !text-gray-300"
-                  defaultValue={formValues.college}
+                  defaultValue={filterValues.college}
                 />
               </div>
             </div>

@@ -24,13 +24,9 @@ const ChatBox = ({ selectedUser, messageThread, setMessageThread }: IProps) => {
     messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
   }, [messageThread]);
 
-  useEffect(() => {
-    if (socketContext.socket) {
-      socketContext.socket.on("receiveMessage", (data: any) => {
-        setMessageThread([...messageThread, { senderId: data?.senderId, receiverId: data.receiverId, message: data.message }]);
-      });
-    }
-  }, [socketContext.socket]);
+  socketContext.socket?.on("receiveMessage", (data: any) => {
+    setMessageThread([...messageThread, { senderId: data?.senderId, receiverId: data.receiverId, message: data.message }]);
+  });
 
   const handleSendMessage = () => {
     socketContext.socket?.emit("sendMessage", { senderId: userData?._id, receiverId: selectedUser?._id, message });

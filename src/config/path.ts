@@ -7,4 +7,5 @@ export const apiEndPoints = {
     FETCH_USER_LIST_PATH: "friends",
     FETCH_USER_PROFILE_PATH: "profile-info",
     GET_MESSAGE_THREAD_PATH: "messages",
+    FETCH_PEOPLE_LIST_PATH: "people",
 };

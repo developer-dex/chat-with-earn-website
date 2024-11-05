@@ -1,8 +1,9 @@
-import { useState } from "react";
+import { useContext, useState } from "react";
 import profile from "../../assets/images/profile.png";
 import PersonalDetails from "./personalDetails/PersonalDetails";
 import { clearSession } from "../../config/localStorage";
 import { useNavigate } from "react-router-dom";
+import { SocketContext } from "../../socket/socket";
 
 interface ProfileRoute {
   id: number;
@@ -11,6 +12,9 @@ interface ProfileRoute {
 }
 
 const ProfileComponent = () => {
+
+  const socketContext = useContext(SocketContext);
+  
   const [activeTab, setActiveTab] = useState(1);
   const navigate = useNavigate();
 
@@ -33,6 +37,7 @@ const ProfileComponent = () => {
 
   const handleLogout = () => {
     clearSession();
+    socketContext.socket?.disconnect();
     navigate("/");
   };
 

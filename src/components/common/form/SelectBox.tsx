@@ -2,7 +2,7 @@ import React, { useState } from "react";
 
 type SelectBoxProps = {
   options: { value: string; label: string }[];
-  onChange: (value: string) => void;
+  onChange?: (value: string) => void;
   placeholder?: string;
   defaultValue?: string;
   onBlur?: (value: string) => string | void;
@@ -35,7 +35,7 @@ const SelectBox: React.FC<SelectBoxProps> = ({
     <div className="relative">
       <select
         className={`block w-full py-2.5 px-4  bg-white border border-light-gray-300 rounded-md appearance-none text-gray-400 focus:outline-none ${className}`}
-        onChange={(e) => onChange(e.target.value)}
+        onChange={(e) => onChange && onChange(e.target.value)}
         defaultValue={defaultValue}
       >
         {placeholder && (

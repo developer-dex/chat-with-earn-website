@@ -8,10 +8,14 @@ import { fetchUserProfileData } from "../../features/user/userProfileSlice";
 import { OK } from "../../config/httpStatusCodes";
 import { setLocalStorageItem } from "../../config/localStorage";
 import { UserMessagesThreadResponseData } from "../../features/chat/fetchUserMessagesThreadSlice";
+import { useLocation } from "react-router-dom";
 
 const ChatComponent = () => {
 
-  const [selectedUser, setSelectedUser] = useState<UserListResponseData | null>(null);
+  const location = useLocation();
+  const { user } = location.state || {};
+
+  const [selectedUser, setSelectedUser] = useState<UserListResponseData | null>(user || null);
   const [messageThread, setMessageThread] = useState<UserMessagesThreadResponseData[]>([]);
   const socketContext = useContext(SocketContext);
 
@@ -29,7 +33,9 @@ const ChatComponent = () => {
   };
 
   useEffect(() => {
-    socketContext.initiateConnection();
+    if(!socketContext.socket?.connected) {
+      socketContext.initiateConnection();
+    }
   }, []);
 
   return (
