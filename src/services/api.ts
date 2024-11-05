@@ -1,7 +1,6 @@
 import { config } from "../config/config";
 import ApiInstance from "./http";
-import { apiEndPoints } from "../config/path";
-import { getAuthHeader, getHeader, getRefreshTokenHeader } from "../helpers/utils";
+import { getAuthHeader, getHeader } from "../helpers/utils";
 
 interface AuthHeader {
   headers: {
@@ -14,7 +13,7 @@ interface Header {
   headers: {
     Accept: string;
     "Accept-Language": string;
-    Authorization: string;
+    Authorization: string | null;
   };
 }
 
@@ -53,10 +52,3 @@ export const deleteApi = (url: string) => {
   const headers: Header = getHeader();
   return ApiInstance.delete(`${config.apiBaseUrl}${url}`, headers);
 };
-
-export async function refreshTokenAPI() {
-  const deviceData = {};
-  const headers = getRefreshTokenHeader();
-  const response = await ApiInstance.patch(apiEndPoints.REFRESH_TOKEN_PATH, deviceData, headers);
-  return response;
-}

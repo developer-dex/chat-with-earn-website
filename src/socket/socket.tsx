@@ -1,5 +1,6 @@
 import { useEffect, useState, ReactNode, createContext } from "react";
 import socketIOClient, { Socket } from "socket.io-client";
+import { config } from "../config/config";
 
 interface SocketContextProps {
   socket?: Socket;
@@ -11,7 +12,7 @@ interface SocketContainerProps {
 }
 
 export const SocketContext = createContext<SocketContextProps>({
-  initiateConnection: () => { },
+  initiateConnection: () => {},
 });
 
 export default function SocketContainer({ children }: SocketContainerProps) {
@@ -19,16 +20,14 @@ export default function SocketContainer({ children }: SocketContainerProps) {
 
   // Initialized socket connection.
   const initiateConnection = () => {
-    const isAuthenticated = localStorage.getItem("_token");
+    const isAuthenticated = localStorage.getItem("auth_token");
     if (isAuthenticated) {
-      const _userUUID = JSON.parse(localStorage.getItem('_user') || '{}');
-      const _user_uuid = _userUUID ? _userUUID.uuid : "";
-      const socketInitialise = socketIOClient(`${process.env.REACT_APP_SOCKET_URL}`, {
+      const socketInitialize = socketIOClient(config.socketUrl, {
         transports: ['websocket'],
-        query: { userUUID: _user_uuid },
+        query: { auth_token: isAuthenticated },
         autoConnect: true
       });
-      setSocket(socketInitialise);
+      setSocket(socketInitialize);
     }
   };
 

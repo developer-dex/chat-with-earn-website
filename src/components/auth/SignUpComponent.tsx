@@ -116,7 +116,6 @@ export default function SignUpComponent() {
       area: "area",
     };
     const { payload } = await dispatch(signUpData(formData));
-    console.log(payload)
     if (payload.data.responseCode === OK) {
       showSuccess(payload.data.responseMessage);
       reset();

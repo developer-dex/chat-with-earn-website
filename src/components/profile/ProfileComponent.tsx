@@ -1,6 +1,8 @@
 import { useState } from "react";
 import profile from "../../assets/images/profile.png";
 import PersonalDetails from "./personalDetails/PersonalDetails";
+import { clearSession } from "../../config/localStorage";
+import { useNavigate } from "react-router-dom";
 
 interface ProfileRoute {
   id: number;
@@ -10,6 +12,7 @@ interface ProfileRoute {
 
 const ProfileComponent = () => {
   const [activeTab, setActiveTab] = useState(1);
+  const navigate = useNavigate();
 
   const profileRoutes: ProfileRoute[] = [
     {
@@ -27,6 +30,11 @@ const ProfileComponent = () => {
   const activeComponent = profileRoutes.find(
     (route) => route.id === activeTab
   )?.component;
+
+  const handleLogout = () => {
+    clearSession();
+    navigate("/");
+  };
 
   return (
     <div className="flex flex-row gap-7 w-full font-poppins h-full">
@@ -52,9 +60,9 @@ const ProfileComponent = () => {
             ))}
           </div>
         </div>
-        <div className="flex flex-row items-center gap-10 bottom-5 fixed ">
+        <div className="flex flex-row items-center gap-10 bottom-5 fixed cursor-pointer" onClick={handleLogout}>
           <p className="text-black text-[28px] font-normal leading-10 flex flex-row items-center ">
-            logout{" "}
+            logout
           </p>
           <span className="w-6 h-6">
             <i className="fa-solid fa-arrow-right-from-bracket w-5 h-5"></i>

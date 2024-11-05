@@ -1,5 +1,4 @@
-import { getLocalStorageItem, getSession } from "../config/localStorage";
-import { config } from "../config/config";
+import { getSession } from "../config/localStorage";
 
 export const isValidArray = (data: any) => {
   return data && Array.isArray(data) && data.length > 0;
@@ -31,17 +30,7 @@ export function getHeader() {
     headers: {
       Accept: "application/json",
       "Accept-Language": "en",
-      Authorization: `Bearer ${getSession()}`,
-    },
-  };
-}
-
-export function getRefreshTokenHeader() {
-  return {
-    headers: {
-      Accept: "application/json",
-      "Accept-Language": "en",
-      "Refresh-Token": getLocalStorageItem(config.localStorageRefreshTokenKey),
+      Authorization: getSession(),
     },
   };
 }

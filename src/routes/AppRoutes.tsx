@@ -29,7 +29,6 @@ const AppRoutes: React.FC = () => (
       <Route path="profile" element={<ProfilePage />} />
       <Route path="people" element={<PeoplePage />} />
       <Route path="career" element={<CareerPage />} />
-      <Route path="dashboard" element={<HomePage />} />
       <Route path="about-us" element={<AboutUsPage />} />
     </Route>
 

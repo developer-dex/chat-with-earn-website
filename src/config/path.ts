@@ -4,5 +4,7 @@ export const apiEndPoints = {
     FORGOT_PASSWORD_PATH: "password/forgot",
     RESET_PASSWORD_PATH: "password/reset",
     CONTACT_US_PATH: "contact-us",
-    LOG_OUT_PATH: "logout",
+    FETCH_USER_LIST_PATH: "friends",
+    FETCH_USER_PROFILE_PATH: "profile-info",
+    GET_MESSAGE_THREAD_PATH: "messages",
 };

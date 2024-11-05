@@ -5,6 +5,9 @@ import { forgotPasswordReducer } from "../features/auth/forgotPasswordSlice";
 import { resetPasswordReducer } from "../features/auth/resetPasswordSlice";
 import { verifyResetPasswordTokenReducer } from "../features/auth/verifyResetPasswordToken";
 import { contactUsDataReducer } from "../features/contactUs/contactUsSlice";
+import { fetchUserListDataReducer } from "../features/chat/fetchUserListSlice";
+import { fetchUserProfileDataReducer } from "../features/user/userProfileSlice";
+import { fetchUserMessagesThreadDataReducer } from "../features/chat/fetchUserMessagesThreadSlice";
 
 const store = configureStore({
   reducer: combineReducers({
@@ -16,6 +19,11 @@ const store = configureStore({
     verifyResetPasswordTokenReducer: verifyResetPasswordTokenReducer,
 
     contactUsDataReducer: contactUsDataReducer,
+
+    fetchUserListDataReducer: fetchUserListDataReducer,
+    fetchUserProfileDataReducer: fetchUserProfileDataReducer,
+
+    fetchUserMessagesThreadDataReducer: fetchUserMessagesThreadDataReducer,
   }),
   middleware: getDefaultMiddleware =>
     getDefaultMiddleware({
