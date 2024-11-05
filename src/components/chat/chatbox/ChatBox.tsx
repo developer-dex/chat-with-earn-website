@@ -54,7 +54,7 @@ const ChatBox = ({ selectedUser, messageThread, setMessageThread }: IProps) => {
               key={index}
               className={`rounded-t-[20px] text-white p-3 text-sm font-normal leading-4 ${item.senderId === userData?._id ?
                 "bg-blue self-end rounded-bl-[20px] flex justify-end" :
-                "bg-black self-start rounded-br-[20px]"}`} 
+                "bg-black self-start rounded-br-[20px]"}`}
             >
               {item.message}
             </div>
