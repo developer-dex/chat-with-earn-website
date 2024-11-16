@@ -37,7 +37,7 @@ const Input: React.FC<InputProps> = ({
         onBlur={onBlur}
         name={name}
         id={id}
-        className={`bg-white border border-light-gray-300 rounded-md text-gray-300 py-2.5 px-4 w-full focus:outline-none ${className}`}
+        className={`bg-white border border-light-gray-300 rounded-md text-gray-300 text-base md:text-lg leading-5 md:leading-6 py-2.5 px-4 w-full focus:outline-none ${className}`}
       />
       {type === "password" && (
         <span

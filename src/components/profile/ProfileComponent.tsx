@@ -42,22 +42,23 @@ const ProfileComponent = () => {
   };
 
   return (
-    <div className="flex flex-row gap-7 w-full font-poppins h-full">
-      <div className="flex flex-col justify-between w-1/2 gap-10 h-full relative">
+    <div className="flex flex-col lg:flex-row gap-7 w-full font-poppins h-full">
+      <div className="flex flex-col justify-between w-full lg:w-1/2 gap-10 h-full relative">
         <div>
-          <h1 className="text-gray-200 text-[28px] leading-10 font-extrabold max-w-[207px] text-left">
+          <h1 className="text-gray-200 text-[28px] leading-10 font-extrabold max-w-[220px] md:max-w-full lg:max-w-[207px] text-left">
             User Profile management
           </h1>
-          <div className="mt-16 border-[0.5px] border-light-gray-400 bg-white">
+          <div className="mt-8 lg:mt-16 border-none overflow-auto lg:overflow-hidden lg:border-[0.5px] xl:border-[0.5px] 2xl:border-[0.5px] border-light-gray-400 bg-none lg:bg-white flex flex-row lg:flex-col gap-5 lg:gap-0 w-full">
+
             {profileRoutes.map((route) => (
               <button
                 key={route.id}
                 onClick={() => setActiveTab(route.id)}
-                className={`text-left shadow-profileFormShadow  border-b-[0.5px] border-light-gray-400 w-full rounded-sm
-                   px-8 py-6 font-normal text-lg leading-8 transition-all duration-300 ${
+                className={`text-left shadow-profileFormShadow border lg:border-b-[0.5px] border-light-gray-400 w-max    lg:w-full rounded-full lg:rounded-sm 
+                   px-3 sm:px-4 lg:px-8 py-2.5 sm:py-3 lg:py-6 font-normal text-base md:text-lg leading-5 md:leading-8 transition-all duration-300 ${
                      activeTab === route.id
-                       ? "border-l-4 border-l-black text-black font-semibold"
-                       : "text-gray-500 border-l-4 border-l-transparent"
+                       ? "border-2 lg:border-l-4 xl:border-l-4 2xl:border-l-4 border-black lg:border-l-black text-black font-semibold bg-white"
+                       : "border-2 text-gray-500 lg:border-l-4  xl:border-l-4 2xl:border-l-4 lg:border-l-transparent"
                    }`}
               >
                 {route.title}
@@ -65,7 +66,7 @@ const ProfileComponent = () => {
             ))}
           </div>
         </div>
-        <div className="flex flex-row items-center gap-10 bottom-5 fixed cursor-pointer" onClick={handleLogout}>
+        <div className="hidden lg:flex flex-row items-center gap-10 bottom-5 fixed cursor-pointer" onClick={handleLogout}>
           <p className="text-black text-[28px] font-normal leading-10 flex flex-row items-center ">
             logout
           </p>
@@ -74,7 +75,7 @@ const ProfileComponent = () => {
           </span>
         </div>
       </div>
-      <div className="flex w-1/2 border-[0.5px] border-light-gray-400 rounded-[10px] shadow-profileFormShadow py-5 px-8  flex-col h-full min-h-[600px]">
+      <div className="flex w-full lg:w-1/2 border-0 md:border-[0.5px] border-light-gray-400 rounded-[10px] shadow-profileFormShadow py-5 px-0 md:px-6 xl:px-8  flex-col h-full min-h-[600px]">
         <div className="flex flex-col gap-5">
           <h1 className="text-xl leading-6 text-black font-semibold">
             {profileRoutes.find((route) => route.id === activeTab)?.title}

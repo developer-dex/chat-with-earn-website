@@ -134,20 +134,22 @@ export default function SignUpComponent() {
 
 
   return (
-    <div className="flex flex-row min-h-screen relative bg-light-gray-200 gap-10  py-4 px-6 w-full">
-      <form className="w-[55%] pl-16   h-auto" onSubmit={handleSubmit(doSubmit)}>
-        <div className="flex flex-col justify-between  max-w-[592px] w-full h-full">
+    <div className="flex flex-col-reverse lg:flex-row min-h-screen relative bg-light-gray-200  gap-5 md:gap-10 py-0 md:py-3 lg:py-4 px-0 md:px-3 lg:px-6 w-full h-full">
+      <form className="w-full lg:w-1/2 xl:w-[55%] pl-0 xl:pl-16  h-full md:h-auto" onSubmit={handleSubmit(doSubmit)}>
+        <div className="flex flex-col justify-between max-w-full lg:max-w-[592px] w-full h-full px-6 md:px-16 lg:px-0">
           <div className="flex flex-col w-full justify-between items-start">
-            <Logo width={110} height={110} />
-            <div className="w-full flex flex-col gap-[30px] mt-[50px] items-start">
-              <div className="w-full grid grid-cols-2 gap-6">
+          <div className="w-full  flex justify-center items-center">
+              <Logo width={110} height={110} className={"w-[68px] h-[68px] md:w-[110px] md:h-[110px] "} />
+            </div>
+            <div className="w-full flex flex-col gap-5 md:gap-[30px] mt-6 md:mt-[50px] items-start">
+              <div className="w-full grid grid-cols-1 sm:grid-cols-2 gap-5 md:gap-6">
                 <div className="flex flex-col">
                   <Label htmlFor="first_name" text="First name" />
                   <Input
                     type="text"
                     placeholder="Enter Your First Name"
                     id="first_name"
-                    className="mt-3"
+                    className="mt-2 md:mt-3"
                     {...register("first_name")}
                     onChange={(e) => {
                       setValue("first_name", e.target.value);
@@ -177,7 +179,7 @@ export default function SignUpComponent() {
                     type="text"
                     placeholder="Enter Your Last name"
                     id="last_name"
-                    className="mt-3"
+                    className="mt-2 md:mt-3"
                     {...register("last_name")}
                     onChange={(e) => {
                       setValue("last_name", e.target.value);
@@ -207,7 +209,7 @@ export default function SignUpComponent() {
                     type="number"
                     placeholder="Enter Your Number"
                     id="phone"
-                    className="mt-3"
+                    className="mt-2 md:mt-3"
                     {...register("phone")}
                     onChange={(e) => {
                       setValue("phone", e.target.value);
@@ -237,7 +239,7 @@ export default function SignUpComponent() {
                     type="email"
                     placeholder="Enter Your Email Address"
                     id="email"
-                    className="mt-3"
+                    className="mt-2 md:mt-3"
                     {...register("email")}
                     onChange={(e) => {
                       setValue("email", e.target.value);
@@ -276,7 +278,7 @@ export default function SignUpComponent() {
                       }
                     }}
                     placeholder="Male"
-                    className="mt-3"
+                    className="mt-2 md:mt-3"
                   />
                   {errors.gender && (
                     <span className="text-red-500 text-sm leading-5 font-normal mt-2">
@@ -290,7 +292,7 @@ export default function SignUpComponent() {
                     options={options}
                     onChange={(value) => handleSelectChange("age", value)}
                     placeholder="age"
-                    className="mt-3"
+                    className="mt-2 md:mt-3"
                     onBlur={() => {
                       const value = watch("age");
                       if (!value) {
@@ -323,7 +325,7 @@ export default function SignUpComponent() {
                       }
                     }}
                     placeholder="collage"
-                    className="mt-3"
+                    className="mt-2 md:mt-3"
                     defaultValue="22-8-2000"
                   />
                   {errors.collage && (
@@ -338,7 +340,7 @@ export default function SignUpComponent() {
                     options={options}
                     onChange={(value) => handleSelectChange("area", value)}
                     placeholder="area"
-                    className="mt-3"
+                    className="mt-2 md:mt-3"
                     onBlur={() => {
                       const value = watch("area");
                       if (!value) {
@@ -358,23 +360,23 @@ export default function SignUpComponent() {
                 </div>
               </div>
             </div>
-            <div className="flex flex-row items-center py-6 w-full gap-1.5 ml-0.5">
+            <div className="flex flex-row items-center py-6 w-full gap-1.5 ml-0.5 mt-10 md:mt-5 lg:mt-0">
               <input type="checkbox" className="!w-max cursor-pointer" />
-              <p className="text-gray-300 font-medium text-base leading-6">
+              <p className="text-gray-300 font-medium text-sm md:text-base leading-5 md:leading-6">
                 i agree the terms and Conditions
               </p>
             </div>
-            <div className="flex flex-row items-center w-full justify-between mb-5">
+            <div className="flex flex-row items-center w-full justify-between mb-5  gap-6 lg:gap-0">
               <CustomButton
                 type="submit"
-                className="button__contained w-[235px]"
+                className="button__contained w-1/2 lg:w-[200px]"
               >
                 Sign Up
               </CustomButton>
               <CustomButton
                 type="button"
                 onClick={() => navigate("/")}
-                className="button__outline w-[235px]"
+                className="button__outline w-1/2 lg:w-[200px]"
               >
                 Sign in
               </CustomButton>
@@ -382,7 +384,7 @@ export default function SignUpComponent() {
           </div>
         </div>
       </form>
-      <div className="relative w-[45%] h-auto bg-black rounded-t-[20px] rounded-br-[20px] rounded-bl-[96px] py-16">
+      <div className="relative w-full lg:w-1/2 xl:w-[45%] h-auto bg-black md:rounded-t-[20px]  md:rounded-br-[20px] rounded-none md:rounded-bl-[96px] py-5 sm:py-10 md:py-16">
         <Slider>
           <SliderContentCard
             title="Earn Money"

@@ -15,7 +15,7 @@ const PublicLayout = (props: PublicLayoutProps) => {
       <PublicHeader />
       <div>
         <Suspense>
-          <div className="h-auto chatwithmeet__container">{children}</div>
+          <div className="  chatwithmeet__container">{children}</div>
         </Suspense>
       </div>
       {/* <PublicFooter /> */}

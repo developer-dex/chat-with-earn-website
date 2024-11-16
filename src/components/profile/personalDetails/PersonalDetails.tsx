@@ -89,7 +89,7 @@ const PersonalDetails = () => {
       <div className="flex flex-col w-full h-full">
         <div className="flex flex-col w-full justify-start items-start">
           <div className="w-full flex flex-col gap-4  items-start">
-            <div className="w-full grid grid-cols-2 gap-4">
+            <div className="w-full grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-1 xl:grid-cols-2 gap-2.5 lg:gap-4">
               <div className="flex flex-col">
                 <Label htmlFor="firstname" text="First name" />
                 <Input

@@ -84,9 +84,9 @@ const ContactUs = () => {
 
 
   return (
-    <div className="flex flx-row gap-24 w-full font-poppins pb-10">
-      <div className="bg-white border-[0.5px] border-light-gray-300 w-1/2 h-full pt-9 pb-10 px-24 rounded-[10px] flex flex-col gap-9">
-        <h1 className="text-2xl leading-9 font-semibold text-black-100 ">
+    <div className="flex flex-col lg:flex-row gap-12 md:gap-20 xl:gap-24 w-full font-poppins pb-10">
+      <div className="bg-transparent md:bg-white border-none md:border-[0.5px] border-light-gray-300 w-full lg:w-1/2 h-full pt-9 pb-0 md:pb-10 px-0 md:px-10 xl:px-24 rounded-[10px] flex flex-col gap-9">
+        <h1 className="text-xl md:text-2xl leading-6 md:leading-9 font-semibold text-black-100 ">
           Get In Touch{" "}
         </h1>
         <div className="flex flex-col">
@@ -100,7 +100,7 @@ const ContactUs = () => {
           </p>
         </div>
         <div className="flex flex-col">
-          <h2 className="text-black-100 leading-8 font-semibold text-xl">
+          <h2 className="text-black-100 leading-6 md:leading-8 font-semibold text-lg md:text-xl">
             Chat to US
           </h2>
           <p className="text-gray-200 leading-6 font-normal text-base">
@@ -111,7 +111,7 @@ const ContactUs = () => {
           </p>
         </div>
         <div className="flex flex-col">
-          <h2 className="text-black-100 leading-8 font-semibold text-xl">
+          <h2 className="text-black-100 leading-6 md:leading-8 font-semibold text-lg md:text-xl">
             Call US
           </h2>
           <p className="text-gray-200 leading-6 font-normal text-base">
@@ -122,7 +122,7 @@ const ContactUs = () => {
           </p>
         </div>
         <div className="flex flex-col">
-          <h2 className="text-black-100 leading-8 font-semibold text-xl">
+          <h2 className="text-black-100 leading-6 md:leading-8 font-semibold text-lg md:text-xl">
             Social Media
           </h2>
           <div className="flex flex-row items-center gap-8 mt-4">
@@ -138,11 +138,11 @@ const ContactUs = () => {
           </div>
         </div>
       </div>
-      <div className="w-1/2 h-full">
+      <div className="w-full lg:w-1/2  h-full">
         <form onSubmit={handleSubmit(doSubmit)} className="h-full">
           <div className="w-full flex flex-col gap-[30px]  items-start">
             <div className="w-full gap-6">
-              <div className="flex flex-row gap-4 justify-between w-full">
+              <div className="flex flex-col sm:flex-row gap-4 justify-between w-full">
                 <div className="w-full">
                   <Label htmlFor="first_name" text="First name" />
                   <Input

@@ -39,17 +39,17 @@ const ChatComponent = () => {
   }, []);
 
   return (
-    <div className="flex flex-row gap-10 max-h-[74vh] 2xl:max-h-screen h-full">
-      <div className="max-w-[409px] w-full ">
+    <div className="flex flex-row gap-10 max-h-[calc(100vh-74px)] min-h-[calc(100vh-74px)] lg:max-h-[calc(100vh-205px)] lg:min-h-[calc(100vh-205px)] ">
+      <div className="max-w-full lg:max-w-[409px] w-full ">
         <ChatSidebar
           selectedUser={selectedUser}
           setSelectedUser={setSelectedUser}
           setMessageThread={setMessageThread}
         />
       </div>
-      {selectedUser ?
-        <div className="flex flex-col w-full gap-3 max-w-[1222px]">
-          <div className="border-[0.5px] border-light-gray-400 w-full rounded-3xl px-4 py-4 bg-white bg-opacity-5 shadow-profileFormShadow h-max">
+      {selectedUser &&
+        <div className="hidden lg:flex flex-col w-full gap-3 max-w-full lg:max-w-[1222px] pb-5 md:pb-0  ">
+          <div className="border-[0.5px] border-light-gray-400 w-full rounded-3xl px-1.5 sm:px-4 py-4 bg-white bg-opacity-5 shadow-profileFormShadow h-max">
             <div className="flex flex-row gap-2.5 items-center">
               <img src={selectedUser?.profile_picture} alt="profile" width={50} height={50} />
               <div className="flex flex-col gap-2.5">
@@ -64,7 +64,7 @@ const ChatComponent = () => {
           </div>
           <ChatBox selectedUser={selectedUser} messageThread={messageThread} setMessageThread={setMessageThread} />
         </div>
-        : <>No user Selected</>
+        
       }
     </div>
   );

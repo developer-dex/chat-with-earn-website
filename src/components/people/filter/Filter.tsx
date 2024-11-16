@@ -36,7 +36,7 @@ const Filter = ({ filterValues, setFilterValues, setIsFilterOpen }: IProps) => {
   };
 
   return (
-    <div className="border border-gray-400 bg-white bg-opacity-100 py-5 px-4 h-max max-w-[450px] w-full rounded-[10px]">
+    <div className="border border-gray-400 bg-white bg-opacity-100 py-2.5 px-2.5 md:px-4 h-max max-w-[450px] w-full rounded-[10px]">
       <form className="w-full" onSubmit={handleSubmit}>
         <div className="flex flex-col justify-between w-full h-full">
           <div className="flex flex-col w-full">
@@ -83,7 +83,7 @@ const Filter = ({ filterValues, setFilterValues, setIsFilterOpen }: IProps) => {
               </div>
             </div>
           </div>
-          <div className="flex flex-row items-center w-full justify-between mt-10 gap-20">
+          <div className="flex flex-row items-center w-full justify-between mt-5 md:mt-5 gap-20">
             <CustomButton type="submit" className="button__contained w-1/2">
               Apply
             </CustomButton>

@@ -94,12 +94,14 @@ export default function ResetPasswordComponent() {
   };
 
   return (
-    <div className="flex flex-row min-h-screen relative bg-light-gray-200  pt-4 pb-[22px] px-6 w-full">
-      <form className="w-[55%] pl-16 h-auto" onSubmit={handleSubmit(doSubmit)}>
-        <div className="flex flex-col justify-between  max-w-[500px] w-full h-full">
+    <div className="flex flex-col-reverse lg:flex-row min-h-screen relative bg-light-gray-200  gap-5 md:gap-10 py-0 md:py-3 lg:py-4 px-0 md:px-3 lg:px-6 w-full h-full">
+      <form className="w-full lg:w-1/2 xl:w-[55%] pl-0 xl:pl-16  h-full md:h-auto" onSubmit={handleSubmit(doSubmit)}>
+        <div className="flex flex-col justify-between  max-w-full lg:max-w-[400px] xl:max-w-[500px] w-full h-full px-6 md:px-40 lg:px-0">
           <div className="flex flex-col w-full">
-            <Logo width={110} height={110}/>
-            <div className="w-full flex flex-col gap-[30px] mt-[50px] items-start h-full justify-center">
+          <div className="w-full  flex justify-center items-center">
+              <Logo width={110} height={110} className={"w-[68px] h-[68px] md:w-[110px] md:h-[110px] "} />
+            </div>
+            <div className="w-full flex flex-col gap-[30px] mt-6 md:mt-[50px] items-start h-full justify-center">
               <div className="w-full flex flex-col">
                 <Label htmlFor="new_password" text="New Password" />
                 <Input
@@ -160,7 +162,7 @@ export default function ResetPasswordComponent() {
                   </span>
                 )}
               </div>
-              <div className="flex flex-row items-center w-full justify-between mt-10">
+              <div className="flex flex-row items-center w-full justify-between mt-10 mb-10 lg:mb-0">
                 <CustomButton
                   type="submit"
                   className="button__contained w-full"
@@ -172,7 +174,7 @@ export default function ResetPasswordComponent() {
           </div>
         </div>
       </form>
-      <div className="relative w-[45%] h-auto bg-black rounded-t-[20px] rounded-br-[20px] rounded-bl-[96px] py-16">
+      <div className="relative w-full lg:w-1/2 xl:w-[45%] h-auto bg-black md:rounded-t-[20px]  md:rounded-br-[20px] rounded-none md:rounded-bl-[96px] py-5 sm:py-10 md:py-16">
         <Slider>
           <SliderContentCard
             title="Earn Money"
