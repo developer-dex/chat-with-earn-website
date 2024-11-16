@@ -36,7 +36,7 @@ const ChatBox = ({ selectedUser, messageThread, setMessageThread }: IProps) => {
 
 
   return (
-    <div className="border-[0.5px] relative  border-light-gray-400 w-full rounded-md md:rounded-3xl bg-white overflow-hidden bg-opacity-5 shadow-profileFormShadow h-full flex flex-col justify-between min-h-[calc(100vh-194px)] lg:max-h-[calc(100vh-205px)] lg:min-h-[calc(100vh-205px)] ">
+    <div className="border-[0.5px] relative  border-light-gray-400 w-full rounded-md md:rounded-3xl bg-white overflow-hidden bg-opacity-5 shadow-profileFormShadow h-full flex flex-col justify-between ">
       <div className="max-h-full overflow-y-auto py-4 md:py-5 px-4 md:px-7">
         <div className="w-full flex justify-center items-center mb-5">
           <span className="text-black text-xs font-normal leading-4 bg-light-gray-300  rounded-[14px] px-6 py-5 max-w-[568px] w-[568px] flex flex-row items-center gap-2.5">
@@ -66,7 +66,7 @@ const ChatBox = ({ selectedUser, messageThread, setMessageThread }: IProps) => {
             onChange={(e) => setMessage(e.target.value)}
             value={message}
           />
-          <button className="bg-black text-white px-4 py-2 rounded-full" onClick={handleSendMessage}>Send</button>
+          <button className="bg-black text-white px-5 py-2 rounded-full" onClick={handleSendMessage}>Send</button>
         </div>
       </div>
     </div>

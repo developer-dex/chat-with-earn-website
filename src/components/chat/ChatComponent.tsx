@@ -39,7 +39,7 @@ const ChatComponent = () => {
   }, []);
 
   return (
-    <div className="flex flex-row gap-10 max-h-[calc(100vh-74px)] min-h-[calc(100vh-74px)] lg:max-h-[calc(100vh-205px)] lg:min-h-[calc(100vh-205px)] ">
+    <div className="flex flex-row gap-10 h-full">
       <div className="max-w-full lg:max-w-[409px] w-full ">
         <ChatSidebar
           selectedUser={selectedUser}
@@ -62,7 +62,10 @@ const ChatComponent = () => {
               </div>
             </div>
           </div>
+          <div className="min-h-[calc(100vh-194px)] lg:max-h-[calc(100vh-205px)] lg:min-h-[calc(100vh-205px)] h-full">
+
           <ChatBox selectedUser={selectedUser} messageThread={messageThread} setMessageThread={setMessageThread} />
+          </div>
         </div>
         
       }

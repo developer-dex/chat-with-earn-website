@@ -50,7 +50,7 @@ const ChatSidebar = ({ selectedUser, setSelectedUser, setMessageThread }: IProps
   };
 
   return (
-    <div className="flex flex-col border-0 md:border-[0.5px] border-light-gray-400 shadow-profileFormShadow overflow-hidden  h-full rounded-3xl bg-white bg-opacity-100 md:bg-opacity-5">
+    <div className="flex flex-col border-0 md:border-[0.5px] border-light-gray-400 shadow-profileFormShadow overflow-hidden min-h-[calc(100vh-100px)] lg:max-h-[calc(100vh-205px)] lg:min-h-[calc(100vh-205px)]  h-full rounded-3xl bg-white bg-opacity-100 md:bg-opacity-5">
       <div className="w-full p-4 md:p-5">
         <div className="flex flex-row gap-3 py-2 px-4 items-center bg-white border border-gray-400 rounded-3xl ">
           <Input

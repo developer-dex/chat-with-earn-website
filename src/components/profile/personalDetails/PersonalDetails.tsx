@@ -85,7 +85,7 @@ const PersonalDetails = () => {
     }
   };
   return (
-    <form className="w-full" onSubmit={handleSubmit(doSubmit)}>
+    <form className="w-full " onSubmit={handleSubmit(doSubmit)}>
       <div className="flex flex-col w-full h-full">
         <div className="flex flex-col w-full justify-start items-start">
           <div className="w-full flex flex-col gap-4  items-start">

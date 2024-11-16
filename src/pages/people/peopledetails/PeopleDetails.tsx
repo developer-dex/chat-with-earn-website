@@ -21,14 +21,14 @@ const PeopleDetails = () => {
   };
   return (
     <PublicLayout>
-       <div className="flex flex-row-reverse items-center justify-between  w-full mt-2.5">
+       <div className="flex flex-row-reverse items-center justify-between  w-full mt-2.5 px-5 md:px-0">
       <h1 className="bg-gradient-text text-transparent bg-clip-text text-2xl md:text-3xl  font-semibold leading-[48px]">
         People Details
         </h1>
         <NavLink to={"/career"}>
         <IoMdArrowRoundBack className="w-6 h-6 text-2xl"/></NavLink>
       </div>
-      <div className="my-10 h-full max-h-[calc(100vh-194px)] min-h-[calc(100vh-194px)] lg:max-h-[calc(100vh-205px)] lg:min-h-[calc(100vh-205px)]">
+      <div className="my-10 h-full max-h-[calc(100vh-194px)] min-h-[calc(100vh-194px)] lg:max-h-[calc(100vh-205px)] lg:min-h-[calc(100vh-205px)] px-5 md:px-0">
         <div className=" flex flex-col gap-10  shadow-profileFormShadow h-full max-h-[calc(100vh-164px)] min-h-[calc(100vh-164px)] lg:max-h-[calc(100vh-175px)] lg:min-h-[calc(100vh-175px)]">
           
           <div className="flex flex-col gap-4">
