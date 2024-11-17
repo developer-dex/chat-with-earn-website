@@ -83,6 +83,7 @@ const ChatComponent = () => {
           </div>
         </div>
       )}
+      {!selectedUser &&   <div className="border-[0.5px] border-light-gray-400 w-full rounded-3xl px-1.5 sm:px-4 py-4 bg-white bg-opacity-5 shadow-profileFormShadow h-full min-h-[calc(100vh-194px)] max-h-[calc(100vh-194px)] lg:max-h-[calc(100vh-205px)] lg:min-h-[calc(100vh-205px)] hidden lg:flex item-center justify-center"><p className="text-xl font-bold leading-9">No data Found!</p></div>}
     </div>
   );
 };
