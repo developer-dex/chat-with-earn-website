@@ -48,7 +48,7 @@ const ProfileComponent = () => {
           <h1 className="text-gray-200 text-[28px] leading-10 font-extrabold max-w-[220px] md:max-w-full lg:max-w-[207px] text-left">
             User Profile management
           </h1>
-          <div className="mt-8 lg:mt-16 border-none overflow-auto lg:overflow-hidden lg:border-[0.5px] xl:border-[0.5px] 2xl:border-[0.5px] border-light-gray-400 bg-none lg:bg-white flex flex-row lg:flex-col gap-5 lg:gap-0 w-full">
+          <div className="mt-8 lg:mt-16 border-none overflow-auto scroll-smooth lg:overflow-hidden lg:border-[0.5px] xl:border-[0.5px] 2xl:border-[0.5px] border-light-gray-400 bg-none lg:bg-white flex flex-row lg:flex-col gap-5 lg:gap-0 w-full">
 
             {profileRoutes.map((route) => (
               <button

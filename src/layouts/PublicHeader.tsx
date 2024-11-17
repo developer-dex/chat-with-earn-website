@@ -132,7 +132,7 @@ const PublicHeader = () => {
         </div>
       </div>
     
-      <div className={`absolute top-[0px] shadow-md z-10 bg-white w-full sm:w-[300px] transition-all duration-700 ease-in-out ${menuOpen
+      <div className={`absolute top-[0px] shadow-md z-10 bg-white w-full sm:w-[250px] transition-all duration-700 ease-in-out ${menuOpen
           ? "left-0 opacity-100 transform translate-x-0 delay-150 min-h-screen max-h-screen"
           : "left-[-100%] opacity-0 transform translate-x-[-100%] delay-150 min-h-screen max-h-screen"
         }`}>
@@ -144,7 +144,7 @@ const PublicHeader = () => {
               className="w-[60px] h-[60px] lg:w-[71px] lg:h-[71px]"
             />
           </div>
-        <IoClose className="w-6 h-6 text-black mt-2.5 "
+        <IoClose className="w-6 h-6 text-black mt-2.5 cursor-pointer"
             onClick={() => setMenuOpen(false)}/>
         </div>
           <ul className="flex flex-col h-full   gap-2.5 lg:gap-[30px] items-start no-underline px-6 lg:px-12 pb-8 z-10 bg-white ">

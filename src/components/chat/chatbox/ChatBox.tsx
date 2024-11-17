@@ -36,15 +36,15 @@ const ChatBox = ({ selectedUser, messageThread, setMessageThread }: IProps) => {
 
 
   return (
-    <div className="border-[0.5px] relative  border-light-gray-400 w-full rounded-md md:rounded-3xl bg-white overflow-hidden bg-opacity-5 shadow-profileFormShadow h-full flex flex-col justify-between ">
-      <div className="max-h-full overflow-y-auto py-4 md:py-5 px-4 md:px-7">
+    <div className="border-[0.5px] relative  border-light-gray-400 w-full rounded-md md:rounded-3xl bg-white overflow-hidden bg-opacity-5 shadow-profileFormShadow h-full min-h-[calc(100vh-194px)] max-h-[calc(100vh-194px)] lg:max-h-[calc(100vh-300px)] lg:min-h-[calc(100vh-300px)] flex flex-col justify-between  p-0 m-0">
+      <div className="max-h-full overflow-y-auto py-4 md:py-5 px-2.5 xl:px-7">
         <div className="w-full flex justify-center items-center mb-5">
-          <span className="text-black text-xs font-normal leading-4 bg-light-gray-300  rounded-[14px] px-6 py-5 max-w-[568px] w-[568px] flex flex-row items-center gap-2.5">
+          <span className="text-black text-xs font-normal leading-4 bg-light-gray-300  rounded-[14px] px-3 xl:px-6 py-3 xl:py-5 max-w-full lg:max-w-[568px] w-[568px] flex flex-row items-center gap-2.5">
             <img src={lock} alt="lock" height={21} width={18} /> Messages are end-to-end encrypted. No one outside of this chat, not
             even HII5 can read or listen to them click to learn more.
           </span>
         </div>
-        <div className="flex flex-col w-full gap-5 px-5">
+        <div className="flex flex-col w-full gap-5 px-0 xl:px-5">
           {messageThread.map((item, index) => (
             <div
               key={index}
@@ -58,15 +58,15 @@ const ChatBox = ({ selectedUser, messageThread, setMessageThread }: IProps) => {
           <div ref={messagesEndRef} />
         </div>
       </div>
-      <div className="w-full py-3 px-3 md:px-7">
+      <div className="w-full py-3 px-3 xl:px-7">
         <div className="flex flex-row gap-3 py-1.5 pl-4 pr-2 items-center bg-white border border-gray-400 rounded-full ">
           <Input
-            className="bg-transparent border-none !p-0 text-gray-500 text-base leading-7 font-normal"
+            className="bg-transparent border-none !p-0 text-gray-500 !text-sm xl:!text-base leading-7 font-normal"
             placeholder="Say Something"
             onChange={(e) => setMessage(e.target.value)}
             value={message}
           />
-          <button className="bg-black text-white px-5 py-2 rounded-full" onClick={handleSendMessage}>Send</button>
+          <button className="bg-black text-white px-3 xl:px-5 py-1 xl:py-2 rounded-full text-sm xl:text-base font-normal" onClick={handleSendMessage}>Send</button>
         </div>
       </div>
     </div>

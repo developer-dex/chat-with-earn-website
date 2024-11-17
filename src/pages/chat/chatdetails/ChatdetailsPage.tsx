@@ -1,13 +1,12 @@
 import React, { useContext, useEffect, useState } from "react";
 import ChatBox from "../../../components/chat/chatbox/ChatBox";
 import PublicLayout from "../../../layouts/PublicLayout";
-import { useLocation } from "react-router-dom";
+import { NavLink, useLocation } from "react-router-dom";
 import { UserListResponseData } from "../../../features/chat/fetchUserListSlice";
 import { UserMessagesThreadResponseData } from "../../../features/chat/fetchUserMessagesThreadSlice";
 import { SocketContext } from "../../../socket/socket";
 import { useAppDispatch } from "../../../app/hooks";
-import { fetchUserProfileData } from "../../../features/user/userProfileSlice";
-import { setLocalStorageItem } from "../../../config/localStorage";
+import { IoMdArrowRoundBack } from "react-icons/io";
 
 const ChatDetailsPage = () => {
     const location = useLocation();
@@ -40,8 +39,11 @@ const ChatDetailsPage = () => {
         <PublicLayout>
     <div className="mt-5 px-4 md:px-0 min-h-[calc(100vh-194px)] lg:max-h-[calc(100vh-205px)] lg:min-h-[calc(100vh-205px)] h-full pb-5 md:pb-0">
       <div className="flex lg:hidden flex-col w-full gap-3 max-w-full lg:max-w-[1222px]">
-        <div className="border-[0.5px] border-light-gray-400 w-full rounded-md md:rounded-3xl px-4 py-4 bg-white bg-opacity-5 shadow-profileFormShadow h-max">
-          <div className="flex flex-row gap-2.5 items-center">
+        <div className="border-[0.5px] border-light-gray-400 w-full rounded-md md:rounded-3xl px-4 py-4 bg-white bg-opacity-5 shadow-profileFormShadow h-max flex flex-row gap-4">
+          
+              
+              <NavLink to={"/"}>
+              <IoMdArrowRoundBack className="w-5 h-5 cursor-pointer"/></NavLink><div className="flex flex-row gap-2.5 items-center">
             <img
               src={"/"}
               alt="profile"

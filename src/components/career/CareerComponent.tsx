@@ -73,7 +73,7 @@ const CareerComponent = () => {
 
   return (
     <div className="w-full h-full flex flex-col xl:flex-row gap-7">
-      <div className="w-full xl:w-1/2 h-full  ">
+      <div className="w-full xl:w-1/2 h-full">
         <div className="border-0 md:border-[0.5px] border-light-gray-400 rounded-none md:rounded-[10px]   shadow-profileFormShadow overflow-hidden  h-full  min-h-[calc(100vh-194px)] lg:max-h-[calc(100vh-205px)] lg:min-h-[calc(100vh-205px)]">
           <div className="w-full px-4 py-3 md:py-5">
             <div className="flex flex-row gap-3 py-2 px-4 items-center bg-white border border-gray-400 rounded-3xl ">
