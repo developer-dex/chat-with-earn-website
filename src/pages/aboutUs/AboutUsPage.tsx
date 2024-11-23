@@ -1,10 +1,13 @@
 import React from "react";
 import PublicLayout from "../../layouts/PublicLayout";
+import AboutUsComponent from "../../components/common/aboutUs/aboutUs";
 
 const AboutUsPage = () => {
   return (
     <PublicLayout>
-      <h1 className="py-24 flex justify-center items-center text-4xl text-black font-semibold">Coming Soon</h1>
+      <div>
+        <AboutUsComponent/>
+      </div>
     </PublicLayout>
   );
 };

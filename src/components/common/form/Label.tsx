@@ -14,7 +14,7 @@ const Label: React.FC<LabelProps> = ({
   className = '', 
 }) => {
   return (
-    <label htmlFor={htmlFor} className={`font-normal text-base leading-6 text-black-100 font-poppins ${className}`}>
+    <label htmlFor={htmlFor} className={`font-normal text-sm md:text-base leading-5 md:leading-6 text-black-100 font-poppins ${className}`}>
       {text}
     </label>
   );

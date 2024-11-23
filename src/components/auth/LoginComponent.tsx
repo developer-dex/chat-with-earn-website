@@ -19,8 +19,12 @@ import { showError, showSuccess } from "../../helpers/messageHelper";
 
 const loginValidationSchema = yup
   .object({
-    email: yup.string()
-      .matches(/^[A-Za-z0-9._+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,3}$/, "Please enter a valid email address.")
+    email: yup
+      .string()
+      .matches(
+        /^[A-Za-z0-9._+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,3}$/,
+        "Please enter a valid email address."
+      )
       .email("Please enter a valid email address")
       .required("Email cannot be blank!"),
     password: yup.string().required("Password is required!"),
@@ -31,7 +35,7 @@ type FormData = yup.InferType<typeof loginValidationSchema>;
 
 export default function LoginComponent() {
   const dispatch = useAppDispatch();
-  const navigate = useNavigate()
+  const navigate = useNavigate();
 
   const {
     register,
@@ -52,26 +56,32 @@ export default function LoginComponent() {
       setSession(responseData.authorization_token);
       reset();
       showSuccess(responseMessage);
-      navigate('/chat');
+      navigate("/chat");
     } else {
       showError(responseMessage);
     }
   };
 
   return (
-    <div className="flex flex-row min-h-screen relative bg-light-gray-200  gap-10 py-4 px-6 w-full h-full">
-      <form className="w-[55%] pl-16 h-auto" onSubmit={handleSubmit(doSubmit)}>
-        <div className="flex flex-col justify-between  max-w-[592px] w-full h-full">
-          <div className="flex flex-col w-full">
-            <Logo width={110} height={110} />
-            <div className="w-full flex flex-col gap-[30px] mt-[50px] items-start">
+    <div className="flex flex-col-reverse lg:flex-row min-h-screen relative bg-light-gray-200 gap-5 md:gap-10 py-0 md:py-3 lg:py-4 px-0 md:px-3 lg:px-6 w-full h-full">
+      <form
+        className="w-full lg:w-1/2 xl:w-[55%] pl-0 xl:pl-16   h-full md:h-auto"
+        onSubmit={handleSubmit(doSubmit)}
+      >
+        <div className="flex flex-col justify-between max-w-full   lg:max-w-[450px] xl:max-w-[512px] w-full h-full px-6 md:px-14 lg:px-0">
+          <div className="flex flex-col w-full items-center md:items-start justify-center">
+            <div className="w-full  flex justify-center items-center">
+              <Logo width={110} height={110} className={"w-[68px] h-[68px] md:w-[110px] md:h-[110px] "} />
+            </div>
+
+            <div className="w-full flex flex-col gap-5 md:gap-[30px] mt-6 md:mt-[50px] items-start">
               <div className="w-full flex flex-col">
                 <Label htmlFor="email" text="User Name" />
                 <Input
                   type="text"
                   placeholder="Enter Your Email"
                   id="email"
-                  className="mt-3"
+                  className="mt-2 md:mt-3"
                   {...register("email")}
                   onBlur={(e: React.ChangeEvent<HTMLInputElement>) => {
                     const value = e.target.value;
@@ -101,7 +111,7 @@ export default function LoginComponent() {
                   type="password"
                   placeholder="Enter Your Password"
                   id="password"
-                  className="mt-3"
+                  className="mt-2 md:mt-3"
                   {...register("password")}
                   onChange={(e) => {
                     setValue("password", e.target.value);
@@ -124,25 +134,33 @@ export default function LoginComponent() {
                     {errors.password.message}
                   </span>
                 )}
-                <NavLink to="/forgot-password" className="text-gray-300 w-full text-end text-base leading-6 font-normal mt-4 font-poppins">Forgot Password?</NavLink>
+                <NavLink
+                  to="/forgot-password"
+                  className="text-gray-300 w-full text-end text-sm md:text-base leading-6 font-normal mt-4 font-poppins"
+                >
+                  Forgot Password?
+                </NavLink>
               </div>
             </div>
           </div>
-          <div className="flex flex-row items-center w-full justify-between mb-10">
+          <div className="flex flex-row items-center w-full mt-16 md:mt-20 lg:mt-0 justify-between gap-6 lg:gap-0 mb-5 md:mb-10">
+            <CustomButton
+              type="submit"
+              className="button__outline w-1/2 lg:w-[200px]"
+            >
+              Sign in
+            </CustomButton>
             <CustomButton
               type="button"
               onClick={() => navigate("/sign-up")}
-              className="button__contained w-[235px]"
+              className="button__contained w-1/2 lg:w-[200px]"
             >
               Sign Up
-            </CustomButton>
-            <CustomButton type="submit" className="button__outline w-[235px]">
-              Sign in
             </CustomButton>
           </div>
         </div>
       </form>
-      <div className="relative w-[45%] h-auto bg-black rounded-t-[20px] rounded-br-[20px] rounded-bl-[96px] py-16">
+      <div className="relative w-full lg:w-1/2 xl:w-[45%] h-auto bg-black md:rounded-t-[20px]  md:rounded-br-[20px] rounded-none md:rounded-bl-[96px] py-5 sm:py-10 md:py-16">
         <Slider>
           <SliderContentCard
             title="Earn Money"

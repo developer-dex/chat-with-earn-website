@@ -20,16 +20,17 @@ h1 {
 }
 
 .button__contained {
-  @apply bg-primary border border-primary py-3 px-5 rounded-md font-semibold text-lg leading-7 text-white shadow-buttonShadow hover:bg-opacity-90;
+  @apply bg-primary border border-primary  py-2 md:py-3 px-5 rounded-md font-semibold text-sm md:text-lg leading-5 md:leading-7 text-white shadow-buttonShadow hover:bg-opacity-90;
 }
 
 .button__outline {
-  @apply bg-transparent border border-primary py-3 px-5 rounded-md font-semibold text-lg leading-7 text-primary shadow-buttonShadow hover:bg-opacity-90; 
+  @apply bg-transparent border border-primary py-2 md:py-3 px-5 rounded-md font-semibold text-sm md:text-lg leading-5 md:leading-7 text-primary shadow-buttonShadow hover:bg-opacity-90; 
 }
 
 
 ::-webkit-scrollbar {
   width: 5px;
+  height: 5px;
 }
 
 /* Track */
@@ -50,3 +51,31 @@ h1 {
   @apply bg-black bg-opacity-80 cursor-pointer;
 }
 
+
+.table__scroll::-webkit-scrollbar{
+  width: 4px;
+  height: 4px;
+}
+.table__scroll::-webkit-scrollbar-track {
+  background: transparent;
+  width: 0px;
+  border-radius: 0px;
+}
+
+
+.table-responsive{
+  height: 100%;
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+}
+
+
+@media only screen and (max-width: 768px) {
+  .chatwithmeet__container{
+    max-width: 1672px;
+    width: 100%;
+    padding: 0px;
+    margin: 0 auto;
+}
+}

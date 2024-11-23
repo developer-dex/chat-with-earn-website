@@ -5,7 +5,7 @@ import PublicLayout from '../../layouts/PublicLayout'
 const ProfilePage = () => {
   return (
     <PublicLayout>
-    <div className="py-5 h-auto">
+    <div className="py-5 h-auto px-4 md:px-0">
       <ProfileComponent />
     </div>
   </PublicLayout>

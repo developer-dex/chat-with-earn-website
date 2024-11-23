@@ -7,6 +7,7 @@ interface LogoProps {
   alt?: string;
   width?: number;
   height?: number;
+  className?: string;
 }
 
 const Logo: React.FC<LogoProps> = ({
@@ -14,10 +15,11 @@ const Logo: React.FC<LogoProps> = ({
   alt = "logo",
   width = 144,
   height = 144,
+  className
 }) => {
   return (
-    <NavLink to={"/"} className="w-full h-max">
-      <img src={src} alt={alt} width={width} height={height} />
+    <NavLink to={"/"} className="w-full h-max flex justify-center items-center">
+      <img src={src} alt={alt} width={width} height={height} className={className} />
     </NavLink>
   );
 };

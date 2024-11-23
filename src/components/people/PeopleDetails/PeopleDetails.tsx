@@ -1,13 +1,13 @@
 import { useNavigate } from "react-router-dom";
 import ProfileImage from "../../../assets/images/profile.png";
 import Label from "../../common/form/Label";
+import CustomButton from "../../common/form/Button";
 
 type IProps = {
   data: any;
 };
 
 const PeopleDetails = ({ data }: IProps) => {
-
   const navigate = useNavigate();
 
   const onChatClick = () => {
@@ -15,37 +15,69 @@ const PeopleDetails = ({ data }: IProps) => {
   };
 
   return (
-    <div className="border-[0.5px] border-light-gray-400 rounded-[10px] px-[30px] py-8 shadow-profileFormShadow h-full">
-      <div>
-        <div className="flex flex-row items-center gap-6">
-          <img src={ProfileImage} alt="profile" width={60} height={60} />
-          <h4>{data.first_name} {data.last_name}</h4>
+    <div className="border-[0.5px] border-light-gray-400 rounded-[10px] flex flex-col overflow-auto justify-between px-6 py-6 shadow-profileFormShadow h-full max-h-[calc(100vh-164px)] min-h-[calc(100vh-164px)] lg:max-h-[calc(100vh-195px)] lg:min-h-[calc(100vh-195px)]">
+      <div className="flex flex-col gap-4">
+        <div className="flex flex-row items-center gap-4">
+          <img src={ProfileImage} alt="profile" width={75} height={75} />
+          <h4 className="font-semibold text-xl">
+            {data.first_name} {data.last_name}
+          </h4>
         </div>
-        <div className="w-full mt-9">
-          <div className="grid grid-cols-2 gap-x-10 gap-y-6">
-            <div className="w-full flex flex-col">
-              <Label htmlFor="fullName" text="Full Name: " />
-              {data.first_name} {data.last_name}
+        <div className="w-full mt-6">
+          <div className="grid grid-cols-1 gap-x-10 gap-y-6">
+            <div className="w-full flex flex-row gap-2.5">
+              <Label
+                htmlFor="fullName"
+                text="Full Name : "
+                className="!text-lg font-semibold !leading-5"
+              />
+              <p className="text-lg font-normal leading-5">
+                {data.first_name} {data.last_name}
+              </p>
             </div>
-            <div>
-              <Label htmlFor="area" text="Area: " />
-              {data.area}
+            <div className="w-full flex flex-row gap-2.5">
+              <Label
+                htmlFor="area"
+                text="Area : "
+                className="!text-lg font-semibold !leading-5"
+              />
+              <p className="text-lg font-normal leading-5">{data.area}</p>
             </div>
-            <div>
-              <Label htmlFor="collage" text="Collage: " />
-              {data.collage}
+            <div className="w-full flex flex-row gap-2.5">
+              <Label
+                htmlFor="collage"
+                text="Collage : "
+                className="!text-lg font-semibold !leading-5"
+              />
+              <p className="text-lg font-normal leading-5">{data.collage}</p>
             </div>
-            <div>
-              <Label htmlFor="gender" text="Gender: " />
-              {data.gender}
+            <div className="w-full flex flex-row gap-2.5">
+              <Label
+                htmlFor="gender"
+                text="Gender : "
+                className="!text-lg font-semibold !leading-5"
+              />
+              <p className="text-lg font-normal leading-5">{data.gender}</p>
             </div>
-            <div>
-              <Label htmlFor="age" text="Age: " />
-              {data.age}
+            <div className="w-full flex flex-row gap-2.5">
+              <Label
+                htmlFor="age"
+                text="Age : "
+                className="!text-lg font-semibold !leading-5"
+              />
+              <p className="text-lg font-normal leading-5">{data.age}</p>
             </div>
           </div>
         </div>
-        <button className="bg-black text-white px-5 py-2.5 rounded-3xl w-full mt-5" onClick={onChatClick}>Chat</button>
+      </div>
+
+      <div className="w-full mt-5">
+        <CustomButton
+          className="bg-black text-white px-5 py-3 rounded-3xl w-full text-xl "
+          onClick={onChatClick}
+        >
+          Chat
+        </CustomButton>
       </div>
     </div>
   );
