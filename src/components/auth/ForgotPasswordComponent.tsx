@@ -7,7 +7,6 @@ import { AppDispatch } from "../../app/store";
 import { forgotPasswordData } from "../../features/auth/forgotPasswordSlice";
 import { showSuccess } from "../../helpers/messageHelper";
 import CustomButton from "../common/form/Button";
-import { NavLink } from "react-router-dom";
 import Slider from "../common/slider/Slider";
 import SliderContentCard from "../common/sliderContentCard/SliderContentCard";
 import slideImage from "./../../assets/images/photorealistic-money-concept 1.png";

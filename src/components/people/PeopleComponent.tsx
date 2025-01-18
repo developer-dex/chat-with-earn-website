@@ -36,14 +36,19 @@ const PeopleComponent = () => {
 
   useEffect(() => {
     getUserList();
-  }, [searchText, filterValues]);
+  }, [searchText]);
 
   useEffect(() => {
     setSelectedUser(responseData.people[0]);
   }, [responseData.people]);
 
   const getUserList = async () => {
-    await dispatch(fetchPeopleListData({ searchText, page, limit: 10, age: filterValues.age, gender: filterValues.gender, area: filterValues.area, collage: filterValues.college }));
+    await dispatch(fetchPeopleListData({ searchText, page, limit: 10000, age: filterValues.age, gender: filterValues.gender, area: filterValues.area, collage: filterValues.college }));
+  };
+
+  const handleFilterSubmit = () => {
+    getUserList();
+    setIsFilterOpen(false);
   };
 
   const columns = [
@@ -52,20 +57,19 @@ const PeopleComponent = () => {
       accessorKey: "id",
       cell: ({ row }: any) => (
         <>
-       
-        <div className="hidden lg:flex flex-row items-center gap-3 cursor-pointer" onClick={() => setSelectedUser(row.original)}>
-        <img src={personImage} alt="person" height={45} width={45} className="w-[30px] md:w-[45px] h-[30px]  md:h-[45px]" />
-          <h4 className="text-black text-opacity-50 font-medium text-sm md:text-base leading-5 group-hover:text-opacity-100">
-            {row.original.first_name} {row.original.last_name}
-          </h4>
-        </div>
-         <NavLink to={`/people/personal-details/${row?.original?.user_id}`} className="flex lg:hidden flex-row items-center gap-3 cursor-pointer min-w-max" >
-         <img src={personImage} alt="person" height={45} width={45} className="w-[30px] md:w-[45px] h-[30px]  md:h-[45px]"  />
-         <h4 className="text-black text-opacity-50 font-medium text-sm md:text-base leading-5 group-hover:text-opacity-100">
-           {row.original.first_name} {row.original.last_name}
-         </h4>
+          <div className="hidden lg:flex flex-row items-center gap-3 cursor-pointer" onClick={() => setSelectedUser(row.original)}>
+            <img src={row.original.profile_picture} alt="person" height={45} width={45} className="w-[30px] md:w-[45px] h-[30px]  md:h-[45px] bg-slate-200 rounded-full" />
+            <h4 className="text-black text-opacity-50 font-medium text-sm md:text-base leading-5 group-hover:text-opacity-100">
+              {row.original.first_name} {row.original.last_name}
+            </h4>
+          </div>
+          <NavLink to={`/people/personal-details/${row?.original?.user_id}`} className="flex lg:hidden flex-row items-center gap-3 cursor-pointer min-w-max" >
+            <img src={personImage} alt="person" height={45} width={45} className="w-[30px] md:w-[45px] h-[30px]  md:h-[45px]" />
+            <h4 className="text-black text-opacity-50 font-medium text-sm md:text-base leading-5 group-hover:text-opacity-100">
+              {row.original.first_name} {row.original.last_name}
+            </h4>
           </NavLink>
-          </>
+        </>
       ),
     },
     {
@@ -119,9 +123,8 @@ const PeopleComponent = () => {
               />
             </div>
           </div>
-          <div className="h-full  pb-5 md:pb-0  max-h-[calc(100vh-220px)] min-h-[calc(100vh-220px)] md:max-h-[calc(100vh-280px)] md:min-h-[calc(100vh-280px)] overflow-scroll"> 
-
-          <ReactTable data={responseData.people || []} columns={columns} />
+          <div className="h-full  pb-5 md:pb-0  max-h-[calc(100vh-220px)] min-h-[calc(100vh-220px)] md:max-h-[calc(100vh-280px)] md:min-h-[calc(100vh-280px)] overflow-scroll">
+            <ReactTable data={responseData.people || []} columns={columns} />
           </div>
           {isFilterOpen && (
             <div className="absolute inset-0 bg-white bg-opacity-70 mt-[60px] md:mt-[75px] pt-2.5 pl-2.5 pr-2.5 md:pr-0 overflow-auto md:overflow-y-hidden md:pl-5 rounded-none md:rounded-[10px]  ">
@@ -129,7 +132,7 @@ const PeopleComponent = () => {
                 className=" inset-0 left-0 "
                 onClick={() => setIsFilterOpen(false)}
               ></div>
-              <Filter filterValues={filterValues} setFilterValues={setFilterValues} setIsFilterOpen={setIsFilterOpen} />
+              <Filter filterValues={filterValues} setFilterValues={setFilterValues} setIsFilterOpen={setIsFilterOpen} handleFilterSubmit={handleFilterSubmit} />
             </div>
           )}
         </div>

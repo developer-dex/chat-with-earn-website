@@ -1,4 +1,3 @@
-import React from "react";
 import PublicLayout from "../../layouts/PublicLayout";
 import PeopleComponent from "../../components/people/PeopleComponent";
 

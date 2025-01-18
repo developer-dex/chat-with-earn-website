@@ -3,26 +3,24 @@ import { getApi } from "../../services/api";
 import { apiEndPoints } from "../../config/path";
 
 export type UserProfileResponseData = {
-  data?: {
-    _id: string;
-    first_name: string;
-    last_name: string;
-    email: string;
-    mobile_number: string;
-    dob: string;
-    age: number;
-    profile_picture: string;
-    password: string;
-    collage_name: string | null;
-    area: string;
-    block_by_admin: boolean;
-    block_at: string | null;
-    is_active: boolean;
-    take_subscription: boolean;
-    deletedAt: string | null;
-    createdAt: string;
-    updatedAt: string;
-  };
+    _id?: string;
+    first_name?: string;
+    last_name?: string;
+    email?: string;
+    mobile_number?: string;
+    dob?: string;
+    age?: number;
+    profile_picture?: string;
+    password?: string;
+    collage_name?: string | null;
+    area?: string;
+    block_by_admin?: boolean;
+    block_at?: string | null;
+    is_active?: boolean;
+    take_subscription?: boolean;
+    deletedAt?: string | null;
+    createdAt?: string;
+    updatedAt?: string;
 };
 
 type FetchUserProfileState = {
@@ -62,7 +60,7 @@ export const fetchUserProfileDataSlice = createSlice({
         state.isLoading = false;
         state.isSuccess = true;
         state.responseCode = payload?.status;
-        state.responseData = payload.data.responseData;
+        state.responseData = payload.data.responseData.profileData;
       })
       .addCase(fetchUserProfileData.rejected, (state) => {
         state.isLoading = false;

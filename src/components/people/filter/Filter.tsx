@@ -1,3 +1,4 @@
+import { ageOptions, areaOptions, colleageOptions, genderOptions } from "../../../helpers/constants";
 import CustomButton from "../../common/form/Button";
 import Label from "../../common/form/Label";
 import SelectBox from "../../common/form/SelectBox";
@@ -7,25 +8,14 @@ interface IProps {
   filterValues: filterValuesType;
   setFilterValues: React.Dispatch<React.SetStateAction<filterValuesType>>;
   setIsFilterOpen: React.Dispatch<React.SetStateAction<boolean>>;
+  handleFilterSubmit: () => void;
 }
 
-const Filter = ({ filterValues, setFilterValues, setIsFilterOpen }: IProps) => {
-
-  const ageOptions = Array.from({ length: 41 }, (_, i) => ({
-    value: (10 + i).toString(),
-    label: (10 + i).toString(),
-  }));
-
-  const otherOptions = [
-    { value: "option1", label: "Option 1" },
-    { value: "option2", label: "Option 2" },
-    { value: "option3", label: "Option 3" },
-  ];
-
+const Filter = ({ filterValues, setFilterValues, setIsFilterOpen, handleFilterSubmit }: IProps) => {
 
   const handleSubmit = (e: any) => {
     e.preventDefault();
-    console.log(filterValues);
+    handleFilterSubmit();
   };
 
   const handleSelectChange = (field: string, value: any) => {
@@ -54,7 +44,7 @@ const Filter = ({ filterValues, setFilterValues, setIsFilterOpen }: IProps) => {
               <div className="w-full">
                 <Label htmlFor="gender" text="Gender" />
                 <SelectBox
-                  options={otherOptions}
+                  options={genderOptions}
                   onChange={(value) => handleSelectChange("gender", value)}
                   placeholder="Select gender"
                   className="mt-1.5 !text-gray-300"
@@ -64,7 +54,7 @@ const Filter = ({ filterValues, setFilterValues, setIsFilterOpen }: IProps) => {
               <div className="w-full">
                 <Label htmlFor="area" text="Area" />
                 <SelectBox
-                  options={otherOptions}
+                  options={areaOptions}
                   onChange={(value) => handleSelectChange("area", value)}
                   placeholder="Select area"
                   className="mt-1.5 !text-gray-300"
@@ -74,7 +64,7 @@ const Filter = ({ filterValues, setFilterValues, setIsFilterOpen }: IProps) => {
               <div className="w-full">
                 <Label htmlFor="college" text="College" />
                 <SelectBox
-                  options={otherOptions}
+                  options={colleageOptions}
                   onChange={(value) => handleSelectChange("college", value)}
                   placeholder="Select college"
                   className="mt-1.5 !text-gray-300"

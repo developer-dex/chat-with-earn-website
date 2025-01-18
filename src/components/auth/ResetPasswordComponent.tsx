@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { useNavigate, useParams } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
@@ -50,7 +50,6 @@ export default function ResetPasswordComponent() {
   });
   const [message, setMessage] = useState<string>("");
   const { token } = useParams();
-  const navigate = useNavigate();
   const dispatch = useDispatch();
 
   useEffect(() => {
@@ -60,7 +59,6 @@ export default function ResetPasswordComponent() {
   const {
     register,
     handleSubmit,
-    reset,
     clearErrors,
     setError,
     setValue,
@@ -82,6 +80,7 @@ export default function ResetPasswordComponent() {
   };
 
   const doSubmit = async (values: FormData) => {
+    console.log('values', values)
     // const formData = {
     //   token,
     //   password: values.new_password

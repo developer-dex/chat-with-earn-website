@@ -2,7 +2,7 @@ import axios from "axios";
 // import { refreshTokenAPI } from "./api";
 import { EXPIRED, UNAUTHORIZED } from "../config/httpStatusCodes";
 import { config } from "../config/config";
-import { clearSession, setLocalStorageItem } from "../config/localStorage";
+import { clearSession } from "../config/localStorage";
 
 const instance = axios.create({
   baseURL: config.apiBaseUrl,

@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import Label from "../../../components/common/form/Label";
 import CustomButton from "../../../components/common/form/Button";
 import { NavLink, useNavigate } from "react-router-dom";

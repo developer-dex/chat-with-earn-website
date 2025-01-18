@@ -9,9 +9,10 @@ interface IProps {
   selectedUser: UserListResponseData | null;
   messageThread: any[];
   setMessageThread: React.Dispatch<React.SetStateAction<any[]>>;
+  getUserList: () => Promise<void>;
 }
 
-const ChatBox = ({ selectedUser, messageThread, setMessageThread }: IProps) => {
+const ChatBox = ({ selectedUser, messageThread, setMessageThread, getUserList }: IProps) => {
 
   const socketContext = useContext(SocketContext);
 
@@ -29,9 +30,10 @@ const ChatBox = ({ selectedUser, messageThread, setMessageThread }: IProps) => {
   });
 
   const handleSendMessage = () => {
-    socketContext.socket?.emit("sendMessage", { senderId: userData?._id, receiverId: selectedUser?._id, message });
+    socketContext.socket?.emit("sendMessage", { senderId: userData?._id, receiverId: selectedUser?._id || selectedUser?.user_id, message });
     setMessage("");
     setMessageThread([...messageThread, { senderId: userData?._id, receiverId: selectedUser?._id, message }]);
+    getUserList();
   };
 
 
@@ -66,7 +68,9 @@ const ChatBox = ({ selectedUser, messageThread, setMessageThread }: IProps) => {
             onChange={(e) => setMessage(e.target.value)}
             value={message}
           />
-          <button className="bg-black text-white px-3 xl:px-5 py-1 xl:py-2 rounded-full text-sm xl:text-base font-normal flex flex-row items-center gap-1.5" onClick={handleSendMessage}>Send <MdSend className="text-lg "/></button>
+          <button className="bg-black text-white px-3 xl:px-5 py-1 xl:py-2 rounded-full text-sm xl:text-base font-normal flex flex-row items-center gap-1.5" onClick={handleSendMessage}>
+            Send <MdSend className="text-lg " />
+          </button>
         </div>
       </div>
     </div>

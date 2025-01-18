@@ -1,12 +1,14 @@
-import React from "react";
 import { yupResolver } from "@hookform/resolvers/yup";
-import { useState } from "react";
 import * as yup from "yup";
 import { useForm } from "react-hook-form";
 import Label from "../../common/form/Label";
 import Input from "../../common/form/Input";
-import SelectBox from "../../common/form/SelectBox";
-import CustomButton from "../../common/form/Button";
+import { useEffect } from "react";
+import { useAppDispatch } from "../../../app/hooks";
+import { fetchUserProfileData } from "../../../features/user/userProfileSlice";
+import { OK } from "../../../config/httpStatusCodes";
+import { setLocalStorageItem } from "../../../config/localStorage";
+
 const signUpValidationSchema = yup
   .object({
     firstname: yup
@@ -52,40 +54,46 @@ const signUpValidationSchema = yup
   })
   .required();
 const PersonalDetails = () => {
-  const [selectedOption, setSelectedOption] = useState<string>("");
 
-  const options = [
-    { value: "option1", label: "Option 1" },
-    { value: "option2", label: "Option 2" },
-    { value: "option3", label: "Option 3" },
-  ];
+  const dispatch = useAppDispatch();
+
+  useEffect(() => {
+    getUserData();
+  }, []);
+
+  const getUserData = async () => {
+    const { payload } = await dispatch(fetchUserProfileData());
+    if (payload?.data.responseCode === OK) {
+      setValue("firstname", payload.data.responseData.profileData.first_name);
+      setValue("lastname", payload.data.responseData.profileData.last_name);
+      setValue("phoneNumber", payload.data.responseData.profileData.mobile_number);
+      setValue("email", payload.data.responseData.profileData.email);
+      setValue("gender", payload.data.responseData.profileData.gender ?? "-");
+      setValue("age", payload.data.responseData.profileData.age ?? "-");
+      setValue("collage", payload.data.responseData.profileData.collage_name ?? "-");
+      setValue("area", payload.data.responseData.profileData.area ?? "-");
+      setLocalStorageItem(
+        "userData",
+        JSON.stringify(payload.data.responseData.profileData)
+      );
+    }
+  };
+
   const {
     register,
-    handleSubmit,
-    reset,
     setValue,
     watch,
     clearErrors,
     setError,
-    trigger,
     formState: { errors },
   } = useForm({
     resolver: yupResolver(signUpValidationSchema),
   });
 
   const values = watch();
-  const doSubmit = async (requestData: any) => {};
-  const handleSelectChange = (field: any, value: string) => {
-    setSelectedOption(value);
-    setValue(field, value);
-    if (!value) {
-      setError(field, { type: "manual", message: `${field} is required!` });
-    } else {
-      clearErrors(field);
-    }
-  };
+
   return (
-    <form className="w-full " onSubmit={handleSubmit(doSubmit)}>
+    <form className="w-full">
       <div className="flex flex-col w-full h-full">
         <div className="flex flex-col w-full justify-start items-start">
           <div className="w-full flex flex-col gap-4  items-start">
@@ -93,6 +101,7 @@ const PersonalDetails = () => {
               <div className="flex flex-col">
                 <Label htmlFor="firstname" text="First name" />
                 <Input
+                  disabled
                   type="text"
                   placeholder="Enter Your First Name"
                   id="firstname"
@@ -113,6 +122,7 @@ const PersonalDetails = () => {
                       clearErrors("firstname");
                     }
                   }}
+                  value={values.firstname}
                 />
                 {errors.firstname && (
                   <span className="text-red-500 text-sm leading-5 font-normal mt-2">
@@ -123,6 +133,7 @@ const PersonalDetails = () => {
               <div>
                 <Label htmlFor="lastname" text="Last name" />
                 <Input
+                  disabled
                   type="text"
                   placeholder="Enter Your Last name"
                   id="lastname"
@@ -143,6 +154,7 @@ const PersonalDetails = () => {
                       clearErrors("lastname");
                     }
                   }}
+                  value={values.lastname}
                 />
                 {errors.lastname && (
                   <span className="text-red-500 text-sm leading-5 font-normal mt-2">
@@ -153,6 +165,7 @@ const PersonalDetails = () => {
               <div>
                 <Label htmlFor="phoneNumber" text="Phone Number" />
                 <Input
+                  disabled
                   type="number"
                   placeholder="Enter Your Number"
                   id="phoneNumber"
@@ -173,6 +186,7 @@ const PersonalDetails = () => {
                       clearErrors("phoneNumber");
                     }
                   }}
+                  value={values.phoneNumber}
                 />
                 {errors.phoneNumber && (
                   <span className="text-red-500 text-sm leading-5 font-normal mt-2">
@@ -183,6 +197,7 @@ const PersonalDetails = () => {
               <div>
                 <Label htmlFor="email" text="Email Address" />
                 <Input
+                  disabled
                   type="email"
                   placeholder="Enter Your Email Address"
                   id="email"
@@ -203,6 +218,7 @@ const PersonalDetails = () => {
                       clearErrors("email");
                     }
                   }}
+                  value={values.email}
                 />
                 {errors.email && (
                   <span className="text-red-500 text-sm leading-5 font-normal mt-2">
@@ -212,20 +228,29 @@ const PersonalDetails = () => {
               </div>
               <div>
                 <Label htmlFor="gender" text="Gender" />
-                <SelectBox
-                  options={options}
-                  onChange={(value) => handleSelectChange("gender", value)}
-                  onBlur={() => {
-                    const value = watch("gender");
+                <Input
+                  disabled
+                  type="text"
+                  placeholder="Enter Your Last name"
+                  id="gender"
+                  className="mt-2.5"
+                  {...register("gender")}
+                  onChange={(e) => {
+                    setValue("gender", e.target.value);
+                    clearErrors("gender");
+                  }}
+                  onBlur={(e) => {
+                    const value = e.target.value;
                     if (!value) {
                       setError("gender", {
                         type: "manual",
-                        message: "Gender is required!",
+                        message: "Last Name is required",
                       });
+                    } else {
+                      clearErrors("gender");
                     }
                   }}
-                  placeholder="Male"
-                  className="mt-2.5"
+                  value={values.gender}
                 />
                 {errors.gender && (
                   <span className="text-red-500 text-sm leading-5 font-normal mt-2">
@@ -235,21 +260,29 @@ const PersonalDetails = () => {
               </div>
               <div>
                 <Label htmlFor="age" text="Age" />
-                <SelectBox
-                  options={options}
-                  onChange={(value) => handleSelectChange("age", value)}
-                  placeholder="age"
+                <Input
+                  disabled
+                  type="text"
+                  placeholder="Enter Your Last name"
+                  id="age"
                   className="mt-2.5"
-                  onBlur={() => {
-                    const value = watch("age");
+                  {...register("age")}
+                  onChange={(e) => {
+                    setValue("age", e.target.value);
+                    clearErrors("age");
+                  }}
+                  onBlur={(e) => {
+                    const value = e.target.value;
                     if (!value) {
                       setError("age", {
                         type: "manual",
-                        message: "Age is required!",
+                        message: "Last Name is required",
                       });
+                    } else {
+                      clearErrors("age");
                     }
                   }}
-                  defaultValue="22-8-2000"
+                  value={values.age}
                 />
                 {errors.age && (
                   <span className="text-red-500 text-sm leading-5 font-normal mt-2">
@@ -259,21 +292,29 @@ const PersonalDetails = () => {
               </div>
               <div>
                 <Label htmlFor="collage" text="Collage" />
-                <SelectBox
-                  options={options}
-                  onChange={(value) => handleSelectChange("collage", value)}
-                  onBlur={() => {
-                    const value = watch("collage");
+                <Input
+                  disabled
+                  type="text"
+                  placeholder="Enter Your Last name"
+                  id="collage"
+                  className="mt-2.5"
+                  {...register("collage")}
+                  onChange={(e) => {
+                    setValue("collage", e.target.value);
+                    clearErrors("collage");
+                  }}
+                  onBlur={(e) => {
+                    const value = e.target.value;
                     if (!value) {
                       setError("collage", {
                         type: "manual",
-                        message: "Collage is required!",
+                        message: "Last Name is required",
                       });
+                    } else {
+                      clearErrors("collage");
                     }
                   }}
-                  placeholder="collage"
-                  className="mt-2.5"
-                  defaultValue="22-8-2000"
+                  value={values.collage}
                 />
                 {errors.collage && (
                   <span className="text-red-500 text-sm leading-5 font-normal mt-2">
@@ -283,21 +324,29 @@ const PersonalDetails = () => {
               </div>
               <div>
                 <Label htmlFor="area" text="Area" />
-                <SelectBox
-                  options={options}
-                  onChange={(value) => handleSelectChange("area", value)}
-                  placeholder="area"
+                <Input
+                  disabled
+                  type="text"
+                  placeholder="Enter Your Last name"
+                  id="area"
                   className="mt-2.5"
-                  onBlur={() => {
-                    const value = watch("area");
+                  {...register("area")}
+                  onChange={(e) => {
+                    setValue("area", e.target.value);
+                    clearErrors("area");
+                  }}
+                  onBlur={(e) => {
+                    const value = e.target.value;
                     if (!value) {
                       setError("area", {
                         type: "manual",
-                        message: "Area is required!",
+                        message: "Last Name is required",
                       });
+                    } else {
+                      clearErrors("area");
                     }
                   }}
-                  defaultValue="22-8-2000"
+                  value={values.area}
                 />
                 {errors.area && (
                   <span className="text-red-500 text-sm leading-5 font-normal mt-2">
@@ -309,6 +358,7 @@ const PersonalDetails = () => {
             <div className="w-full">
               <Label htmlFor="referralCode" text="Referral Code" />
               <Input
+                disabled
                 type="text"
                 placeholder="Enter Referral a Code"
                 id="referralCode"

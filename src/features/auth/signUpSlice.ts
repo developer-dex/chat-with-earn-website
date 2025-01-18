@@ -41,20 +41,9 @@ const initialState: SignUpDataState = {
   token: "",
 };
 
-type SignUpDataValues = {
-  first_name: string;
-  last_name: string;
-  phone: string;
-  dob: string;
-  gender: string;
-  area: string;
-  collage: string;
-  email: string;
-};
-
 export const signUpData = createAsyncThunk(
   "/signUpData",
-  async (values: SignUpDataValues) => {
+  async (values: FormData) => {
     try {
       const payload = await authPostApi(apiEndPoints.SIGN_UP_PATH, values);
       return payload;

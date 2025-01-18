@@ -1,4 +1,3 @@
-import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
@@ -15,13 +14,7 @@ import { signUpData } from "../../features/auth/signUpSlice";
 import { useAppDispatch } from "../../app/hooks";
 import { OK } from "../../config/httpStatusCodes";
 import { showSuccess } from "../../helpers/messageHelper";
-
-type InitialValues = {
-  username: string;
-  email: string;
-  mobile: string;
-  password: string;
-};
+import { ageOptions, areaOptions, colleageOptions, genderOptions } from "../../helpers/constants";
 
 export type PhoneObject = {
   name: string;
@@ -30,11 +23,21 @@ export type PhoneObject = {
   format: string;
 };
 
-type FormData = yup.InferType<typeof signUpValidationSchema> &
-  Partial<InitialValues>;
+type FormData = {
+  first_name: string;
+  last_name: string;
+  phone: string;
+  age: string;
+  gender: string;
+  area: string;
+  collage: string;
+  email: string;
+  terms: boolean; // Ensure this is a boolean
+  paymentImage: FileList; // Change to remove null
+};
 
 
-const signUpValidationSchema = yup
+const signUpValidationSchema: yup.ObjectSchema<FormData> = yup
   .object({
     first_name: yup
       .string()
@@ -67,25 +70,27 @@ const signUpValidationSchema = yup
         "Please enter a valid email address."
       )
       .email("Please enter a valid email address"),
+    terms: yup
+      .boolean()
+      .oneOf([true], "You must accept the terms and conditions")
+      .required("You must accept the terms and conditions"),
+    paymentImage: yup
+      .mixed<FileList>()
+      .required("Profile image is required")
+      .test("fileSize", "File size is too large", (value: FileList | null) => {
+        if (!value) return false;
+        return value[0]?.size <= 5000000; // 5MB limit
+      })
+      .test("fileType", "Unsupported file format", (value: FileList | null) => {
+        if (!value || value.length === 0) return false;
+        return ["image/jpeg", "image/png", "image/jpg"].includes(value[0].type);
+      }),
   })
   .required();
 
 export default function SignUpComponent() {
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
-  const [selectedOption, setSelectedOption] = useState<string>("");
-
-  const options = [
-    { value: "option1", label: "Option 1" },
-    { value: "option2", label: "Option 2" },
-    { value: "option3", label: "Option 3" },
-  ];
-
-  const genderOptions = [
-    { value: "male", label: "Male" },
-    { value: "female", label: "Female" },
-    { value: "prefer-not-to-say", label: "Prefer not to say" },
-  ];
 
   const {
     register,
@@ -95,35 +100,45 @@ export default function SignUpComponent() {
     watch,
     clearErrors,
     setError,
-    trigger,
     formState: { errors },
   } = useForm<FormData>({
     resolver: yupResolver(signUpValidationSchema),
   });
 
   const doSubmit = async (requestData: FormData) => {
-    const formData = {
-      first_name: requestData.first_name,
-      last_name: requestData.last_name,
-      phone: `+91${requestData.phone}`,
-      gender: requestData.gender,
-      email: requestData.email,
-      // dob: requestData.age,
-      dob: "2000-11-28",
-      // collage: requestData.collage,
-      // area: requestData.area,
-      collage: "collage",
-      area: "area",
-    };
+    const formData = new FormData();
+    formData.append("first_name", requestData.first_name);
+    formData.append("last_name", requestData.last_name);
+    formData.append("phone", `+91${requestData.phone}`);
+    formData.append("gender", requestData.gender);
+    formData.append("email", requestData.email);
+    formData.append("dob", requestData.age);
+    formData.append("collage", requestData.collage);
+    formData.append("area", requestData.area);
+    if (requestData.paymentImage?.[0]) {
+      formData.append("paymentImage", requestData.paymentImage[0]);
+    }
+
+    // const formData = {
+    //   first_name: requestData.first_name,
+    //   last_name: requestData.last_name,
+    //   phone: `+91${requestData.phone}`,
+    //   gender: requestData.gender,
+    //   email: requestData.email,
+    //   dob: requestData.age,
+    //   collage: requestData.collage,
+    //   area: requestData.area,
+    // };
+
     const { payload } = await dispatch(signUpData(formData));
     if (payload.data.responseCode === OK) {
       showSuccess(payload.data.responseMessage);
+      navigate("/");
       reset();
     }
   };
 
   const handleSelectChange = (field: any, value: string) => {
-    setSelectedOption(value);
     setValue(field, value);
     if (!value) {
       setError(field, { type: "manual", message: `${field} is required!` });
@@ -138,7 +153,7 @@ export default function SignUpComponent() {
       <form className="w-full lg:w-1/2 xl:w-[55%] pl-0 xl:pl-16  h-full md:h-auto" onSubmit={handleSubmit(doSubmit)}>
         <div className="flex flex-col justify-between max-w-full lg:max-w-[592px] w-full h-full px-6 md:px-16 lg:px-0">
           <div className="flex flex-col w-full justify-between items-start">
-          <div className="w-full  flex justify-center items-center">
+            <div className="w-full  flex justify-center items-center">
               <Logo width={110} height={110} className={"w-[68px] h-[68px] md:w-[110px] md:h-[110px] "} />
             </div>
             <div className="w-full flex flex-col gap-5 md:gap-[30px] mt-6 md:mt-[50px] items-start">
@@ -277,7 +292,7 @@ export default function SignUpComponent() {
                         });
                       }
                     }}
-                    placeholder="Male"
+                    placeholder="Please select gender"
                     className="mt-2 md:mt-3"
                   />
                   {errors.gender && (
@@ -289,9 +304,9 @@ export default function SignUpComponent() {
                 <div>
                   <Label htmlFor="age" text="Age" />
                   <SelectBox
-                    options={options}
+                    options={ageOptions}
                     onChange={(value) => handleSelectChange("age", value)}
-                    placeholder="age"
+                    placeholder="Please select age"
                     className="mt-2 md:mt-3"
                     onBlur={() => {
                       const value = watch("age");
@@ -302,7 +317,6 @@ export default function SignUpComponent() {
                         });
                       }
                     }}
-                    defaultValue="22-8-2000"
                   />
                   {errors.age && (
                     <span className="text-red-500 text-sm leading-5 font-normal mt-2">
@@ -313,7 +327,7 @@ export default function SignUpComponent() {
                 <div>
                   <Label htmlFor="collage" text="Collage" />
                   <SelectBox
-                    options={options}
+                    options={colleageOptions}
                     onChange={(value) => handleSelectChange("collage", value)}
                     onBlur={() => {
                       const value = watch("collage");
@@ -326,7 +340,6 @@ export default function SignUpComponent() {
                     }}
                     placeholder="collage"
                     className="mt-2 md:mt-3"
-                    defaultValue="22-8-2000"
                   />
                   {errors.collage && (
                     <span className="text-red-500 text-sm leading-5 font-normal mt-2">
@@ -337,7 +350,7 @@ export default function SignUpComponent() {
                 <div>
                   <Label htmlFor="area" text="Area" />
                   <SelectBox
-                    options={options}
+                    options={areaOptions}
                     onChange={(value) => handleSelectChange("area", value)}
                     placeholder="area"
                     className="mt-2 md:mt-3"
@@ -350,7 +363,6 @@ export default function SignUpComponent() {
                         });
                       }
                     }}
-                    defaultValue="22-8-2000"
                   />
                   {errors.area && (
                     <span className="text-red-500 text-sm leading-5 font-normal mt-2">
@@ -358,15 +370,56 @@ export default function SignUpComponent() {
                     </span>
                   )}
                 </div>
+                <div>
+                  <Label htmlFor="payment" text="Payment Image" />
+                  <img id="payment" src='' alt="payment" />
+                </div>
+                <div>
+                  <Label htmlFor="paymentImage" text="Payment Image" />
+                  <input
+                    type="file"
+                    id="paymentImage"
+                    accept="image/*"
+                    className="mt-2 md:mt-3"
+                    onChange={(e) => {
+                      if (e.target.files) {
+                        setValue("paymentImage", e.target.files);
+                      } else {
+                        setValue("paymentImage", new DataTransfer().files);
+                      }
+                      clearErrors("paymentImage");
+                    }}
+                  />
+                  {errors.paymentImage && (
+                    <span className="text-red-500 text-sm leading-5 font-normal mt-2">
+                      {errors.paymentImage.message}
+                    </span>
+                  )}
+                </div>
               </div>
             </div>
-            <div className="flex flex-row items-center py-6 w-full gap-1.5 ml-0.5 mt-10 md:mt-5 lg:mt-0">
-              <input type="checkbox" className="!w-max cursor-pointer" />
-              <p className="text-gray-300 font-medium text-sm md:text-base leading-5 md:leading-6">
-                i agree the terms and Conditions
-              </p>
+            <div className="flex flex-col">
+              <div className="flex flex-row items-center pt-6 w-full gap-1.5 ml-0.5 mt-10 md:mt-5 lg:mt-0">
+                <input
+                  type="checkbox"
+                  id="terms"
+                  className="!w-max cursor-pointer"
+                  {...register("terms")}
+                />
+                <label
+                  htmlFor="terms"
+                  className="text-gray-300 cursor-pointer font-medium text-sm md:text-base leading-5 md:leading-6"
+                >
+                  I agree the terms and Conditions
+                </label>
+              </div>
+              {errors.terms && (
+                <span className="text-red-500 text-sm leading-5 font-normal mt-2">
+                  {errors.terms.message}
+                </span>
+              )}
             </div>
-            <div className="flex flex-row items-center w-full justify-between mb-5  gap-6 lg:gap-0">
+            <div className="flex flex-row items-center w-full justify-between mb-5 mt-6 gap-6 lg:gap-0">
               <CustomButton
                 type="submit"
                 className="button__contained w-1/2 lg:w-[200px]"

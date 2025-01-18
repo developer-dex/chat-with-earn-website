@@ -9,6 +9,8 @@ import { fetchUserListDataReducer } from "../features/chat/fetchUserListSlice";
 import { fetchUserProfileDataReducer } from "../features/user/userProfileSlice";
 import { fetchUserMessagesThreadDataReducer } from "../features/chat/fetchUserMessagesThreadSlice";
 import { fetchPeopleListDataReducer } from "../features/people/fethcPeopleListSlice";
+import { fetchCareerListDataReducer } from "../features/career/fetchCareerListSlice";
+import { updateMessageDataReducer } from "../features/chat/updateMessageDataSlice";
 
 const store = configureStore({
   reducer: combineReducers({
@@ -27,6 +29,10 @@ const store = configureStore({
     fetchUserMessagesThreadDataReducer: fetchUserMessagesThreadDataReducer,
 
     fetchPeopleListDataReducer: fetchPeopleListDataReducer,
+
+    fetchCareerListDataReducer: fetchCareerListDataReducer,
+
+    updateMessageDataReducer: updateMessageDataReducer,
   }),
   middleware: getDefaultMiddleware =>
     getDefaultMiddleware({

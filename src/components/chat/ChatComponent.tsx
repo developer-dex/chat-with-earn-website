@@ -2,7 +2,7 @@ import ChatSidebar from "./chatSidebar/ChatSidebar";
 import ChatBox from "./chatbox/ChatBox";
 import { useContext, useEffect, useState } from "react";
 import { SocketContext } from "../../socket/socket";
-import { UserListResponseData } from "../../features/chat/fetchUserListSlice";
+import { fetchUserListData, UserListResponseData } from "../../features/chat/fetchUserListSlice";
 import { useAppDispatch } from "../../app/hooks";
 import { fetchUserProfileData } from "../../features/user/userProfileSlice";
 import { OK } from "../../config/httpStatusCodes";
@@ -20,6 +20,9 @@ const ChatComponent = () => {
   const [messageThread, setMessageThread] = useState<
     UserMessagesThreadResponseData[]
   >([]);
+  const [userList, setUserList] = useState<UserListResponseData[]>([]);
+  const [searchText, setSearchText] = useState<string>("");
+
   const socketContext = useContext(SocketContext);
 
   const dispatch = useAppDispatch();
@@ -44,6 +47,13 @@ const ChatComponent = () => {
     }
   }, []);
 
+  const getUserList = async () => {
+    const { payload } = await dispatch(fetchUserListData(searchText));
+    if (payload.status === OK) {
+      setUserList(payload.data.responseData);
+    }
+  };
+
   return (
     <div className="flex flex-row gap-6 xl:gap-10 h-full">
       <div className="max-w-full lg:max-w-[409px] w-full ">
@@ -51,6 +61,10 @@ const ChatComponent = () => {
           selectedUser={selectedUser}
           setSelectedUser={setSelectedUser}
           setMessageThread={setMessageThread}
+          getUserList={getUserList}
+          userList={userList}
+          searchText={searchText}
+          setSearchText={setSearchText}
         />
       </div>
       {selectedUser && (
@@ -61,6 +75,7 @@ const ChatComponent = () => {
               <img
                 src={selectedUser?.profile_picture}
                 alt="profile"
+                className="bg-slate-200 rounded-full"
                 width={50}
                 height={50}
               />
@@ -79,11 +94,12 @@ const ChatComponent = () => {
               selectedUser={selectedUser}
               messageThread={messageThread}
               setMessageThread={setMessageThread}
+              getUserList={getUserList}
             />
           </div>
         </div>
       )}
-      {!selectedUser &&   <div className="border-[0.5px] border-light-gray-400 w-full rounded-3xl px-1.5 sm:px-4 py-4 bg-white bg-opacity-5 shadow-profileFormShadow h-full min-h-[calc(100vh-194px)] max-h-[calc(100vh-194px)] lg:max-h-[calc(100vh-205px)] lg:min-h-[calc(100vh-205px)] hidden lg:flex item-center justify-center"><p className="text-xl font-bold leading-9">No data Found!</p></div>}
+      {!selectedUser && <div className="border-[0.5px] border-light-gray-400 w-full rounded-3xl px-1.5 sm:px-4 py-4 bg-white bg-opacity-5 shadow-profileFormShadow h-full min-h-[calc(100vh-194px)] max-h-[calc(100vh-194px)] lg:max-h-[calc(100vh-205px)] lg:min-h-[calc(100vh-205px)] hidden lg:flex item-center justify-center"><p className="text-xl font-bold leading-9">No data Found!</p></div>}
     </div>
   );
 };

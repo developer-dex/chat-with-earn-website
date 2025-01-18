@@ -1,6 +1,5 @@
 import { Suspense } from "react";
 import PublicHeader from "./PublicHeader";
-import PublicFooter from "./PublicFooter";
 
 type PublicLayoutProps = {
   children: React.ReactNode;

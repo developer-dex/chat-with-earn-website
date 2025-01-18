@@ -1,52 +1,52 @@
 import Input from "../common/form/Input";
 import ReactTable from "../common/table/ReactTable";
-import personImage from "../../assets/images/profile.png";
 import StatusButton from "../common/statusButton/StatusButton";
 import CareerDetails from "./careerDetails/CareerDetails";
-import { NavLink } from "react-router-dom";
+import { useAppDispatch, useAppSelector } from "../../app/hooks";
+import { useEffect, useState } from "react";
+import { fetchCareerListData } from "../../features/career/fetchCareerListSlice";
+import moment from "moment";
 
 const CareerComponent = () => {
-  const data = [
-    { id: 1, name: "Alice", status: "Online", occupation: "Engineer" },
-    { id: 2, name: "Bob", status: "Offline", occupation: "Designer" },
-    { id: 3, name: "Charlie", status: "Online", occupation: "Manager" },
-    { id: 4, name: "Daisy", status: "Offline", occupation: "Developer" },
-    { id: 5, name: "Eve", status: "Online", occupation: "Analyst" },
-    { id: 6, name: "Eve", status: "Online", occupation: "Analyst" },
-    { id: 7, name: "Eve", status: "Online", occupation: "Analyst" },
-    { id: 8, name: "Eve", status: "Online", occupation: "Analyst" },
-    { id: 9, name: "Eve", status: "Online", occupation: "Analyst" },
-    { id: 10, name: "Eve", status: "Online", occupation: "Analyst" },
 
-  ];
+  const { responseData } = useAppSelector((state) => state.fetchCareerListDataReducer);
+
+  const [searchText, setSearchText] = useState<string>("");
+  const page = 1;
+  const [selectedUser, setSelectedUser] = useState<any>();
+  const dispatch = useAppDispatch();
+
+  useEffect(() => {
+    getCareerList();
+  }, [searchText]);
+
+  useEffect(() => {
+    setSelectedUser(responseData[0]);
+  }, [responseData]);
+
+  const getCareerList = async () => {
+    await dispatch(fetchCareerListData({ searchText, page, limit: 10000 }));
+  };
 
   const columns = [
     {
       header: "Persons",
       accessorKey: "id",
-      cell: () => (
-        <>
-        <div className="hidden lg:flex flex-row items-center gap-2 md:gap-3 min-w-max">
-          <img src={personImage} alt="person" height={45} width={45} className="w-[30px] md:w-[45px] h-[30px]  md:h-[45px]" />
+      cell: ({ row }: any) => (
+        <div className="hidden lg:flex flex-row items-center gap-2 md:gap-3 min-w-max cursor-pointer" onClick={() => setSelectedUser(row.original)}>
+          <img src={row.original.profile_image} alt="person" height={45} width={45} className="w-[30px] md:w-[45px] h-[30px] md:h-[45px]" />
           <h4 className="text-black text-opacity-50 font-medium text-sm md:text-base leading-5 group-hover:text-opacity-100">
-            Sahil Nariya
+            {row.original.first_name} {row.original.last_name}
           </h4>
         </div>
-        <NavLink to="/career/career-details" className="flex lg:hidden flex-row items-center gap-2 md:gap-3 min-w-max">
-        <img src={personImage} alt="person" height={45} width={45} className="w-[30px] md:w-[45px] h-[30px]  md:h-[45px]" />
-        <h4 className="text-black text-opacity-50 font-medium text-sm md:text-base leading-5 group-hover:text-opacity-100">
-          Sahil Nariya
-        </h4>
-          </NavLink>
-          </>
       ),
     },
     {
       header: "Date",
       accessorKey: "name",
-      cell: () => (
+      cell: ({ row }: any) => (
         <p className="text-sm md:text-base leading-5 font-medium text-black text-opacity-50 group-hover:text-opacity-60 min-w-max">
-          Mar 12,2024
+          {moment(row.original.created_at).format('MMM DD, YYYY')}
         </p>
       ),
     },
@@ -55,17 +55,17 @@ const CareerComponent = () => {
       accessorKey: "status",
       cell: ({ row }: any) => (
         <StatusButton
-          status={row.original.status}
+          status={row.original.is_active}
           onClick={() => console.log(`Status of ${row.original.name} clicked!`)}
         />
       ),
     },
     {
-      header: "Amout",
+      header: "Amount",
       accessorKey: "occupation",
-      cell: () => (
+      cell: ({ row }: any) => (
         <p className="text-sm md:text-base leading-5 font-medium text-black text-opacity-50 group-hover:text-opacity-60 min-w-max">
-          + $150.29
+          {row.original.total_earnings}
         </p>
       ),
     },
@@ -79,17 +79,19 @@ const CareerComponent = () => {
             <div className="flex flex-row gap-3 py-2 px-4 items-center bg-white border border-gray-400 rounded-3xl ">
               <Input
                 className="bg-transparent border-none !p-0 text-gray-500 text-sm md:text-base leading-5 md:leading-7 font-normal"
-                placeholder="Search or start a new chat"
+                placeholder="Search..."
+                value={searchText}
+                onChange={(e) => setSearchText(e.target.value)}
               />
             </div>
           </div>
           <div className="h-full pb-5 md:pb-0 max-h-[calc(100vh-220px)] min-h-[calc(100vh-220px)] md:max-h-[calc(100vh-280px)] md:min-h-[calc(100vh-280px)] overflow-scroll table__scroll">
-            <ReactTable data={data} columns={columns} />
+            <ReactTable data={responseData} columns={columns} />
           </div>
         </div>
       </div>
       <div className="w-0 lg:w-full xl:w-1/2 h-full hidden lg:block overflow-hidden">
-        <CareerDetails />
+        <CareerDetails selectedUser={selectedUser} />
       </div>
     </div>
   );
