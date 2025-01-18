@@ -14,7 +14,9 @@ import { signUpData } from "../../features/auth/signUpSlice";
 import { useAppDispatch } from "../../app/hooks";
 import { OK } from "../../config/httpStatusCodes";
 import { showSuccess } from "../../helpers/messageHelper";
-import { ageOptions, areaOptions, colleageOptions, genderOptions } from "../../helpers/constants";
+import { areaOptions, colleageOptions, genderOptions } from "../../helpers/constants";
+import { fetchPaymentPhotoData } from "../../features/auth/paymenetPhotoSlice";
+import { useEffect, useState } from "react";
 
 export type PhoneObject = {
   name: string;
@@ -27,7 +29,7 @@ type FormData = {
   first_name: string;
   last_name: string;
   phone: string;
-  age: string;
+  dob: string;
   gender: string;
   area: string;
   collage: string;
@@ -58,7 +60,20 @@ const signUpValidationSchema: yup.ObjectSchema<FormData> = yup
         "Full name cannot have numbers & special characters."
       ),
     phone: yup.string().required("Phone Number is required"),
-    age: yup.string().required("Age Number is required"),
+    dob: yup
+      .string()
+      .required("Date of birth is required")
+      .test("age", "You must be at least 18 years old", (value) => {
+        if (!value) return false;
+        const birthDate = new Date(value);
+        const today = new Date();
+        let age = today.getFullYear() - birthDate.getFullYear();
+        const monthDiff = today.getMonth() - birthDate.getMonth();
+        if (monthDiff < 0 || (monthDiff === 0 && today.getDate() < birthDate.getDate())) {
+          age--;
+        }
+        return age >= 18;
+      }),
     gender: yup.string().required("Gender is required"),
     area: yup.string().required("Area is required"),
     collage: yup.string().required("Collage is required"),
@@ -89,6 +104,8 @@ const signUpValidationSchema: yup.ObjectSchema<FormData> = yup
   .required();
 
 export default function SignUpComponent() {
+
+  const [paymentImage, setPaymentImage] = useState<string>("");
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
 
@@ -112,7 +129,7 @@ export default function SignUpComponent() {
     formData.append("phone", `+91${requestData.phone}`);
     formData.append("gender", requestData.gender);
     formData.append("email", requestData.email);
-    formData.append("dob", requestData.age);
+    formData.append("dob", requestData.dob);
     formData.append("collage", requestData.collage);
     formData.append("area", requestData.area);
     if (requestData.paymentImage?.[0]) {
@@ -125,7 +142,7 @@ export default function SignUpComponent() {
     //   phone: `+91${requestData.phone}`,
     //   gender: requestData.gender,
     //   email: requestData.email,
-    //   dob: requestData.age,
+    //   dob: requestData.dob,
     //   collage: requestData.collage,
     //   area: requestData.area,
     // };
@@ -146,6 +163,18 @@ export default function SignUpComponent() {
       clearErrors(field);
     }
   };
+
+  const fetchPaymentPhoto = async () => {
+    const { payload } = await dispatch(fetchPaymentPhotoData());
+    if (payload.data.responseCode === OK) {
+      console.log(payload.data.responseData.qr_code_image);
+      setPaymentImage(payload.data.responseData.qr_code_image);
+    }
+  }
+
+  useEffect(() => {
+    fetchPaymentPhoto();
+  }, []);
 
 
   return (
@@ -302,25 +331,30 @@ export default function SignUpComponent() {
                   )}
                 </div>
                 <div>
-                  <Label htmlFor="age" text="Age" />
-                  <SelectBox
-                    options={ageOptions}
-                    onChange={(value) => handleSelectChange("age", value)}
-                    placeholder="Please select age"
+                  <Label htmlFor="dob" text="Date of Birth" />
+                  <Input
+                    type="date"
+                    id="dob"
+                    max={new Date().toISOString().split('T')[0]} // Prevents future dates
                     className="mt-2 md:mt-3"
-                    onBlur={() => {
-                      const value = watch("age");
+                    {...register("dob")}
+                    onChange={(e) => {
+                      setValue("dob", e.target.value);
+                      clearErrors("dob");
+                    }}
+                    onBlur={(e) => {
+                      const value = e.target.value;
                       if (!value) {
-                        setError("age", {
+                        setError("dob", {
                           type: "manual",
-                          message: "Age is required!",
+                          message: "Date of birth is required!",
                         });
                       }
                     }}
                   />
-                  {errors.age && (
+                  {errors.dob && (
                     <span className="text-red-500 text-sm leading-5 font-normal mt-2">
-                      {errors.age.message}
+                      {errors.dob.message}
                     </span>
                   )}
                 </div>
@@ -371,11 +405,11 @@ export default function SignUpComponent() {
                   )}
                 </div>
                 <div>
-                  <Label htmlFor="payment" text="Payment Image" />
-                  <img id="payment" src='' alt="payment" />
+                  <Label htmlFor="payment" text="Payment QR Code" />
+                  <img id="payment" src={paymentImage} alt="payment" />
                 </div>
                 <div>
-                  <Label htmlFor="paymentImage" text="Payment Image" />
+                  <Label htmlFor="paymentImage" text="Payment Image Proof" />
                   <input
                     type="file"
                     id="paymentImage"

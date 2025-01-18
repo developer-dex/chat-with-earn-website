@@ -11,6 +11,7 @@ import { fetchUserMessagesThreadDataReducer } from "../features/chat/fetchUserMe
 import { fetchPeopleListDataReducer } from "../features/people/fethcPeopleListSlice";
 import { fetchCareerListDataReducer } from "../features/career/fetchCareerListSlice";
 import { updateMessageDataReducer } from "../features/chat/updateMessageDataSlice";
+import { fetchPaymentPhotoDataReducer } from "../features/auth/paymenetPhotoSlice";
 
 const store = configureStore({
   reducer: combineReducers({
@@ -20,6 +21,7 @@ const store = configureStore({
     forgotPasswordReducer: forgotPasswordReducer,
     resetPasswordReducer: resetPasswordReducer,
     verifyResetPasswordTokenReducer: verifyResetPasswordTokenReducer,
+    fetchPaymentPhotoDataReducer: fetchPaymentPhotoDataReducer,
 
     contactUsDataReducer: contactUsDataReducer,
 
