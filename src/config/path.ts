@@ -10,5 +10,6 @@ export const apiEndPoints = {
     GET_MESSAGE_THREAD_PATH: "messages",
     FETCH_PEOPLE_LIST_PATH: "people",
     CAREER_PATH: "career-people-list",
-    UPDATE_MESSAGE_PATH: "message-read"
+    UPDATE_MESSAGE_PATH: "message-read",
+    UPDATE_USER_PROFILE:"update-profile"
 };

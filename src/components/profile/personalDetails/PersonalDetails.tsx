@@ -3,11 +3,13 @@ import * as yup from "yup";
 import { useForm } from "react-hook-form";
 import Label from "../../common/form/Label";
 import Input from "../../common/form/Input";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useAppDispatch } from "../../../app/hooks";
-import { fetchUserProfileData } from "../../../features/user/userProfileSlice";
+import { fetchUserProfileData, userPicture } from "../../../features/user/userProfileSlice";
 import { OK } from "../../../config/httpStatusCodes";
 import { setLocalStorageItem } from "../../../config/localStorage";
+import profile from "../../../assets/images/profile.png";
+import { MdEdit } from "react-icons/md";
 
 const signUpValidationSchema = yup
   .object({
@@ -72,6 +74,9 @@ const PersonalDetails = () => {
       setValue("age", payload.data.responseData.profileData.age ?? "-");
       setValue("collage", payload.data.responseData.profileData.collage_name ?? "-");
       setValue("area", payload.data.responseData.profileData.area ?? "-");
+      if (payload.data.responseData.profileData.profile_image) {
+        setProfileImg(payload.data.responseData.profileData.profile_image);
+      }
       setLocalStorageItem(
         "userData",
         JSON.stringify(payload.data.responseData.profileData)
@@ -91,12 +96,54 @@ const PersonalDetails = () => {
   });
 
   const values = watch();
-
+  const [selectedImage, setSelectedImage] = useState<string | null>(null); // State to store uploaded image
+  const [profileImg, setProfileImg] = useState<string | null>(null);
+  const handleImageUpload = async (event: React.ChangeEvent<HTMLInputElement>) => {
+    const file = event.target.files?.[0];
+    if (file) {
+      const reader = new FileReader();
+      reader.onload = () => {
+        setSelectedImage(reader.result as string);
+      };
+      reader.readAsDataURL(file);
+      const formData = new FormData();
+      formData.append("image", file);
+      const res = await dispatch(userPicture(formData));
+      // setProfileImg(res?.payload?.data?.responseData?.profileImageUrl ?? "");
+      // const res = await dispatch(userPicture(formData)) as any;
+      // setProfileImg(res.payload?.data?.responseData?.profileImageUrl);
+      console.log('res', res);
+    }
+  };
   return (
     <form className="w-full">
       <div className="flex flex-col w-full h-full">
         <div className="flex flex-col w-full justify-start items-start">
           <div className="w-full flex flex-col gap-4  items-start">
+            <div className="relative">
+              <img
+                src={selectedImage || profileImg || profile}
+                alt="Profile"
+                className="rounded-full border border-gray-300"
+                height={80}
+                width={80}
+                style={{ objectFit: "cover" }}
+              />
+              <button
+                type="button"
+                className="absolute bottom-0 right-0 bg-black text-white p-1 rounded-full "
+                onClick={() => document.getElementById("imageUpload")?.click()}
+              >
+                <MdEdit size={14} />
+              </button>
+              <input
+                id="imageUpload"
+                type="file"
+                accept="image/*"
+                onChange={handleImageUpload}
+                className="hidden"
+              />
+            </div>
             <div className="w-full grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-1 xl:grid-cols-2 gap-2.5 lg:gap-4">
               <div className="flex flex-col">
                 <Label htmlFor="firstname" text="First name" />

@@ -14,7 +14,7 @@ interface ProfileRoute {
 const ProfileComponent = () => {
 
   const socketContext = useContext(SocketContext);
-  
+
   const [activeTab, setActiveTab] = useState(1);
   const navigate = useNavigate();
 
@@ -55,11 +55,10 @@ const ProfileComponent = () => {
                 key={route.id}
                 onClick={() => setActiveTab(route.id)}
                 className={`text-left shadow-profileFormShadow border lg:border-b-[0.5px] border-light-gray-400 w-max    lg:w-full rounded-full lg:rounded-sm 
-                   px-3 sm:px-4 lg:px-8 py-2.5 sm:py-3 lg:py-6 font-normal text-base md:text-lg leading-5 md:leading-8 transition-all duration-300 ${
-                     activeTab === route.id
-                       ? "border-2 lg:border-l-4 xl:border-l-4 2xl:border-l-4 border-black lg:border-l-black text-black font-semibold bg-white"
-                       : "border-2 text-gray-500 lg:border-l-4  xl:border-l-4 2xl:border-l-4 lg:border-l-transparent"
-                   }`}
+                   px-3 sm:px-4 lg:px-8 py-2.5 sm:py-3 lg:py-6 font-normal text-base md:text-lg leading-5 md:leading-8 transition-all duration-300 ${activeTab === route.id
+                    ? "border-2 lg:border-l-4 xl:border-l-4 2xl:border-l-4 border-black lg:border-l-black text-black font-semibold bg-white"
+                    : "border-2 text-gray-500 lg:border-l-4  xl:border-l-4 2xl:border-l-4 lg:border-l-transparent"
+                  }`}
               >
                 {route.title}
               </button>
@@ -80,14 +79,13 @@ const ProfileComponent = () => {
           <h1 className="text-xl leading-6 text-black font-semibold">
             {profileRoutes.find((route) => route.id === activeTab)?.title}
           </h1>
-          {activeTab === 1 && (
+          {/* {activeTab === 1 && (
             <img src={profile} alt="profile" height={60} width={60} />
-          )}
+          )} */}
         </div>
         <div
-          className={`w-full ${
-            activeComponent ? "mt-5" : "mt-0"
-          } min-h-[450px] h-full flex justify-center items-center`}
+          className={`w-full ${activeComponent ? "mt-5" : "mt-0"
+            } min-h-[450px] h-full flex justify-center items-center`}
         >
           {activeComponent ? (
             activeComponent

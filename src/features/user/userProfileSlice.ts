@@ -1,5 +1,5 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
-import { getApi } from "../../services/api";
+import { getApi, patchApi, postApi } from "../../services/api";
 import { apiEndPoints } from "../../config/path";
 
 export type UserProfileResponseData = {
@@ -47,6 +47,14 @@ export const fetchUserProfileData = createAsyncThunk(
   }
 );
 
+export const userPicture = createAsyncThunk(
+  "/userPicture",
+  async (values: FormData) => {
+    const payload = await patchApi(`${apiEndPoints.UPDATE_USER_PROFILE}`, values);
+    return payload;
+  }
+)
+
 export const fetchUserProfileDataSlice = createSlice({
   name: "fetchUserProfileData",
   initialState,
@@ -66,6 +74,19 @@ export const fetchUserProfileDataSlice = createSlice({
         state.isLoading = false;
         state.isError = true;
       })
+      .addCase(userPicture.pending, (state) => {
+        state.isLoading = true;
+      })
+      .addCase(userPicture.fulfilled, (state, { payload }) => {
+        state.isLoading = false;
+        state.isSuccess = true;
+        state.responseCode = payload?.status;
+        state.responseData = payload.data.responseData.profileData;
+      })
+      .addCase(userPicture.rejected, (state) => {
+        state.isLoading = false;
+        state.isError = true;
+      });
   },
 });
 
