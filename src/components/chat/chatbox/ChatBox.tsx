@@ -38,7 +38,7 @@ const ChatBox = ({ selectedUser, messageThread, setMessageThread, getUserList }:
 
 
   return (
-    <div className="border-[0.5px] relative  border-light-gray-400 w-full rounded-md md:rounded-3xl bg-white overflow-hidden bg-opacity-5 shadow-profileFormShadow h-full min-h-[calc(100vh-194px)] max-h-[calc(100vh-194px)] lg:max-h-[calc(100vh-300px)] lg:min-h-[calc(100vh-300px)] flex flex-col justify-between  p-0 m-0">
+    <div className="border-[0.5px] relative  border-light-gray-400 w-full rounded-md md:rounded-3xl bg-white overflow-hidden bg-opacity-5 shadow-profileFormShadow h-full min-h-[calc(100vh-280px)] max-h-[calc(100vh-280px)] lg:max-h-[calc(100vh-300px)] lg:min-h-[calc(100vh-300px)] flex flex-col justify-between p-0 m-0">
       <div className="max-h-full overflow-y-auto py-4 md:py-5 px-2.5 xl:px-7">
         <div className="w-full flex justify-center items-center mb-5">
           <span className="text-black text-[10px] md:text-xs font-normal leading-3 md:leading-4 bg-light-gray-300  rounded-[14px] px-3 xl:px-6 py-3 xl:py-5 max-w-full lg:max-w-[568px] w-[568px] flex flex-row items-center gap-2.5">

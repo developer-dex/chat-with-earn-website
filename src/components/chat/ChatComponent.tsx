@@ -9,6 +9,7 @@ import { OK } from "../../config/httpStatusCodes";
 import { setLocalStorageItem } from "../../config/localStorage";
 import { UserMessagesThreadResponseData } from "../../features/chat/fetchUserMessagesThreadSlice";
 import { useLocation } from "react-router-dom";
+import ChatDetailsPage from "../../pages/chat/chatdetails/ChatdetailsPage";
 
 const ChatComponent = () => {
   const location = useLocation();
@@ -20,6 +21,7 @@ const ChatComponent = () => {
   const [messageThread, setMessageThread] = useState<
     UserMessagesThreadResponseData[]
   >([]);
+  const [isUserSelectedInMobile, setIsUserSelectedInMobile] = useState<boolean>(false);
   const [userList, setUserList] = useState<UserListResponseData[]>([]);
   const [searchText, setSearchText] = useState<string>("");
 
@@ -56,19 +58,22 @@ const ChatComponent = () => {
 
   return (
     <div className="flex flex-row gap-6 xl:gap-10 h-full">
-      <div className="max-w-full lg:max-w-[409px] w-full ">
-        <ChatSidebar
-          selectedUser={selectedUser}
-          setSelectedUser={setSelectedUser}
-          setMessageThread={setMessageThread}
-          getUserList={getUserList}
-          userList={userList}
-          searchText={searchText}
-          setSearchText={setSearchText}
-        />
-      </div>
+      {!isUserSelectedInMobile && (
+        <div className="max-w-full lg:max-w-[409px] w-full">
+          <ChatSidebar
+            selectedUser={selectedUser}
+            setSelectedUser={setSelectedUser}
+            setMessageThread={setMessageThread}
+            getUserList={getUserList}
+            userList={userList}
+            searchText={searchText}
+            setSearchText={setSearchText}
+            setIsUserSelectedInMobile={setIsUserSelectedInMobile}
+          />
+        </div>
+      )}
       {selectedUser && (
-        <div className="hidden lg:flex flex-col w-full gap-3 max-w-full lg:max-w-[1222px] pb-5 md:pb-0  ">
+        <div className="hidden lg:flex flex-col w-full gap-3 max-w-full lg:max-w-[1222px] pb-5 md:pb-0">
           <div className="border-[0.5px] border-light-gray-400 w-full rounded-3xl px-1.5 sm:px-4 py-4 bg-white bg-opacity-5 shadow-profileFormShadow h-max">
             <div></div>{" "}
             <div className="flex flex-row gap-2.5 items-center">
@@ -89,7 +94,7 @@ const ChatComponent = () => {
               </div>
             </div>
           </div>
-          <div className=" h-full">
+          <div className="h-full">
             <ChatBox
               selectedUser={selectedUser}
               messageThread={messageThread}
@@ -97,6 +102,17 @@ const ChatComponent = () => {
               getUserList={getUserList}
             />
           </div>
+        </div>
+      )}
+      {selectedUser && isUserSelectedInMobile && (
+        <div className="lg:hidden w-full">
+          <ChatDetailsPage
+            selectedUser={selectedUser}
+            messageThread={messageThread}
+            setMessageThread={setMessageThread}
+            getUserList={getUserList}
+            setIsUserSelectedInMobile={setIsUserSelectedInMobile}
+          />
         </div>
       )}
       {!selectedUser && <div className="border-[0.5px] border-light-gray-400 w-full rounded-3xl px-1.5 sm:px-4 py-4 bg-white bg-opacity-5 shadow-profileFormShadow h-full min-h-[calc(100vh-194px)] max-h-[calc(100vh-194px)] lg:max-h-[calc(100vh-205px)] lg:min-h-[calc(100vh-205px)] hidden lg:flex item-center justify-center"><p className="text-xl font-bold leading-9">No data Found!</p></div>}

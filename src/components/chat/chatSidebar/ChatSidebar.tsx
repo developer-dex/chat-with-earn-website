@@ -3,7 +3,6 @@ import { useContext, useEffect, useState } from "react";
 import { useAppDispatch } from "../../../app/hooks";
 import { UserListResponseData } from "../../../features/chat/fetchUserListSlice";
 import { fetchUserMessagesThreadData, UserMessagesThreadResponseData } from "../../../features/chat/fetchUserMessagesThreadSlice";
-import { NavLink } from "react-router-dom";
 import { SocketContext } from "../../../socket/socket";
 import { updateMessageData } from "../../../features/chat/updateMessageDataSlice";
 
@@ -15,9 +14,10 @@ interface IProps {
   searchText: string;
   setSearchText: React.Dispatch<React.SetStateAction<string>>;
   getUserList: () => Promise<void>;
+  setIsUserSelectedInMobile: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
-const ChatSidebar = ({ selectedUser, setSelectedUser, setMessageThread, userList, searchText, setSearchText, getUserList }: IProps) => {
+const ChatSidebar = ({ selectedUser, setSelectedUser, setMessageThread, userList, searchText, setSearchText, getUserList, setIsUserSelectedInMobile }: IProps) => {
 
   const socketContext = useContext(SocketContext);
 
@@ -91,9 +91,9 @@ const ChatSidebar = ({ selectedUser, setSelectedUser, setMessageThread, userList
                   )}
                 </div>
               </div>
-              <NavLink to={"/chat/chat-details"}
+              <div
                 className={`flex lg:hidden flex-row justify-between cursor-pointer hover:bg-light-gray-300 px-5 py-2.5 ${(selectedUser?._id === user._id || selectedUser?.user_id === user._id) ? "bg-light-gray-300" : ""}`}
-                onClick={() => onUserClick(user)}
+                onClick={() => {onUserClick(user); setIsUserSelectedInMobile(true);}}
               >
                 <div className="flex flex-row gap-3 items-center">
                   <img src={user.profile_picture} alt="profile" width={60} height={60} className="bg-slate-200 rounded-full" />
@@ -110,7 +110,7 @@ const ChatSidebar = ({ selectedUser, setSelectedUser, setMessageThread, userList
                     </span>
                   )}
                 </div>
-              </NavLink>
+              </div>
             </div>
           ))}
         </div>

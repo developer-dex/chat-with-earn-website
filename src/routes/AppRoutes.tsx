@@ -15,7 +15,6 @@ import HomePage from "../pages/home/HomePage";
 import AboutUsPage from "../pages/aboutUs/AboutUsPage";
 import PeopleDetails from "../pages/people/peopledetails/PeopleDetails";
 import CareerDetailsPage from "../pages/career/careerDetails/careerDetailsPage";
-import ChatDetailsPage from "../pages/chat/chatdetails/ChatdetailsPage";
 
 const AppRoutes: React.FC = () => (
   <Routes>
@@ -35,7 +34,6 @@ const AppRoutes: React.FC = () => (
       <Route path="about-us" element={<AboutUsPage />} />
       <Route path="people/personal-details/:slug" element={<PeopleDetails/>} />
       <Route path="career/career-details/" element={<CareerDetailsPage />} />
-      <Route path="chat/chat-details" element={<ChatDetailsPage/>} />
 
       
     </Route>
