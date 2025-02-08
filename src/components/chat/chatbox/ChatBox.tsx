@@ -5,6 +5,7 @@ import { SocketContext } from "../../../socket/socket";
 import { UserListResponseData } from "../../../features/chat/fetchUserListSlice";
 import { getLocalStorageItem } from "../../../config/localStorage";
 import { MdSend } from "react-icons/md";
+
 interface IProps {
   selectedUser: UserListResponseData | null;
   messageThread: any[];
@@ -16,17 +17,29 @@ const ChatBox = ({ selectedUser, messageThread, setMessageThread, getUserList }:
 
   const socketContext = useContext(SocketContext);
 
+  const ref = useRef<any>(selectedUser || null);
+
   const messagesEndRef = useRef<HTMLDivElement>(null);
   const [message, setMessage] = useState<string>("");
 
   const userData = JSON.parse(getLocalStorageItem('userData') || '');
 
   useEffect(() => {
+    ref.current = selectedUser;
+  }, [selectedUser])
+
+  useEffect(() => {
     messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
   }, [messageThread]);
 
   socketContext.socket?.on("receiveMessage", (data: any) => {
-    setMessageThread([...messageThread, { senderId: data?.senderId, receiverId: data.receiverId, message: data.message }]);
+    const isCurrentUserChat = ref.current?._id === data.senderId || ref.current?.user_id === data.senderId;
+    // const isOtherUserChat = selectedUser?._id === data.senderId || selectedUser?.user_id === data.senderId;
+  
+    if (isCurrentUserChat) {
+      setMessageThread([...messageThread, { senderId: data?.senderId, receiverId: data.receiverId, message: data.message }]);
+    }
+    getUserList();
   });
 
   const handleSendMessage = () => {
