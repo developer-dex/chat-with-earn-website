@@ -18,13 +18,19 @@ function App() {
     //     </ErrorBoundary>
     //   </BrowserRouter>
     // </>
-    <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '100vh' }}>
-    <img 
-      src="/Meet-With-Money.jpg" 
-      alt="Coming Soon" 
-      style={{ maxWidth: '50%', height: 'auto' }} 
-    />
-  </div>
+    <div style={{ 
+      display: 'flex', 
+      justifyContent: 'center', 
+      alignItems: 'center', 
+      height: '100vh', 
+      backgroundColor: '#FAFAFA'
+    }}>
+      <img 
+        src="/Meet-With-Money.jpg" 
+        alt="Coming Soon" 
+        style={{ maxWidth: '50%', height: 'auto' }} 
+      />
+    </div>
   )
 }
 
