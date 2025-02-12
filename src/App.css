@@ -1,0 +1,19 @@
+/* App.css */
+.app-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    background-color: #FAFAFA;
+  }
+  
+  .app-image {
+    max-width: 50%;
+    height: auto;
+  }
+  
+  @media (max-width: 768px) {
+    .app-image {
+      max-width: 100%; /* Adjust the size for mobile */
+    }
+  }

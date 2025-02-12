@@ -5,6 +5,8 @@
 // import ToastNotification from "./components/common/ToastNotification";
 // import { config } from "./config/config";
 
+import './App.css'; // Import the CSS file
+
 function App() {
 
   return (
@@ -18,17 +20,11 @@ function App() {
     //     </ErrorBoundary>
     //   </BrowserRouter>
     // </>
-    <div style={{ 
-      display: 'flex', 
-      justifyContent: 'center', 
-      alignItems: 'center', 
-      height: '100vh', 
-      backgroundColor: '#FAFAFA'
-    }}>
+    <div className="app-container">
       <img 
         src="/Meet-With-Money.jpg" 
         alt="Coming Soon" 
-        style={{ maxWidth: '50%', height: 'auto' }} 
+        className="app-image" 
       />
     </div>
   )
