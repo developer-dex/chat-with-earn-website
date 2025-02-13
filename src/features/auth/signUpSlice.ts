@@ -43,9 +43,26 @@ const initialState: SignUpDataState = {
 
 export const signUpData = createAsyncThunk(
   "/signUpData",
-  async (values: FormData) => {
+  async (values: any) => {
     try {
-      const payload = await authPostApi(apiEndPoints.SIGN_UP_PATH, values);
+      console.log("request values", values);
+
+      // Convert to FormData if there's a file
+      const formData = new FormData();
+      Object.keys(values).forEach((key) => {
+        // Check if paymentImage is a FileList and append the first file
+        if (key === 'paymentImage' && values.paymentImage instanceof FileList) {
+          for (let i = 0; i < values.paymentImage.length; i++) {
+            formData.append("paymentImage", values.paymentImage[i]);
+          }
+        } else {
+          formData.append(key, values[key]);
+        }
+      });
+
+      console.log("formData", formData);
+
+      const payload = await authPostApi(apiEndPoints.SIGN_UP_PATH, formData);
       return payload;
     } catch (e: any) {
       showError(e.response.data.message);

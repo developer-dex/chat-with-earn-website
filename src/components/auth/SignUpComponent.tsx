@@ -25,7 +25,7 @@ export type PhoneObject = {
   format: string;
 };
 
-type FormData = {
+type TFormData = {
   first_name: string;
   last_name: string;
   phone: string;
@@ -36,10 +36,11 @@ type FormData = {
   email: string;
   terms: boolean; // Ensure this is a boolean
   paymentImage: FileList; // Change to remove null
+  referralCode?: string;
 };
 
 
-const signUpValidationSchema: yup.ObjectSchema<FormData> = yup
+const signUpValidationSchema: yup.ObjectSchema<TFormData> = yup
   .object({
     first_name: yup
       .string()
@@ -100,6 +101,7 @@ const signUpValidationSchema: yup.ObjectSchema<FormData> = yup
         if (!value || value.length === 0) return false;
         return ["image/jpeg", "image/png", "image/jpg"].includes(value[0].type);
       }),
+    referralCode: yup.string().optional(),
   })
   .required();
 
@@ -118,11 +120,13 @@ export default function SignUpComponent() {
     clearErrors,
     setError,
     formState: { errors },
-  } = useForm<FormData>({
+  } = useForm<TFormData>({
     resolver: yupResolver(signUpValidationSchema),
   });
 
-  const doSubmit = async (requestData: FormData) => {
+  const doSubmit = async (requestData: TFormData) => {
+
+    console.log("requestData",requestData);
     const formData = new FormData();
     formData.append("first_name", requestData.first_name);
     formData.append("last_name", requestData.last_name);
@@ -135,19 +139,7 @@ export default function SignUpComponent() {
     if (requestData.paymentImage?.[0]) {
       formData.append("paymentImage", requestData.paymentImage[0]);
     }
-
-    // const formData = {
-    //   first_name: requestData.first_name,
-    //   last_name: requestData.last_name,
-    //   phone: `+91${requestData.phone}`,
-    //   gender: requestData.gender,
-    //   email: requestData.email,
-    //   dob: requestData.dob,
-    //   collage: requestData.collage,
-    //   area: requestData.area,
-    // };
-
-    const { payload } = await dispatch(signUpData(formData));
+    const { payload } = await dispatch(signUpData(requestData));
     if (payload.data.responseCode === OK) {
       showSuccess(payload.data.responseMessage);
       navigate("/");
@@ -406,7 +398,7 @@ export default function SignUpComponent() {
                 </div>
                 <div>
                   <Label htmlFor="payment" text="Payment QR Code" />
-                  <img id="payment" src={paymentImage} alt="payment" />
+                  <img id="payment" src="src/assets/images/payment.jpeg" alt="payment" />
                 </div>
                 <div>
                   <Label htmlFor="paymentImage" text="Payment Image Proof" />
@@ -427,6 +419,36 @@ export default function SignUpComponent() {
                   {errors.paymentImage && (
                     <span className="text-red-500 text-sm leading-5 font-normal mt-2">
                       {errors.paymentImage.message}
+                    </span>
+                  )}
+                </div>
+                <div>
+                  <Label htmlFor="referralCode" text="Referral Code (if any)" />
+                  <Input
+                    type="text"
+                    placeholder="Enter Referral Code"
+                    id="referralCode"
+                    className="mt-2 md:mt-3"
+                    {...register("referralCode")}
+                    onChange={(e) => {
+                      setValue("referralCode", e.target.value);
+                      clearErrors("referralCode");
+                    }}
+                    onBlur={(e) => {
+                      const value = e.target.value;
+                      if (!value) {
+                        setError("referralCode", {
+                          type: "manual",
+                          message: "Referral Code is optional",
+                        });
+                      } else {
+                        clearErrors("referralCode");
+                      }
+                    }}
+                  />
+                  {errors.referralCode && (
+                    <span className="text-red-500 text-sm leading-5 font-normal mt-2">
+                      {errors.referralCode.message}
                     </span>
                   )}
                 </div>

@@ -10,7 +10,7 @@ export type UserProfileResponseData = {
     mobile_number?: string;
     dob?: string;
     age?: number;
-    profile_picture?: string;
+    profile_image?: string;
     password?: string;
     collage_name?: string | null;
     area?: string;

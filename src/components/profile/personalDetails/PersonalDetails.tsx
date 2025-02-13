@@ -122,7 +122,7 @@ const PersonalDetails = () => {
           <div className="w-full flex flex-col gap-4  items-start">
             <div className="relative">
               <img
-                src={selectedImage || profileImg || profile}
+                src={selectedImage}
                 alt="Profile"
                 className="rounded-full border border-gray-300"
                 height={80}

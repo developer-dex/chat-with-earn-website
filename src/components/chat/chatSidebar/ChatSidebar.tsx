@@ -66,7 +66,7 @@ const ChatSidebar = ({ selectedUser, setSelectedUser, setMessageThread, userList
         </div>
       </div>
       {!userList || userList.length === 0 ?
-        <>No Data Found</>
+        <div className="flex justify-center items-center h-full">No Data Found</div>
         :
         <div className="flex flex-col flex-grow overflow-y-auto h-full">
           {userList.map((user: UserListResponseData, index) => (

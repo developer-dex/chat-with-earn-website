@@ -111,7 +111,7 @@ const PublicHeader = () => {
             </li> */}
             <li className="flex flex-row items-center cursor-pointer">
               <NavLink to={"/profile"} className='flex flex-row items-center gap-2'>
-                <img className="bg-slate-200 rounded-full" src={responseData?.profile_picture} alt="profile" width={45} height={45} />
+                <img className="bg-slate-200 rounded-full" src={responseData?.profile_image} alt="profile" width={45} height={45} />
                 <h6 className="font-poppins leading-6 font-medium text-black-100">
                   {responseData?.first_name} {responseData?.last_name}
                 </h6>
