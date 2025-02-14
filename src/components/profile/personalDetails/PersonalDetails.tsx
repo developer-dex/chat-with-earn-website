@@ -74,6 +74,7 @@ const PersonalDetails = () => {
       setValue("age", payload.data.responseData.profileData.age ?? "-");
       setValue("collage", payload.data.responseData.profileData.collage_name ?? "-");
       setValue("area", payload.data.responseData.profileData.area ?? "-");
+      setValue("referralCode", payload.data.responseData.profileData.referral_code ?? "-");
       if (payload.data.responseData.profileData.profile_image) {
         setProfileImg(payload.data.responseData.profileData.profile_image);
       }
@@ -414,6 +415,7 @@ const PersonalDetails = () => {
                 onChange={(e) => {
                   setValue("referralCode", e.target.value);
                 }}
+                value={values.referralCode}
               />
             </div>
           </div>
