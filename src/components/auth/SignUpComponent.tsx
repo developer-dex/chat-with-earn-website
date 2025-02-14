@@ -17,6 +17,7 @@ import { showSuccess } from "../../helpers/messageHelper";
 import { areaOptions, colleageOptions, genderOptions } from "../../helpers/constants";
 import { fetchPaymentPhotoData } from "../../features/auth/paymenetPhotoSlice";
 import { useEffect, useState } from "react";
+import paymentQrImage from './payment.jpeg';
 
 export type PhoneObject = {
   name: string;
@@ -398,7 +399,8 @@ export default function SignUpComponent() {
                 </div>
                 <div>
                   <Label htmlFor="payment" text="Payment QR Code" />
-                  <img id="payment" src="src/assets/images/payment.jpeg" alt="payment" />
+                  <img id="payment" src={paymentQrImage} alt="payment" />
+                  <p className="text-center text-sm text-gray-500">UPI Id - kpprajapati9167@okaxis</p>
                 </div>
                 <div>
                   <Label htmlFor="paymentImage" text="Payment Image Proof" />
