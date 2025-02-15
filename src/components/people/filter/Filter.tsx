@@ -85,7 +85,7 @@ const Filter = ({ filterValues, setFilterValues, setIsFilterOpen, handleFilterSu
               </div>
             </div>
           </div>
-          <div className="flex flex-row items-center w-full justify-between mt-5 md:mt-5 gap-20">
+          <div className="flex flex-row items-center w-full justify-between mt-5 md:mt-5 gap-10">
             <CustomButton type="submit" className="button__contained w-1/2">
               Apply
             </CustomButton>
