@@ -5,6 +5,7 @@ import { UserListResponseData } from "../../../features/chat/fetchUserListSlice"
 import { fetchUserMessagesThreadData, UserMessagesThreadResponseData } from "../../../features/chat/fetchUserMessagesThreadSlice";
 import { SocketContext } from "../../../socket/socket";
 import { updateMessageData } from "../../../features/chat/updateMessageDataSlice";
+import dummyImage from "../../../assets/images/dummyProfile.png";
 
 interface IProps {
   selectedUser: UserListResponseData | null;
@@ -76,7 +77,14 @@ const ChatSidebar = ({ selectedUser, setSelectedUser, setMessageThread, userList
                 onClick={() => onUserClick(user)}
               >
                 <div className="flex flex-row gap-3 items-center">
-                  <img src={user.profile_picture} alt="profile" width={60} height={60} className="w-[50px] h-[50px] xl:w-[60px] xl:h-[60px] bg-slate-200 rounded-full" />
+                  <img
+                src={user?.profile_picture ? user?.profile_picture : dummyImage}
+                alt="profile"
+                className="rounded-full border border-gray-300"
+                height={50}
+                width={50}
+                style={{ objectFit: "cover", width: '50px', height: '50px' }}
+              />
                   <div className="flex flex-col gap-2">
                     <h4 className="text-black font-bold text-sm  xl:text-base leading-5  lg:leading-6">{user.first_name} {user.last_name}</h4>
                     <p className="text-black text-xs leading-4 font-normal">{updateSenderMessage && updateSenderMessage.receiverId === user._id && updateSenderMessage?.message ? updateSenderMessage?.message : user.last_message}</p>
@@ -96,7 +104,14 @@ const ChatSidebar = ({ selectedUser, setSelectedUser, setMessageThread, userList
                 onClick={() => {onUserClick(user); setIsUserSelectedInMobile(true);}}
               >
                 <div className="flex flex-row gap-3 items-center">
-                  <img src={user.profile_picture} alt="profile" width={60} height={60} className="bg-slate-200 rounded-full" />
+                <img
+                src={user?.profile_picture ? user?.profile_picture : dummyImage}
+                alt="profile"
+                className="rounded-full border border-gray-300"
+                height={50}
+                width={50}
+                style={{ objectFit: "cover", width: '50px', height: '50px' }}
+              />
                   <div className="flex flex-col gap-2">
                     <h4 className="text-black font-bold text-base leading-6">{user.first_name} {user.last_name}</h4>
                     <p className="text-black text-xs leading-4 font-normal">{updateSenderMessage?.message ? updateSenderMessage?.message : user.last_message}</p>

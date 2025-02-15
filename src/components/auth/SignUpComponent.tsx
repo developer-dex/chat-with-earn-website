@@ -29,12 +29,13 @@ export type PhoneObject = {
 type TFormData = {
   first_name: string;
   last_name: string;
-  phone: string;
+  mobile_number: string;
   dob: string;
   gender: string;
   area: string;
   collage: string;
   email: string;
+  password: string;
   terms: boolean; // Ensure this is a boolean
   paymentImage: FileList; // Change to remove null
   referralCode?: string;
@@ -61,7 +62,7 @@ const signUpValidationSchema: yup.ObjectSchema<TFormData> = yup
         /^[aA-zZ\s]+$/,
         "Full name cannot have numbers & special characters."
       ),
-    phone: yup.string().required("Phone Number is required"),
+    mobile_number: yup.string().required("Phone Number is required"),
     dob: yup
       .string()
       .required("Date of birth is required")
@@ -87,6 +88,7 @@ const signUpValidationSchema: yup.ObjectSchema<TFormData> = yup
         "Please enter a valid email address."
       )
       .email("Please enter a valid email address"),
+    password: yup.string().required("Password is required"),
     terms: yup
       .boolean()
       .oneOf([true], "You must accept the terms and conditions")
@@ -131,12 +133,14 @@ export default function SignUpComponent() {
     const formData = new FormData();
     formData.append("first_name", requestData.first_name);
     formData.append("last_name", requestData.last_name);
-    formData.append("phone", `+91${requestData.phone}`);
+    formData.append("mobile_number", `${requestData.mobile_number}`);
     formData.append("gender", requestData.gender);
     formData.append("email", requestData.email);
     formData.append("dob", requestData.dob);
     formData.append("collage", requestData.collage);
     formData.append("area", requestData.area);
+    formData.append("password", requestData.password);
+    
     if (requestData.paymentImage?.[0]) {
       formData.append("paymentImage", requestData.paymentImage[0]);
     }
@@ -241,32 +245,32 @@ export default function SignUpComponent() {
                   )}
                 </div>
                 <div>
-                  <Label htmlFor="phone" text="Phone Number" />
+                  <Label htmlFor="mobile_number" text="Mobile Number" />
                   <Input
-                    type="number"
-                    placeholder="Enter Your Number"
-                    id="phone"
+                    type="text"
+                    placeholder="Enter Your Last name"
+                    id="mobile_number"
                     className="mt-2 md:mt-3"
-                    {...register("phone")}
+                    {...register("mobile_number")}
                     onChange={(e) => {
-                      setValue("phone", e.target.value);
-                      clearErrors("phone");
+                      setValue("mobile_number", e.target.value);
+                      clearErrors("mobile_number");
                     }}
                     onBlur={(e) => {
                       const value = e.target.value;
                       if (!value) {
-                        setError("phone", {
+                        setError("mobile_number", {
                           type: "manual",
-                          message: "Phone Number is required!",
+                          message: "Last Name is required",
                         });
                       } else {
-                        clearErrors("phone");
+                        clearErrors("mobile_number");
                       }
                     }}
                   />
-                  {errors.phone && (
+                  {errors.mobile_number && (
                     <span className="text-red-500 text-sm leading-5 font-normal mt-2">
-                      {errors.phone.message}
+                      {errors.mobile_number.message}
                     </span>
                   )}
                 </div>
@@ -297,6 +301,36 @@ export default function SignUpComponent() {
                   {errors.email && (
                     <span className="text-red-500 text-sm leading-5 font-normal mt-2">
                       {errors.email.message}
+                    </span>
+                  )}
+                </div>
+                <div>
+                  <Label htmlFor="password" text="Password" />
+                  <Input
+                    type="password"
+                    placeholder="Enter Your Password"
+                    id="password"
+                    className="mt-2 md:mt-3"
+                    {...register("password")}
+                    onChange={(e) => {
+                      setValue("password", e.target.value);
+                      clearErrors("password");
+                    }}
+                    onBlur={(e) => {
+                      const value = e.target.value;
+                      if (!value) {
+                        setError("password", {
+                          type: "manual",
+                          message: "Password is required!",
+                        });
+                      } else {
+                        clearErrors("password");
+                      }
+                    }}
+                  />
+                  {errors.password && (
+                    <span className="text-red-500 text-sm leading-5 font-normal mt-2">
+                      {errors.password.message}
                     </span>
                   )}
                 </div>
@@ -400,7 +434,7 @@ export default function SignUpComponent() {
                 <div>
                   <Label htmlFor="payment" text="Payment QR Code" />
                   <img id="payment" src={paymentQrImage} alt="payment" />
-                  <p className="text-center text-sm text-gray-500">UPI Id - kpprajapati9167@okaxis</p>
+                  <p className="text-center text-sm text-gray-500">UPI Id -   </p>
                 </div>
                 <div>
                   <Label htmlFor="paymentImage" text="Payment Image Proof" />

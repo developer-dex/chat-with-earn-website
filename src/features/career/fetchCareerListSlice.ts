@@ -31,12 +31,17 @@ export type CareerListResponseData = {
   referral_code: string
 };
 
+export type CareerListResponse = {
+  people: CareerListResponseData[];
+  total_count: number;
+}
+
 type FetchCareerListState = {
   isLoading: boolean;
   isSuccess: boolean;
   isError: boolean;
   responseCode: number | null;
-  responseData: CareerListResponseData[];
+  responseData: CareerListResponse;
 };
 
 const initialState: FetchCareerListState = {
@@ -44,7 +49,10 @@ const initialState: FetchCareerListState = {
   isSuccess: false,
   isError: false,
   responseCode: 0,
-  responseData: []
+  responseData: {
+    people: [],
+    total_count: 0
+  }
 };
 
 type queryParams = {

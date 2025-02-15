@@ -1,9 +1,11 @@
+import dummyImage from "../../../assets/images/dummyProfile.png";
+
 const CareerDetails = ({ selectedUser }: any) => {
 
   return (
     <div className="h-full max-h-[calc(100vh-194px)] min-h-[calc(100vh-194px)] overflow-auto lg:max-h-[calc(100vh-205px)] lg:min-h-[calc(100vh-205px)]  border-0 md:border border-light-gray-400 rounded-[10px] p-0 md:p-6 flex flex-col gap-6">
       <div className="flex flex-col md:flex-row gap-4 sm:gap-6 md:gap-5 items-center">
-        <img src={selectedUser?.profile_image} alt="profile" width={70} height={70} className="w-[80px] h-[80px] md:w-[70px] md:h-[70px] bg-slate-200 rounded-full" />
+        <img src={selectedUser?.profile_image ?selectedUser?.profile_image : dummyImage} alt="profile" width={70} height={70} className="w-[80px] h-[80px] md:w-[70px] md:h-[70px] bg-slate-200 rounded-full" />
         <div className="flex flex-col items-center md:items-start">
           <p className="text-black text-opacity-50 text-base md:text-base leading-5 md:leading-7 font-medium">
             {selectedUser?.email}

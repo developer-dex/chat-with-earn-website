@@ -8,7 +8,7 @@ import { useAppDispatch } from "../../../app/hooks";
 import { fetchUserProfileData, userPicture } from "../../../features/user/userProfileSlice";
 import { OK } from "../../../config/httpStatusCodes";
 import { setLocalStorageItem } from "../../../config/localStorage";
-import profile from "../../../assets/images/profile.png";
+import dummyImage from "../../../assets/images/dummyProfile.png";
 import { MdEdit } from "react-icons/md";
 
 const signUpValidationSchema = yup
@@ -97,15 +97,15 @@ const PersonalDetails = () => {
   });
 
   const values = watch();
-  const [selectedImage, setSelectedImage] = useState<string | null>(null); // State to store uploaded image
-  const [profileImg, setProfileImg] = useState<string | null>(null);
+  // const [selectedImage, setSelectedImage] = useState<string | null>(null); // State to store uploaded image
+  const [profileImg, setProfileImg] = useState<string | null>(dummyImage);
   const handleImageUpload = async (event: React.ChangeEvent<HTMLInputElement>) => {
     const file = event.target.files?.[0];
     if (file) {
       const reader = new FileReader();
-      reader.onload = () => {
-        setSelectedImage(reader.result as string);
-      };
+      // reader.onload = () => {
+      //   setSelectedImage(reader.result as string);
+      // };
       reader.readAsDataURL(file);
       const formData = new FormData();
       formData.append("image", file);
@@ -123,12 +123,12 @@ const PersonalDetails = () => {
           <div className="w-full flex flex-col gap-4  items-start">
             <div className="relative">
               <img
-                src={selectedImage}
+                src={profileImg ?? dummyImage}
                 alt="Profile"
                 className="rounded-full border border-gray-300"
                 height={80}
                 width={80}
-                style={{ objectFit: "cover" }}
+                style={{ objectFit: "cover", width: '80px', height: '80px' }}
               />
               <button
                 type="button"
@@ -214,8 +214,7 @@ const PersonalDetails = () => {
                 <Label htmlFor="phoneNumber" text="Phone Number" />
                 <Input
                   disabled
-                  type="number"
-                  placeholder="Enter Your Number"
+                  type="text"
                   id="phoneNumber"
                   className="mt-2.5"
                   {...register("phoneNumber")}

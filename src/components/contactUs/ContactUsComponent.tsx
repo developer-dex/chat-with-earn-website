@@ -63,6 +63,7 @@ const ContactUs = () => {
     clearErrors,
     setError,
     formState: { errors },
+    reset
   } = useForm<ContactUsFormData>({
     resolver: yupResolver(contactUsValidationSchema),
   });
@@ -79,6 +80,8 @@ const ContactUs = () => {
     };
     if (payload.data.responseCode === OK) {
       showSuccess(payload.data.responseMessage);
+      // reset form
+      reset();
     }
   };
 
@@ -94,9 +97,9 @@ const ContactUs = () => {
             Visit us
           </h2>
           <p className="text-gray-200 leading-6 font-normal text-base">
-            Ghatlodiya is an area in Ahmedabad in the state of Gujarat, in
-            western India. Ghatlodiya. neighbourhood. Ghatlodiya is located in
-            Gujarat. Ghatlodiya
+            504, Signature Arcade, Nikol
+            Ahmedabad, Gujarat
+            India
           </p>
         </div>
         <div className="flex flex-col">
@@ -104,10 +107,10 @@ const ContactUs = () => {
             Chat to US
           </h2>
           <p className="text-gray-200 leading-6 font-normal text-base">
-            our friendly foam is here to help.
+            our friendly firm is here to help.
           </p>
           <p className="text-black-100 leading-5 font-medium text-sm">
-            hello@Sahil.com
+            people@meetwithmoney.com
           </p>
         </div>
         <div className="flex flex-col">
@@ -115,10 +118,10 @@ const ContactUs = () => {
             Call US
           </h2>
           <p className="text-gray-200 leading-6 font-normal text-base">
-            mon-fir from Bam to 6p
+            Monday to Friday - 9:00 AM to 6:00 PM
           </p>
           <p className="text-black-100 leading-5 font-medium text-sm">
-            (+91) 655-55-55-55
+            +919909800733
           </p>
         </div>
         <div className="flex flex-col">
@@ -126,10 +129,10 @@ const ContactUs = () => {
             Social Media
           </h2>
           <div className="flex flex-row items-center gap-8 mt-4">
-            <NavLink to="https://www.facebook.com/" target="_blank">
+            <NavLink to="https://www.facebook.com/meet.with.money?mibextid=wwXIfr&rdid=0nyvJzgmPAhZ4rXV&share_url=https%3A%2F%2Fwww.facebook.com%2Fshare%2F19sCUPYURy%2F%3Fmibextid%3DwwXIfr#" target="_blank">
               <img src={faceBook} alt="facebook" width={11} height={20} />
             </NavLink>
-            <NavLink to="https://www.instagram.com/" target="_blank">
+            <NavLink to="https://www.instagram.com/meet_with_money/?igsh=cDFtMzR0YmFmZGJw&utm_source=qr#" target="_blank">
               <img src={instagram} alt="instagram" width={20} height={20} />
             </NavLink>
             <NavLink to="https://x.com/?lang=en" target="_blank">

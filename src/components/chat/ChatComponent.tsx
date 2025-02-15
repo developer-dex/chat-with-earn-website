@@ -10,6 +10,7 @@ import { setLocalStorageItem } from "../../config/localStorage";
 import { UserMessagesThreadResponseData } from "../../features/chat/fetchUserMessagesThreadSlice";
 import { useLocation } from "react-router-dom";
 import ChatDetailsPage from "../../pages/chat/chatdetails/ChatdetailsPage";
+import dummyImage from "../../assets/images/dummyProfile.png";
 
 const ChatComponent = () => {
   const location = useLocation();
@@ -78,11 +79,12 @@ const ChatComponent = () => {
             <div></div>{" "}
             <div className="flex flex-row gap-2.5 items-center">
               <img
-                src={selectedUser?.profile_picture}
+                src={selectedUser?.profile_picture ? selectedUser?.profile_picture : dummyImage}
                 alt="profile"
-                className="bg-slate-200 rounded-full"
-                width={50}
+                className="rounded-full border border-gray-300"
                 height={50}
+                width={50}
+                style={{ objectFit: "cover", width: '50px', height: '50px' }}
               />
               <div className="flex flex-col gap-2.5">
                 <h4 className="text-black font-medium text-lg leading-6">

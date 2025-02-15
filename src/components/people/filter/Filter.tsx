@@ -18,6 +18,18 @@ const Filter = ({ filterValues, setFilterValues, setIsFilterOpen, handleFilterSu
     handleFilterSubmit();
   };
 
+  const handleReset = () => {
+    setFilterValues({
+      age: "",
+      gender: "",
+      area: "",
+      college: "",
+    });
+    
+    handleFilterSubmit();
+    setIsFilterOpen(false);
+  };
+
   const handleSelectChange = (field: string, value: any) => {
     setFilterValues((prevValues) => ({
       ...prevValues,
@@ -83,6 +95,13 @@ const Filter = ({ filterValues, setFilterValues, setIsFilterOpen, handleFilterSu
               className="button__outline w-1/2"
             >
               Cancel
+            </CustomButton>
+            <CustomButton
+              onClick={() => handleReset()}
+              type="button"
+              className="button__outline w-1/2"
+            >
+              Reset
             </CustomButton>
           </div>
         </div>

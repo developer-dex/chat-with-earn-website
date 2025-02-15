@@ -6,10 +6,12 @@ import { useAppDispatch, useAppSelector } from "../../app/hooks";
 import { useEffect, useState } from "react";
 import { fetchCareerListData } from "../../features/career/fetchCareerListSlice";
 import moment from "moment";
+import dummyImage from "../../assets/images/dummyProfile.png";
 
 const CareerComponent = () => {
 
   const { responseData } = useAppSelector((state) => state.fetchCareerListDataReducer);
+  console.log("data",responseData);
 
   const [searchText, setSearchText] = useState<string>("");
   const page = 1;
@@ -21,7 +23,7 @@ const CareerComponent = () => {
   }, [searchText]);
 
   useEffect(() => {
-    setSelectedUser(responseData[0]);
+    setSelectedUser(responseData);
   }, [responseData]);
 
   const getCareerList = async () => {
@@ -34,7 +36,7 @@ const CareerComponent = () => {
       accessorKey: "id",
       cell: ({ row }: any) => (
         <div className="hidden lg:flex flex-row items-center gap-2 md:gap-3 min-w-max cursor-pointer" onClick={() => setSelectedUser(row.original)}>
-          <img src={row.original.profile_image} alt="person" height={45} width={45} className="w-[30px] md:w-[45px] h-[30px] md:h-[45px]" />
+          <img src={row.original.profile_image ? row.original.profile_image : dummyImage} alt="person" height={45} width={45} className="w-[30px] md:w-[45px] h-[30px] md:h-[45px]" />
           <h4 className="text-black text-opacity-50 font-medium text-sm md:text-base leading-5 group-hover:text-opacity-100">
             {row.original.first_name} {row.original.last_name}
           </h4>
@@ -86,7 +88,7 @@ const CareerComponent = () => {
             </div>
           </div>
           <div className="h-full pb-5 md:pb-0 max-h-[calc(100vh-220px)] min-h-[calc(100vh-220px)] md:max-h-[calc(100vh-280px)] md:min-h-[calc(100vh-280px)] overflow-scroll table__scroll">
-            <ReactTable data={responseData} columns={columns} />
+            <ReactTable data={responseData.people} columns={columns} />
           </div>
         </div>
       </div>

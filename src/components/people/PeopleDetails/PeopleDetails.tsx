@@ -3,6 +3,7 @@ import Label from "../../common/form/Label";
 import CustomButton from "../../common/form/Button";
 import { useAppDispatch } from "../../../app/hooks";
 import { updateMessageData } from "../../../features/chat/updateMessageDataSlice";
+import dummyImage from "../../../assets/images/dummyProfile.png";
 
 type IProps = {
   data: any;
@@ -21,7 +22,7 @@ const PeopleDetails = ({ data }: IProps) => {
     <div className="border-[0.5px] border-light-gray-400 rounded-[10px] flex flex-col overflow-auto justify-between px-6 py-6 shadow-profileFormShadow h-full max-h-[calc(100vh-164px)] min-h-[calc(100vh-164px)] lg:max-h-[calc(100vh-195px)] lg:min-h-[calc(100vh-195px)]">
       <div className="flex flex-col gap-4">
         <div className="flex flex-row items-center gap-4">
-          <img src={data.profile_picture} alt="profile" width={75} height={75} className="bg-slate-200 rounded-full" />
+          <img src={data.profile_picture ? data.profile_picture : dummyImage} alt="profile" width={75} height={75} className="bg-slate-200 rounded-full" />
           <h4 className="font-semibold text-xl">
             {data.first_name} {data.last_name}
           </h4>

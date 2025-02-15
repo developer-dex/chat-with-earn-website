@@ -1,5 +1,4 @@
 import { useContext, useState } from "react";
-import profile from "../../assets/images/profile.png";
 import PersonalDetails from "./personalDetails/PersonalDetails";
 import { clearSession } from "../../config/localStorage";
 import { useNavigate } from "react-router-dom";
@@ -24,11 +23,11 @@ const ProfileComponent = () => {
       title: "personal Information",
       component: <PersonalDetails />,
     },
-    {
-      id: 2,
-      title: "Help Center",
-      component: "",
-    },
+    // {
+    //   id: 2,
+    //   title: "Help Center",
+    //   component: "",
+    // },
   ];
 
   const activeComponent = profileRoutes.find(

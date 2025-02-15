@@ -1,13 +1,15 @@
 import { useEffect, useState } from "react";
 import Label from "../../../components/common/form/Label";
 import CustomButton from "../../../components/common/form/Button";
-import { NavLink, useNavigate } from "react-router-dom";
+import { NavLink, useNavigate, useParams } from "react-router-dom";
 import { useAppSelector } from "../../../app/hooks";
-import ProfileImage from "../../../assets/images/profile.png";
 import PublicLayout from "../../../layouts/PublicLayout";
 import { IoMdArrowRoundBack } from "react-icons/io";
+import dummyImage from "../../../assets/images/dummyProfile.png";
 
 const PeopleDetails = () => {
+  const { slug } = useParams();
+  console.log("params::::",slug);
   const { responseData } = useAppSelector(
     (state) => state.fetchPeopleListDataReducer
   );
@@ -25,7 +27,7 @@ const PeopleDetails = () => {
       <h1 className="bg-gradient-text text-transparent bg-clip-text text-2xl md:text-3xl  font-semibold leading-[48px]">
         People Details
         </h1>
-        <NavLink to={"/career"}>
+        <NavLink to={"/people"}>
         <IoMdArrowRoundBack className="w-6 h-6 text-2xl cursor-pointer"/></NavLink>
       </div>
       <div className="my-10 h-full max-h-[calc(100vh-194px)] min-h-[calc(100vh-194px)] lg:max-h-[calc(100vh-205px)] lg:min-h-[calc(100vh-205px)] px-5 md:px-0">
@@ -33,7 +35,7 @@ const PeopleDetails = () => {
           
           <div className="flex flex-col gap-4">
             <div className="flex flex-row items-center gap-4">
-              <img src={ProfileImage} alt="profile" width={75} height={75} />
+              <img src={selectedUser?.profile_image ?? dummyImage} alt="profile" width={75} height={75} />
               <h4 className="font-semibold text-xl">
                 {selectedUser?.first_name} {selectedUser?.last_name}
               </h4>

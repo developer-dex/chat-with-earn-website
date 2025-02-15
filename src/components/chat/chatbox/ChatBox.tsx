@@ -5,6 +5,7 @@ import { SocketContext } from "../../../socket/socket";
 import { UserListResponseData } from "../../../features/chat/fetchUserListSlice";
 import { getLocalStorageItem } from "../../../config/localStorage";
 import { MdSend } from "react-icons/md";
+import moment from 'moment';
 
 interface IProps {
   selectedUser: UserListResponseData | null;
@@ -68,6 +69,9 @@ const ChatBox = ({ selectedUser, messageThread, setMessageThread, getUserList }:
                 "bg-black self-start rounded-br-[20px]"}`}
             >
               {item.message}
+              <span className="text-gray-400 text-xs ml-2">
+                {moment(item.timestamp).format('h:mm A')}
+              </span>
             </div>
           ))}
           <div ref={messagesEndRef} />

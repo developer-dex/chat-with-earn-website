@@ -6,6 +6,7 @@ import { useContext, useState } from "react";
 import { clearSession } from "../config/localStorage";
 import { SocketContext } from "../socket/socket";
 import { useAppSelector } from "../app/hooks";
+import dummyImage from "../assets/images/dummyProfile.png";
 const PublicHeader = () => {
 
   const { responseData } = useAppSelector(state => state.fetchUserProfileDataReducer);
@@ -111,7 +112,17 @@ const PublicHeader = () => {
             </li> */}
             <li className="flex flex-row items-center cursor-pointer">
               <NavLink to={"/profile"} className='flex flex-row items-center gap-2'>
-                <img className="bg-slate-200 rounded-full" src={responseData?.profile_image} alt="profile" width={45} height={45} />
+                {/* <img className="bg-slate-200 rounded-full" src={responseData?.profile_image ? responseData?.profile_image : dummyImage} alt="profile" width={45} height={45} /> */}
+
+                <img
+                src={responseData?.profile_image ? responseData?.profile_image : dummyImage}
+                alt="Profile"
+                className="rounded-full border border-gray-300"
+                height={42}
+                width={42}
+                style={{ objectFit: "cover", width: '42px', height: '42px' }}
+              />
+                
                 <h6 className="font-poppins leading-6 font-medium text-black-100">
                   {responseData?.first_name} {responseData?.last_name}
                 </h6>
