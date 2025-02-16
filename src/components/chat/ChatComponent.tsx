@@ -25,6 +25,8 @@ const ChatComponent = () => {
   const [isUserSelectedInMobile, setIsUserSelectedInMobile] = useState<boolean>(false);
   const [userList, setUserList] = useState<UserListResponseData[]>([]);
   const [searchText, setSearchText] = useState<string>("");
+  const [isImagePopupOpen, setIsImagePopupOpen] = useState<boolean>(false);
+  const [selectedImage, setSelectedImage] = useState<string | null>(null);
 
   const socketContext = useContext(SocketContext);
 
@@ -81,10 +83,14 @@ const ChatComponent = () => {
               <img
                 src={selectedUser?.profile_picture ? selectedUser?.profile_picture : dummyImage}
                 alt="profile"
-                className="rounded-full border border-gray-300"
-                height={50}
-                width={50}
-                style={{ objectFit: "cover", width: '50px', height: '50px' }}
+                className="rounded-full border border-gray-300 cursor-pointer"
+                height={20}
+                width={20}
+                style={{ objectFit: "cover" }}
+                onClick={() => {
+                  setSelectedImage(selectedUser?.profile_picture || dummyImage);
+                  setIsImagePopupOpen(true);
+                }}
               />
               <div className="flex flex-col gap-2.5">
                 <h4 className="text-black font-medium text-lg leading-6">
@@ -120,6 +126,23 @@ const ChatComponent = () => {
       {!selectedUser && (
         <div className="border-[0.5px] border-light-gray-400 w-full rounded-3xl px-1.5 sm:px-4 py-4 bg-white bg-opacity-5 shadow-profileFormShadow h-full min-h-[calc(100vh-194px)] max-h-[calc(100vh-194px)] lg:max-h-[calc(100vh-205px)] lg:min-h-[calc(100vh-205px)] hidden lg:flex items-center justify-center">
           <p className="text-xl font-bold leading-9">No data Found!</p>
+        </div>
+      )}
+      {isImagePopupOpen && (
+        <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50">
+          <div className="relative bg-white p-4 rounded">
+            <button
+              className="top-2 right-2 text-black z-10 text-2xl "
+              onClick={() => setIsImagePopupOpen(false)}
+            >
+              &times;
+            </button>
+            <img
+              src={selectedImage || dummyImage}
+              alt="Selected"
+              className="max-w-[80vw] max-h-[80vh] object-contain"
+            />
+          </div>
         </div>
       )}
     </div>
