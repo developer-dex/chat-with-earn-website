@@ -9,14 +9,13 @@ import dummyImage from "../../../assets/images/dummyProfile.png";
 
 const PeopleDetails = () => {
   const { slug } = useParams();
-  console.log("params::::",slug);
   const { responseData } = useAppSelector(
     (state) => state.fetchPeopleListDataReducer
   );
   const navigate = useNavigate();
   const [selectedUser, setSelectedUser] = useState<any>();
   useEffect(() => {
-    setSelectedUser(responseData.people[0]);
+    setSelectedUser(responseData.people?.filter((data:any)=>data?.user_id === slug)[0]);
   }, [responseData.people]);
   const onChatClick = () => {
     navigate("/chat", { state: { user: selectedUser } });

@@ -19,6 +19,7 @@ interface IProps {
 }
 
 const ChatSidebar = ({ selectedUser, setSelectedUser, setMessageThread, userList, searchText, setSearchText, getUserList, setIsUserSelectedInMobile }: IProps) => {
+  console.log('selectedUser', selectedUser)
 
   const socketContext = useContext(SocketContext);
 

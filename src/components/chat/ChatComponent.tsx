@@ -7,7 +7,7 @@ import { useAppDispatch } from "../../app/hooks";
 import { fetchUserProfileData } from "../../features/user/userProfileSlice";
 import { OK } from "../../config/httpStatusCodes";
 import { setLocalStorageItem } from "../../config/localStorage";
-import { UserMessagesThreadResponseData } from "../../features/chat/fetchUserMessagesThreadSlice";
+import { fetchUserMessagesThreadData, UserMessagesThreadResponseData } from "../../features/chat/fetchUserMessagesThreadSlice";
 import { useLocation } from "react-router-dom";
 import ChatDetailsPage from "../../pages/chat/chatdetails/ChatdetailsPage";
 import dummyImage from "../../assets/images/dummyProfile.png";
@@ -22,7 +22,7 @@ const ChatComponent = () => {
   const [messageThread, setMessageThread] = useState<
     UserMessagesThreadResponseData[]
   >([]);
-  const [isUserSelectedInMobile, setIsUserSelectedInMobile] = useState<boolean>(false);
+  const [isUserSelectedInMobile, setIsUserSelectedInMobile] = useState<boolean>(window.innerWidth <= 1024 && selectedUser ? true : false);
   const [userList, setUserList] = useState<UserListResponseData[]>([]);
   const [searchText, setSearchText] = useState<string>("");
   const [isImagePopupOpen, setIsImagePopupOpen] = useState<boolean>(false);
@@ -59,9 +59,20 @@ const ChatComponent = () => {
     }
   };
 
+  const handleMessageData = async () => {
+    selectedUser && await dispatch(fetchUserMessagesThreadData(selectedUser.user_id)).then((res) => {
+          setMessageThread(res.payload.data.responseData);
+        });
+
+  }
+
+  useEffect( () => {
+    handleMessageData()
+ },[]) 
+ 
   return (
     <div className="flex flex-row gap-6 xl:gap-10 h-full">
-      {!isUserSelectedInMobile && (
+      { !isUserSelectedInMobile && (
         <div className="max-w-full lg:max-w-[409px] w-full">
           <ChatSidebar
             selectedUser={selectedUser}
@@ -75,7 +86,7 @@ const ChatComponent = () => {
           />
         </div>
       )}
-      {selectedUser && (
+      {Boolean(selectedUser) && (
         <div className="hidden lg:flex flex-col w-full gap-3 max-w-full lg:max-w-[1222px] pb-5 md:pb-0">
           <div className="border-[0.5px] border-light-gray-400 w-full rounded-3xl px-1.5 sm:px-4 py-4 bg-white bg-opacity-5 shadow-profileFormShadow h-max">
             <div></div>{" "}
@@ -83,9 +94,9 @@ const ChatComponent = () => {
               <img
                 src={selectedUser?.profile_picture ? selectedUser?.profile_picture : dummyImage}
                 alt="profile"
-                className="rounded-full border border-gray-300 cursor-pointer"
-                height={20}
-                width={20}
+                className="rounded-[50px] border border-gray-300 cursor-pointer  max-w-[50px] w-[50px] max-h-[50px] h-[50px] "
+                height={50}
+                width={50}
                 style={{ objectFit: "cover" }}
                 onClick={() => {
                   setSelectedImage(selectedUser?.profile_picture || dummyImage);
@@ -112,8 +123,8 @@ const ChatComponent = () => {
           </div>
         </div>
       )}
-      {selectedUser && isUserSelectedInMobile && (
-        <div className="lg:hidden w-full">
+      {isUserSelectedInMobile && (
+        <div className="block lg:hidden w-full">
           <ChatDetailsPage
             selectedUser={selectedUser}
             messageThread={messageThread}

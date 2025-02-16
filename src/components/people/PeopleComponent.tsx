@@ -8,7 +8,7 @@ import search from "../../assets/images/Combined Shape.png";
 import Filter from "./filter/Filter";
 import { fetchPeopleListData } from "../../features/people/fethcPeopleListSlice";
 import { useAppDispatch, useAppSelector } from "../../app/hooks";
-import { NavLink } from "react-router-dom";
+import { NavLink, useNavigate } from "react-router-dom";
 import dummyImage from "../../assets/images/dummyProfile.png";
 
 export type filterValuesType = {
@@ -19,9 +19,8 @@ export type filterValuesType = {
 };
 
 const PeopleComponent = () => {
-
+  const navigate = useNavigate()
   const { responseData } = useAppSelector((state) => state.fetchPeopleListDataReducer);
-
   const [isFilterOpen, setIsFilterOpen] = useState<boolean>(false);
   const page = 1;
   const [selectedUser, setSelectedUser] = useState<any>();
@@ -62,6 +61,12 @@ const PeopleComponent = () => {
     setIsFilterOpen(false);
   };
 
+  const handleRedirectUserDetails = (data:any) => {
+    navigate(`/people/personal-details/${data?.original?.user_id}`)
+    setSelectedUser(data.original)
+    getUserList();
+  }
+
   const columns = [
     {
       header: "Persons",
@@ -74,12 +79,12 @@ const PeopleComponent = () => {
               {row.original.first_name} {row.original.last_name}
             </h4>
           </div>
-          <NavLink to={`/people/personal-details/${row?.original?.user_id}`} className="flex lg:hidden flex-row items-center gap-3 cursor-pointer min-w-max" >
+          <div  onClick={() =>handleRedirectUserDetails(row) } className="flex lg:hidden flex-row items-center gap-3 cursor-pointer min-w-max" >
             <img src={row.original.profile_picture ? row.original.profile_picture : dummyImage} alt="person" height={45} width={45} className="w-[30px] md:w-[45px] h-[30px]  md:h-[45px]" />
             <h4 className="text-black text-opacity-50 font-medium text-sm md:text-base leading-5 group-hover:text-opacity-100">
               {row.original.first_name} {row.original.last_name}
             </h4>
-          </NavLink>
+          </div>
         </>
       ),
     },

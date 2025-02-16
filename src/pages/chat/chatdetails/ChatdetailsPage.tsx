@@ -2,7 +2,7 @@ import ChatBox from "../../../components/chat/chatbox/ChatBox";
 import { UserListResponseData } from "../../../features/chat/fetchUserListSlice";
 import { UserMessagesThreadResponseData } from "../../../features/chat/fetchUserMessagesThreadSlice";
 import { IoMdArrowRoundBack } from "react-icons/io";
-
+import dummyImage from "../../../assets/images/dummyProfile.png";
 interface IProps {
   selectedUser: UserListResponseData | null;
   messageThread: UserMessagesThreadResponseData[];
@@ -11,20 +11,21 @@ interface IProps {
   setIsUserSelectedInMobile: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
-const ChatDetailsPage = ({ selectedUser, messageThread, setMessageThread, getUserList, setIsUserSelectedInMobile }: IProps) => {
+const ChatDetailsPage = ({ selectedUser, messageThread,setMessageThread, getUserList, setIsUserSelectedInMobile }: IProps) => {
   return (
     <div className="mt-5 px-4 md:px-0 lg:max-h-[calc(100vh-205px)] lg:min-h-[calc(100vh-205px)] h-full pb-5 md:pb-0">
       <div className="flex lg:hidden flex-col w-full gap-3 max-w-full lg:max-w-[1222px]">
         <div className="border-[0.5px] border-light-gray-400 w-full rounded-md md:rounded-3xl px-4 py-4 bg-white bg-opacity-5 shadow-profileFormShadow h-max flex flex-row gap-4">
-          <div onClick={() => setIsUserSelectedInMobile(false)}>
+          <div onClick={() => { setIsUserSelectedInMobile(false)}}>
             <IoMdArrowRoundBack className="w-5 h-5 cursor-pointer" />
           </div>
           <div className="flex flex-row gap-2.5 items-center">
             <img
-              src={"/"}
+              src={selectedUser?.profile_picture ?? dummyImage}
               alt="profile"
               width={50}
               height={50}
+              className="object-cover max-w-[50px] w-[50px] max-h-[50px] h-[50px] rounded-full border border-black "
             />
             <div className="flex flex-col gap-2.5">
               <h4 className="text-black font-medium text-lg leading-6">
