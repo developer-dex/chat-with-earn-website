@@ -131,6 +131,8 @@ const ChatComponent = () => {
             setMessageThread={setMessageThread}
             getUserList={getUserList}
             setIsUserSelectedInMobile={setIsUserSelectedInMobile}
+            setIsImagePopupOpen={setIsImagePopupOpen}
+            setSelectedImage={setSelectedImage}
           />
         </div>
       )}
@@ -141,7 +143,7 @@ const ChatComponent = () => {
       )}
       {isImagePopupOpen && (
         <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50">
-          <div className="relative bg-white p-4 rounded">
+          <div className="relative bg-white p-4 rounded w-80 h-80">
             <button
               className="top-2 right-2 text-black z-10 text-2xl "
               onClick={() => setIsImagePopupOpen(false)}
@@ -151,7 +153,7 @@ const ChatComponent = () => {
             <img
               src={selectedImage || dummyImage}
               alt="Selected"
-              className="max-w-[80vw] max-h-[80vh] object-contain"
+              className="w-full h-60 object-cover"
             />
           </div>
         </div>

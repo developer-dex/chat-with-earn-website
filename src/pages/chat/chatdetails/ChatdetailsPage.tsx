@@ -9,9 +9,11 @@ interface IProps {
   setMessageThread: React.Dispatch<React.SetStateAction<UserMessagesThreadResponseData[]>>;
   getUserList: () => Promise<void>;
   setIsUserSelectedInMobile: React.Dispatch<React.SetStateAction<boolean>>;
+  setIsImagePopupOpen: React.Dispatch<React.SetStateAction<boolean>>; 
+  setSelectedImage: React.Dispatch<React.SetStateAction<string | null>>; // Add this line// Add this line
 }
 
-const ChatDetailsPage = ({ selectedUser, messageThread,setMessageThread, getUserList, setIsUserSelectedInMobile }: IProps) => {
+const ChatDetailsPage = ({ selectedUser, messageThread,setSelectedImage,setIsImagePopupOpen,setMessageThread, getUserList, setIsUserSelectedInMobile }: IProps) => {
   return (
     <div className="mt-5 px-4 md:px-0 lg:max-h-[calc(100vh-205px)] lg:min-h-[calc(100vh-205px)] h-full pb-5 md:pb-0">
       <div className="flex lg:hidden flex-col w-full gap-3 max-w-full lg:max-w-[1222px]">
@@ -26,7 +28,11 @@ const ChatDetailsPage = ({ selectedUser, messageThread,setMessageThread, getUser
               width={50}
               height={50}
               className="object-cover max-w-[50px] w-[50px] max-h-[50px] h-[50px] rounded-full border border-black "
-            />
+              onClick={() => {
+                setSelectedImage(selectedUser?.profile_picture || dummyImage); // Set the selected image
+                setIsImagePopupOpen(true);
+              }}
+           />
             <div className="flex flex-col gap-2.5">
               <h4 className="text-black font-medium text-lg leading-6">
                 {selectedUser?.first_name} {selectedUser?.last_name}
