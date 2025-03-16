@@ -21,8 +21,8 @@ const initialState: ResetPasswordState = {
 };
 
 type ResetPasswordValues = {
-  token: string | undefined;
-  password: string;
+  reset_password_token: string | undefined;
+  new_password: string;
 };
 
 export const resetPasswordData = createAsyncThunk(

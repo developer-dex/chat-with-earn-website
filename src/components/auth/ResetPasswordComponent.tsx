@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
@@ -14,6 +14,7 @@ import SliderContentCard from "../common/sliderContentCard/SliderContentCard";
 import Slider from "../common/slider/Slider";
 import CustomButton from "../common/form/Button";
 import slideImage from "./../../assets/images/photorealistic-money-concept 1.png";
+import { resetPasswordData } from "../../features/auth/resetPasswordSlice";
 
 type FormData = {
   new_password: string;
@@ -51,6 +52,7 @@ export default function ResetPasswordComponent() {
   const [message, setMessage] = useState<string>("");
   const { token } = useParams();
   const dispatch = useDispatch();
+  const navigate = useNavigate();
 
   useEffect(() => {
     verifyResetPasswordToken();
@@ -62,6 +64,7 @@ export default function ResetPasswordComponent() {
     clearErrors,
     setError,
     setValue,
+    reset,
     formState: { errors },
   } = useForm<FormData>({
     resolver: yupResolver(resetPasswordValidationSchema),
@@ -81,15 +84,15 @@ export default function ResetPasswordComponent() {
 
   const doSubmit = async (values: FormData) => {
     console.log('values', values)
-    // const formData = {
-    //   token,
-    //   password: values.new_password
-    // }
-    // const { payload } = await (dispatch as AppDispatch)(resetPasswordData(formData));
-    // if (payload.status === OK) {
-    //   reset();
-    //   navigate("/");
-    // }
+    const formData = {
+      reset_password_token: token,
+      new_password: values.new_password
+    }
+    const { payload } = await (dispatch as AppDispatch)(resetPasswordData(formData));
+    if (payload.status === OK) {
+      reset();
+      navigate("/");
+    }
   };
 
   return (
